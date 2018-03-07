@@ -1,0 +1,58 @@
+group 'com.Vadim.HomeTasks'
+version '1.0'
+
+buildscript {
+    ext.kotlin_version = '1.2.21'
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'idea'
+apply plugin: 'kotlin'
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/java', 'java'
+        }
+    }
+}
+
+task execute(type:JavaExec) {
+    main = 'info.kgeorgiy.java.advanced.walk.Tester'
+    classpath = sourceSets.main.runtimeClasspath + files(":artifacts/*.jar")
+    if (project.hasProperty("appArgs")) {
+        args Eval.me(appArgs)
+    } else {
+        args('RecursiveWalk', 'ru.ifmo.rain.brilyantov.walk.walk.RecursiveWalk')
+    }
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
