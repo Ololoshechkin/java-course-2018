@@ -5,6 +5,7 @@ import info.kgeorgiy.java.advanced.student.Student;
 import info.kgeorgiy.java.advanced.student.StudentGroupQuery;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,84 +15,79 @@ public class StudentDB implements StudentGroupQuery {
     private Comparator<Student> defaultStudentComparator = Comparator
             .comparing(Student::getLastName)
             .thenComparing(Student::getFirstName)
-            .thenComparing(Student::getGroup)
             .thenComparing(Student::getId);
 
-    private <T extends Comparable<T>> List<Group> groupsByFieldWithTransform(
-            Collection<Student> students,
-            Comparator<Student> studentComparator,
-            Function<Stream<Group>, Stream<Group>> transform
-    ) {
-        return transform
-                .apply(students
-                        .stream()
-                        .collect(Collectors.toMap(
-                                Student::getGroup,
-                                Stream::of,
-                                Stream::concat
-                        ))
-                        .entrySet()
-                        .stream()
-                        .map(it -> new Group(
-                                it.getKey(),
-                                it.getValue()
-                                        .sorted(studentComparator)
-                                        .collect(Collectors.toList()))
-                        )
-                )
-                .collect(Collectors.toList());
-    }
+    private Comparator<Group> defauldGroupComparator = Comparator
+            .comparing((Group g) -> -g.getStudents().size())
+            .thenComparing(Group::getName);
 
-    private <T extends Comparable<T>> List<Group> getGroupsByField(
+    private <T extends Comparable<T>> Stream<Group> groupsStreamByComparator(
             Collection<Student> students,
             Comparator<Student> studentComparator
     ) {
-        return groupsByFieldWithTransform(students, studentComparator, Function.identity());
+        return students
+                .stream()
+                .collect(Collectors.toMap(
+                        Student::getGroup,
+                        Stream::of,
+                        Stream::concat
+                ))
+                .entrySet()
+                .stream()
+                .map(it -> new Group(
+                        it.getKey(),
+                        it.getValue()
+                                .sorted(studentComparator)
+                                .collect(Collectors.toList()))
+                );
     }
 
-    private <T extends Comparable<T>> Group getLargestGroupWithTransform(
+    private <T extends Comparable<T>> List<Group> getGroupsWithComparator(
             Collection<Student> students,
-            Function<Stream<Group>, Stream<Group>> transform
+            Comparator<Student> studentComparator
     ) {
-        return groupsByFieldWithTransform(
+        return groupsStreamByComparator(students, studentComparator)
+                .sorted(Comparator.comparing(Group::getName))
+                .collect(Collectors.toList());
+    }
+
+    private <T extends Comparable<T>> Optional<Group> getLargestGroupComparingByStudentsList(
+            Collection<Student> students,
+            Function<List<Student>, Integer> studentsCmp
+    ) {
+        return groupsStreamByComparator(
                 students,
-                defaultStudentComparator,
-                groups -> transform
-                        .apply(groups)
-                        .sorted(Comparator.comparing(it -> -it.getStudents().size()))
-        ).get(0);
+                defaultStudentComparator
+        ).min(Comparator
+                .comparing((Group g) -> studentsCmp.apply(g.getStudents()))
+                .reversed()
+                .thenComparing(Group::getName)
+        );
     }
 
     @Override
     public List<Group> getGroupsByName(Collection<Student> students) {
-        return getGroupsByField(students, defaultStudentComparator);
+        return getGroupsWithComparator(students, defaultStudentComparator);
     }
 
     @Override
     public List<Group> getGroupsById(Collection<Student> students) {
-        return getGroupsByField(students, Comparator.comparing(Student::getId));
+        return getGroupsWithComparator(students, Comparator.comparing(Student::getId));
     }
 
     @Override
     public String getLargestGroup(Collection<Student> students) {
-        return getLargestGroupWithTransform(students, Function.identity()).getName();
+        return getLargestGroupComparingByStudentsList(students, List::size)
+                .map(Group::getName)
+                .orElse("");
     }
 
     @Override
     public String getLargestGroupFirstName(Collection<Student> students) {
-        return getLargestGroupWithTransform(students, groups -> groups
-                .map(g -> {
-                    HashSet<String> firstNames = new HashSet<>();
-                    return new Group(
-                            g.getName(),
-                            g.getStudents().stream().filter(it -> {
-                                boolean result = !firstNames.contains(it.getFirstName());
-                                firstNames.add(it.getFirstName());
-                                return result;
-                            }).collect(Collectors.toList())
-                    );
-                })
-        ).getName();
+        return getLargestGroupComparingByStudentsList(
+                students,
+                studs -> getDistinctFirstNames(studs).size()
+        ).map(Group::getName).orElse("");
     }
 
     private List<String> mapToFieldsList(Collection<Student> students, Function<Student, String> f) {
@@ -105,7 +101,8 @@ public class StudentDB implements StudentGroupQuery {
         return students
                 .stream()
                 .map(f)
-                .collect(Collectors.toSet());
+                .distinct()
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 
     @Override
@@ -138,8 +135,8 @@ public class StudentDB implements StudentGroupQuery {
         return students
                 .stream()
                 .min(Comparator.comparing(Student::getId))
-                .get()
-                .getFirstName();
+                .map(Student::getFirstName)
+                .orElse("");
     }
 
     @Override
@@ -162,6 +159,7 @@ public class StudentDB implements StudentGroupQuery {
         return students
                 .stream()
                 .filter(s -> Objects.equals(field.apply(s), name))
+                .sorted(defaultStudentComparator)
                 .collect(Collectors.toList());
     }
 
@@ -192,8 +190,7 @@ public class StudentDB implements StudentGroupQuery {
                 .collect(Collectors.toMap(
                         Student::getLastName,
                         Student::getFirstName,
-                        (name1, name2) ->
-                                name1.compareTo(name2) < 0 ? name1 : name2
+                        BinaryOperator.minBy(String::compareTo)
                 ));
     }
 
