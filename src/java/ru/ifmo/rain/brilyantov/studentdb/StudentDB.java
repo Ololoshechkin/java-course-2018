@@ -17,9 +17,6 @@ public class StudentDB implements StudentGroupQuery {
             .thenComparing(Student::getFirstName)
             .thenComparing(Student::getId);
 
-    private Comparator<Group> defauldGroupComparator = Comparator
-            .comparing((Group g) -> -g.getStudents().size())
-            .thenComparing(Group::getName);
 
     private <T extends Comparable<T>> Stream<Group> groupsStreamByComparator(
             Collection<Student> students,

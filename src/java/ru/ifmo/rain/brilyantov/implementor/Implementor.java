@@ -4,24 +4,93 @@ import info.kgeorgiy.java.advanced.implementor.Impler;
 import info.kgeorgiy.java.advanced.implementor.ImplerException;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Implementor implements Impler {
 
-    class MethodSignature {
+    abstract class MethodOrConstructorSignature<T extends Executable> {
 
-        Method method;
+        T method;
+
+        MethodOrConstructorSignature(T method) {
+            this.method = method;
+        }
+
+        abstract Class<?> getReturnType();
+        abstract String getName();
+
+        protected<T> String joinToString(List<T> list, Function<T, String> transform) {
+            return list
+                    .stream()
+                    .map(transform)
+                    .collect(Collectors.joining(", "));
+        }
+
+        protected String getModifiers() {
+            return Modifier.toString(
+                    method.getModifiers() & ~Modifier.ABSTRACT & ~Modifier.TRANSIENT
+            );
+        }
+
+        List<Class<?>> getArgs() {
+            return Arrays.asList(method.getParameterTypes());
+        }
+
+        private int curVarNumber = 0;
+
+        private int getVarNumber() {
+            return curVarNumber++;
+        }
+
+        private String getThrows() {
+            List<Class<?>> exceptions = Arrays.asList(method.getExceptionTypes());
+            return exceptions.isEmpty() ? "" : "throws " + joinToString(exceptions, Class::getName);
+        }
+
+        public String toString(){
+            Class<?> returnType = getReturnType();
+            String returnTypeName;
+            String returnTypeRetValue;
+            if (returnType != null) {
+                returnTypeName = returnType.getCanonicalName();
+                returnTypeRetValue = returnType.isPrimitive()
+                        ? (returnType.equals(boolean.class) ? "false" : returnType.equals(void.class) ? "" : "0")
+                        :  "null";
+            } else  {
+                returnTypeName = "";
+                returnTypeRetValue = "";
+            }
+            return String.format(
+                    "   %s %s %s(%s) %s { return %s; }%n",
+                    getModifiers(),
+                    returnTypeName,
+                    getName(),
+                    joinToString(
+                            getArgs()
+                                    .stream()
+                                    .map(arg -> arg.getCanonicalName() + " var" + getVarNumber())
+                                    .collect(Collectors.toList()),
+                            Function.identity()
+                    ),
+                    getThrows(),
+                    returnTypeRetValue
+            );
+        }
+    }
+
+    class MethodSignature extends MethodOrConstructorSignature<Method> {
 
         MethodSignature(Method method) {
-            this.method = method;
+            super(method);
         }
 
         String getName() {
@@ -29,43 +98,7 @@ public class Implementor implements Impler {
         }
 
         Class<?> getReturnType() {
-            return method.getReturnType();
-        }
-
-        List<Class<?>> getArgs() {
-            return Arrays.asList(method.getParameterTypes());
-        }
-
-        private String joinToString(List<Class<?>> list) {
-            return list
-                    .stream()
-                    .map(Class::toString)
-                    .collect(Collectors.joining(", "));
-        }
-
-        private String getModifiers() {
-            return Modifier.toString(method.getModifiers() & ~Modifier.ABSTRACT & ~Modifier.TRANSIENT);
-        }
-
-        private String getThrows() {
-            List<Class<?>> exceptions = Arrays.asList(method.getExceptionTypes());
-            return exceptions.isEmpty() ? "" : "throws " + joinToString(exceptions);
-        }
-
-        @Override
-        public String toString(){
-            Class<?> returnType = getReturnType();
-            return String.format(
-                    "%s %s %s(%s) %s { return %s; }%n",
-                    getModifiers(),
-                    returnType,
-                    getName(),
-                    joinToString(getArgs()),
-                    getThrows(),
-                    returnType.isPrimitive()
-                            ? (returnType.equals(boolean.class) ? "false" : "0")
-                            : returnType.equals(void.class) ? "" : "null"
-            );
+            return ((Method) method).getReturnType();
         }
 
         @Override
@@ -79,12 +112,31 @@ public class Implementor implements Impler {
                 return false;
             }
             MethodSignature other = (MethodSignature) obj;
-            return getName().equals(other.getName())
-                    && getReturnType().equals(other.getReturnType())
-                    && getArgs().equals(other.getArgs());
+            return Objects.equals(getName(), other.getName())
+                    && Objects.equals(getReturnType(),other.getReturnType())
+                    && Objects.equals(getArgs(), other.getArgs());
         }
 
+    }
 
+    class ConstructorSignature extends MethodOrConstructorSignature<Constructor> {
+
+        String containingClassName;
+
+        ConstructorSignature(Constructor method, String containingClassName) {
+            super(method);
+            this.containingClassName = containingClassName;
+        }
+
+        @Override
+        Class<?> getReturnType() {
+            return null;
+        }
+
+        @Override
+        String getName() {
+            return containingClassName;
+        }
     }
 
     enum Implemented {
@@ -122,54 +174,91 @@ public class Implementor implements Impler {
         }
     }
 
-    private HashMap<MethodSignature, Implemented> getMethodsInfo(Class<?> c) {
-        if (c == null) {
+    private void addDeclaredMethod(
+            HashMap<MethodSignature, Implemented> result,
+            Method method,
+            Class<?> currentClass
+    ) {
+        addMethod(
+                result,
+                new MethodSignature(method),
+                !Modifier.isAbstract(method.getModifiers())
+                        ? (currentClass.isInterface() ? Implemented.IN_INTERFACE : Implemented.IN_CLASS)
+                        : Implemented.NEVER
+        );
+    }
+
+    private HashMap<MethodSignature, Implemented> getMethodsInfo(Class<?> currentClass, String className) {
+        if (currentClass == null) {
             return new HashMap<>();
         }
-        HashMap<MethodSignature, Implemented> result = getMethodsInfo(c.getSuperclass());
-        Arrays.stream(c.getInterfaces())
-                .map(this::getMethodsInfo)
+        HashMap<MethodSignature, Implemented> result = getMethodsInfo(currentClass.getSuperclass(), className);
+        Arrays.stream(currentClass.getInterfaces())
+                .map(m -> getMethodsInfo(m, className))
                 .forEach(methods ->
                         methods.forEach((key, value) ->
                                 addMethod(result, key, value)
                         )
                 );
-        Arrays.stream(c.getDeclaredMethods()).forEach(method -> {
-            addMethod(
-                    result,
-                    new MethodSignature(method),
-                    !Modifier.isAbstract(method.getModifiers())
-                            ? (c.isInterface() ? Implemented.IN_INTERFACE : Implemented.IN_CLASS)
-                            : Implemented.NEVER
-            );
-        });
+        Arrays.stream(currentClass.getDeclaredMethods()).forEach(m -> addDeclaredMethod(result, m, currentClass));
         return result;
+    }
+
+    private void addMissingConstructors(Constructor[] construcors, String newClassName, BufferedWriter output) throws ImplerException {
+        Arrays.stream(construcors)
+                .filter(constr -> !Modifier.isPrivate(constr.getModifiers()))
+                .forEach(constr -> {
+                    try {
+                        output.append(new ConstructorSignature(constr, newClassName).toString());
+                    } catch (IOException e) {
+                        System.out.println("failed to print constructor of " + newClassName);
+                    }
+                });
     }
 
     @Override
     public void implement(Class<?> token, Path root) throws ImplerException {
-        try (BufferedWriter output = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(
-                        root.toString() + "/" + token.getPackage().toString().replace('.', '/')
-                ),
-                StandardCharsets.UTF_8
-        ))) {
-            output.write("class " + token.getSimpleName() + "Impl " + (token.isInterface() ? "implements " : "extends ") + token.getSimpleName() + " {");
-            getMethodsInfo(token)
+        if (root == null || token == null) {
+            throw new ImplerException("null value is invalid argument");
+        }
+        if (token.isPrimitive()
+                || token.isArray()
+                || token == Enum.class
+                || Modifier.isFinal(token.getModifiers())) {
+            throw new ImplerException("Expected abstract class or an interface as a token");
+        }
+        String packageName = (token.getPackage() != null) ? token.getPackage().getName() : "";
+        String newClassName = token.getSimpleName() + "Impl";
+        Path containingDirectory = root.resolve(packageName.replace('.', File.separatorChar));
+        try {
+            Files.createDirectories(containingDirectory);
+        } catch (IOException e) {
+            throw new ImplerException("failed to create parent directory for output java-file", e);
+        }
+        Path resultPath = containingDirectory.resolve(newClassName + ".java");
+        try (BufferedWriter output = Files.newBufferedWriter(resultPath)) {
+            output
+                    .append("class ")
+                    .append(newClassName)
+                    .append(token.isInterface() ? " implements " : " extends ")
+                    .append(token.getName())
+                    .append(" {\n");
+            getMethodsInfo(token, newClassName)
                     .entrySet()
                     .stream()
                     .filter(it -> it.getValue().neverImplemented())
                     .map(Map.Entry::getKey)
                     .forEach(method -> {
                         try {
-                            output.write(method.toString());
+                            output.append(method.toString());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     });
+            addMissingConstructors(token.getDeclaredConstructors(), newClassName, output);
             output.write("}");
-        } catch (IOException ignored) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
