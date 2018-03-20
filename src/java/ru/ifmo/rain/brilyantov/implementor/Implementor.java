@@ -3,107 +3,118 @@ package ru.ifmo.rain.brilyantov.implementor;
 import info.kgeorgiy.java.advanced.implementor.Impler;
 import info.kgeorgiy.java.advanced.implementor.ImplerException;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Implementor implements Impler {
 
-    abstract class MethodOrConstructorSignature<T extends Executable> {
+    private final static String DEFAULT_OBJECT = " null";
+    private final static String DEFAULT_PRIMITIVE = " 0";
+    private final static String DEFAULT_VOID = "";
+    private final static String DEFAULT_BOOLEAN = " false";
+    private final static String TAB = "    ";
+    private final static String SPACE = " ";
+    private final static String COMMA = ",";
+    private final static String EOLN = "\n";
 
-        T method;
+    private static <T> String joinToString(List<T> list, Function<T, String> transform) {
+        return list
+                .stream()
+                .map(transform)
+                .collect(Collectors.joining(", "));
+    }
 
-        MethodOrConstructorSignature(T method) {
+    private static String getThrows(Executable method) {
+        List<Class<?>> exceptions = Arrays.asList(method.getExceptionTypes());
+        return exceptions.isEmpty() ? "" : "throws " + joinToString(exceptions, Class::getCanonicalName);
+    }
+
+    private static String getArguments(Executable method, boolean typed) {
+        final int[] varName = {0};
+        return joinToString(
+                Arrays.stream(method.getParameters())
+                        .map(arg -> (typed ? arg.getType().getCanonicalName() + " " : "") + arg.getName())
+                        .collect(Collectors.toList()),
+                Function.identity()
+        );
+    }
+
+    private static String getMethodImpl(Executable method, String newClassName) {
+        String returnTypeName;
+        Class<?> returnType;
+        if (method instanceof Method) {
+            Method mtd = ((Method) method);
+            returnType = mtd.getReturnType();
+            returnTypeName = returnType.getCanonicalName() + " " + mtd.getName();
+        } else {
+            returnType = null;
+            returnTypeName = newClassName;
+        }
+        String returnTypeRetValue = "";
+        if (returnType != null) {
+            returnTypeRetValue = returnType.isPrimitive()
+                    ? (returnType.equals(boolean.class) ? " false" : returnType.equals(void.class) ? "" : " 0")
+                    : " null";
+        }
+        return String.format(
+                "%n   %s %s %s(%s) %s {%n        %s;%n   }%n",
+                Arrays
+                        .stream(method.getAnnotations())
+                        .map(Annotation::toString)
+                        .collect(Collectors.joining("%n")),
+                Modifier.toString(method.getModifiers() & ~Modifier.ABSTRACT & ~Modifier.TRANSIENT & ~Modifier.NATIVE),
+                returnTypeName,
+                getArguments(method, true),
+                getThrows(method),
+                method instanceof Method
+                        ? "return" + returnTypeRetValue
+                        : "super(" + getArguments(method, false) + ")"
+        );
+    }
+
+    class MethodSignature {
+
+        Method method;
+
+        MethodSignature(Method method) {
             this.method = method;
         }
 
-        abstract Class<?> getReturnType();
-        abstract String getName();
-
-        protected<T> String joinToString(List<T> list, Function<T, String> transform) {
-            return list
-                    .stream()
-                    .map(transform)
-                    .collect(Collectors.joining(", "));
-        }
-
-        protected String getModifiers() {
-            return Modifier.toString(
-                    method.getModifiers() & ~Modifier.ABSTRACT & ~Modifier.TRANSIENT
-            );
-        }
-
-        List<Class<?>> getArgs() {
-            return Arrays.asList(method.getParameterTypes());
-        }
-
-        private int curVarNumber = 0;
-
-        private int getVarNumber() {
-            return curVarNumber++;
-        }
-
-        private String getThrows() {
-            List<Class<?>> exceptions = Arrays.asList(method.getExceptionTypes());
-            return exceptions.isEmpty() ? "" : "throws " + joinToString(exceptions, Class::getName);
-        }
-
-        public String toString(){
-            Class<?> returnType = getReturnType();
-            String returnTypeName;
-            String returnTypeRetValue;
-            if (returnType != null) {
-                returnTypeName = returnType.getCanonicalName();
-                returnTypeRetValue = returnType.isPrimitive()
-                        ? (returnType.equals(boolean.class) ? "false" : returnType.equals(void.class) ? "" : "0")
-                        :  "null";
-            } else  {
-                returnTypeName = "";
-                returnTypeRetValue = "";
-            }
-            return String.format(
-                    "   %s %s %s(%s) %s { return %s; }%n",
-                    getModifiers(),
-                    returnTypeName,
-                    getName(),
-                    joinToString(
-                            getArgs()
-                                    .stream()
-                                    .map(arg -> arg.getCanonicalName() + " var" + getVarNumber())
-                                    .collect(Collectors.toList()),
-                            Function.identity()
-                    ),
-                    getThrows(),
-                    returnTypeRetValue
-            );
-        }
-    }
-
-    class MethodSignature extends MethodOrConstructorSignature<Method> {
-
-        MethodSignature(Method method) {
-            super(method);
-        }
-
-        String getName() {
+        private String getName() {
             return method.getName();
         }
 
-        Class<?> getReturnType() {
-            return ((Method) method).getReturnType();
+        private Class<?> getReturnType() {
+            return method.getReturnType();
+        }
+
+        private Class<?>[] getArgs() {
+            return method.getParameterTypes();
+        }
+
+        @Override
+        public String toString() {
+            return Implementor.getMethodImpl(method, null);
         }
 
         @Override
         public int hashCode() {
-            return method.hashCode();
+            return getName().hashCode() * 31 * 31
+                    + Arrays.hashCode(getArgs()) * 31
+                    + getReturnType().hashCode();
         }
 
         @Override
@@ -113,41 +124,21 @@ public class Implementor implements Impler {
             }
             MethodSignature other = (MethodSignature) obj;
             return Objects.equals(getName(), other.getName())
-                    && Objects.equals(getReturnType(),other.getReturnType())
-                    && Objects.equals(getArgs(), other.getArgs());
+                    && Objects.equals(getReturnType(), other.getReturnType())
+                    && Arrays.equals(getArgs(), other.getArgs());
         }
 
-    }
-
-    class ConstructorSignature extends MethodOrConstructorSignature<Constructor> {
-
-        String containingClassName;
-
-        ConstructorSignature(Constructor method, String containingClassName) {
-            super(method);
-            this.containingClassName = containingClassName;
-        }
-
-        @Override
-        Class<?> getReturnType() {
-            return null;
-        }
-
-        @Override
-        String getName() {
-            return containingClassName;
-        }
     }
 
     enum Implemented {
-        NEVER, IN_CLASS, IN_INTERFACE, IN_CLASS_AND_IN_INTERFACE;
+        NEVER, IN_CLASS, IN_INTERFACE;
 
         boolean inClass() {
-            return this == IN_CLASS || this == IN_CLASS_AND_IN_INTERFACE;
+            return this == IN_CLASS;
         }
 
         boolean inInterface() {
-            return this == IN_INTERFACE || this == IN_CLASS_AND_IN_INTERFACE;
+            return this == IN_INTERFACE;
         }
 
         boolean neverImplemented() {
@@ -174,46 +165,34 @@ public class Implementor implements Impler {
         }
     }
 
-    private void addDeclaredMethod(
-            HashMap<MethodSignature, Implemented> result,
-            Method method,
-            Class<?> currentClass
-    ) {
-        addMethod(
-                result,
-                new MethodSignature(method),
-                !Modifier.isAbstract(method.getModifiers())
-                        ? (currentClass.isInterface() ? Implemented.IN_INTERFACE : Implemented.IN_CLASS)
-                        : Implemented.NEVER
-        );
-    }
-
-    private HashMap<MethodSignature, Implemented> getMethodsInfo(Class<?> currentClass, String className) {
-        if (currentClass == null) {
-            return new HashMap<>();
+    private HashSet<MethodSignature> getMethodSignatures(Class<?> currentClass) {
+        HashSet<MethodSignature> methods = new HashSet<>();
+        Arrays
+                .stream(currentClass.getMethods())
+                .filter(method -> Modifier.isAbstract(method.getModifiers()))
+                .map(MethodSignature::new)
+                .collect(Collectors.toCollection(() -> methods));
+        while (currentClass != null) {
+            Arrays
+                    .stream(currentClass.getDeclaredMethods())
+                    .filter(method -> Modifier.isAbstract(method.getModifiers()))
+                    .map(MethodSignature::new)
+                    .collect(Collectors.toCollection(() -> methods));
+            currentClass = currentClass.getSuperclass();
         }
-        HashMap<MethodSignature, Implemented> result = getMethodsInfo(currentClass.getSuperclass(), className);
-        Arrays.stream(currentClass.getInterfaces())
-                .map(m -> getMethodsInfo(m, className))
-                .forEach(methods ->
-                        methods.forEach((key, value) ->
-                                addMethod(result, key, value)
-                        )
-                );
-        Arrays.stream(currentClass.getDeclaredMethods()).forEach(m -> addDeclaredMethod(result, m, currentClass));
-        return result;
+        return methods;
     }
 
-    private void addMissingConstructors(Constructor[] construcors, String newClassName, BufferedWriter output) throws ImplerException {
-        Arrays.stream(construcors)
-                .filter(constr -> !Modifier.isPrivate(constr.getModifiers()))
-                .forEach(constr -> {
-                    try {
-                        output.append(new ConstructorSignature(constr, newClassName).toString());
-                    } catch (IOException e) {
-                        System.out.println("failed to print constructor of " + newClassName);
-                    }
-                });
+    private void addMissingConstructors(Constructor[] construcors, String newClassName, StringBuffer output) throws ImplerException {
+        List<Constructor> constructors = Arrays.stream(construcors).filter(constr -> !Modifier.isPrivate(constr.getModifiers())).collect(Collectors.toList());
+        if (constructors.size() == 0) {
+            throw new ImplerException("superclass has no accessible constructors");
+        }
+        constructors.forEach(constr -> output.append(getMethodImpl(constr, newClassName)));
+    }
+
+    private static String packageNameFor(Class<?> token) {
+        return token.getPackage() != null ? token.getPackage().getName() : "";
     }
 
     @Override
@@ -223,11 +202,11 @@ public class Implementor implements Impler {
         }
         if (token.isPrimitive()
                 || token.isArray()
-                || token == Enum.class
-                || Modifier.isFinal(token.getModifiers())) {
+                || Modifier.isFinal(token.getModifiers())
+                || token == Enum.class) {
             throw new ImplerException("Expected abstract class or an interface as a token");
         }
-        String packageName = (token.getPackage() != null) ? token.getPackage().getName() : "";
+        String packageName = packageNameFor(token);
         String newClassName = token.getSimpleName() + "Impl";
         Path containingDirectory = root.resolve(packageName.replace('.', File.separatorChar));
         try {
@@ -237,28 +216,48 @@ public class Implementor implements Impler {
         }
         Path resultPath = containingDirectory.resolve(newClassName + ".java");
         try (BufferedWriter output = Files.newBufferedWriter(resultPath)) {
-            output
+            StringBuffer resultBuffer = new StringBuffer();
+            if (!packageName.isEmpty()) {
+                resultBuffer
+                        .append("package ")
+                        .append(packageName)
+                        .append(";\n");//.append(File.separator);
+            }
+            resultBuffer
                     .append("class ")
                     .append(newClassName)
                     .append(token.isInterface() ? " implements " : " extends ")
-                    .append(token.getName())
+                    .append(token.getSimpleName())
                     .append(" {\n");
-            getMethodsInfo(token, newClassName)
-                    .entrySet()
-                    .stream()
-                    .filter(it -> it.getValue().neverImplemented())
-                    .map(Map.Entry::getKey)
-                    .forEach(method -> {
-                        try {
-                            output.append(method.toString());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
-            addMissingConstructors(token.getDeclaredConstructors(), newClassName, output);
-            output.write("}");
-        } catch (Exception e) {
-            e.printStackTrace();
+            getMethodSignatures(token).forEach(method -> resultBuffer.append(method.toString()));
+            if (!token.isInterface()) {
+                addMissingConstructors(token.getDeclaredConstructors(), newClassName, resultBuffer);
+            }
+            resultBuffer.append("}");
+            String result = resultBuffer.toString();
+            output.write(result);
+//            System.out.println("_______________________________________\n" + result + "_______________________________________\n");
+        } catch (IOException e) {
+            System.out.println("failed to output result to expected file");
         }
     }
+
+    public static void main(String[] args) throws ImplerException {
+        if (args.length != 1 && args.length != 3
+                || args.length == 3 && (!args[0].equals("-jar") || !args[2].endsWith(".jar"))) {
+            System.out.println(
+                    "Expected single argument(class name to implement) " +
+                            "or 3 arguments (\"-jar\", class to implement and output file name .jar)"
+            );
+        }
+        Implementor impler = new Implementor();
+        Class<?> token;
+        try {
+            token = Class.forName(args.length == 1 ? args[0] : args[1]);
+        } catch (ClassNotFoundException e) {
+            throw new ImplerException("Specified class cannot be found or loaded");
+        }
+        impler.implement(token, Paths.get(""));
+    }
+
 }

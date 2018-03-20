@@ -1,0 +1,265 @@
+package ru.ifmo.rain.brilyantov.implementor;
+
+import info.kgeorgiy.java.advanced.implementor.Impler;
+import info.kgeorgiy.java.advanced.implementor.ImplerException;
+
+import java.io.*;
+import java.lang.reflect.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class Implementor implements Impler {
+
+    private final static String DEFAULT_OBJECT = " null";
+    private final static String DEFAULT_PRIMITIVE = " 0";
+    private final static String DEFAULT_VOID = "";
+    private final static String DEFAULT_BOOLEAN = " false";
+    private final static String TAB = "    ";
+    private final static String SPACE = " ";
+    private final static String COMMA = ",";
+    private final static String EOLN = "\n";
+
+    public Implementor() {
+    }
+
+    class MethodSignature {
+
+        Method method;
+
+        MethodSignature(Method method) {
+            this.method = method;
+        }
+
+        private String getName() {
+            return method.getName();
+        }
+
+        private Class<?> getReturnType() {
+            return method.getReturnType();
+        }
+
+        private Class<?>[] getArgs() {
+            return method.getParameterTypes();
+        }
+
+        @Override
+                public int hashCode() {
+                    return getName().hashCode() * 31 * 31
+                            + Arrays.hashCode(getArgs()) * 31
+                            + getReturnType().hashCode();
+                }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof MethodSignature)) {
+                return false;
+            }
+            MethodSignature other = (MethodSignature) obj;
+            return Objects.equals(getName(), other.getName())
+                    && Objects.equals(getReturnType(), other.getReturnType())
+                    && Arrays.equals(getArgs(), other.getArgs());
+        }
+
+    }
+
+    private <T> String joinToString(List<T> list, Function<T, String> transform) {
+        return list
+                .stream()
+                .map(transform)
+                .collect(Collectors.joining(", "));
+    }
+
+    private String getThrows(Executable method) {
+        List<Class<?>> exceptions = Arrays.asList(method.getExceptionTypes());
+        return exceptions.isEmpty() ? "" : "throws " + joinToString(exceptions, Class::getName);
+    }
+
+    private String getArguments(Executable method, boolean typed) {
+        final int[] varName = {0};
+        return joinToString(
+                Arrays.stream(method.getParameters())
+                        .map(arg -> (typed ? arg.getType().getCanonicalName() + " " : "") + arg.getName())
+                        .collect(Collectors.toList()),
+                Function.identity()
+        );
+    }
+
+    private String getMethodImpl(Executable method, String newClassName) {
+        String returnTypeName;
+        Class<?> returnType;
+        if (method instanceof Method) {
+            Method mtd = ((Method) method);
+            returnType = mtd.getReturnType();
+            returnTypeName = returnType.getCanonicalName() + " " + mtd.getName();
+        } else {
+            returnType = null;
+            returnTypeName = newClassName;
+        }
+        String returnTypeRetValue = "";
+        if (returnType != null) {
+            returnTypeRetValue = returnType.isPrimitive()
+                    ? (returnType.equals(boolean.class) ? "false" : returnType.equals(void.class) ? "" : "0")
+                    : "null";
+        }
+        return String.format(
+                "   %s %s(%s) %s { %s; }%n",
+                Modifier.toString(method.getModifiers() & ~Modifier.ABSTRACT & ~Modifier.TRANSIENT & ~Modifier.NATIVE),
+                returnTypeName,
+                getArguments(method, true),
+                getThrows(method),
+                method instanceof Method
+                        ? "return " + returnTypeRetValue
+                        : "super(" + getArguments(method, false) + ")"
+        );
+    }
+
+    private String getClassName(Class<?> token) {
+        return token.getSimpleName() + "Impl";
+    }
+
+    private PrintStream cerr = null;
+
+    private void write(BufferedWriter w, String s) throws IOException {
+        w.write(s);
+        if (cerr != null)
+            cerr.println(s);
+    }
+
+    private String getDefaultValue(Class<?> token) {
+        if (token.equals(boolean.class)) {
+            return DEFAULT_BOOLEAN;
+        } else if (token.equals(void.class)) {
+            return DEFAULT_VOID;
+        } else if (token.isPrimitive()) {
+            return DEFAULT_PRIMITIVE;
+        } else {
+            return DEFAULT_OBJECT;
+        }
+    }
+
+    private String packageNameFor(Class<?> token) {
+        return token.getPackage() != null ? token.getPackage().getName() : "";
+    }
+
+    private StringBuilder getPackage(Class<?> token) {
+        StringBuilder res = new StringBuilder();
+        if (!packageNameFor(token).equals("")) {
+            res.append("package" + SPACE).append(packageNameFor(token)).append(";" + EOLN);
+        }
+        res.append(EOLN);
+        return res;
+    }
+
+    @Override
+    public void implement(Class<?> token, Path root) throws ImplerException {
+        if (root == null || token == null) {
+            throw new ImplerException("Not-null arguments expected");
+        }
+        if (token.isPrimitive() || token.isArray() || Modifier.isFinal(token.getModifiers()) || token == Enum.class) {
+            throw new ImplerException("Incorrect class token");
+        }
+//        if (token.getName().equals("info.kgeorgiy.java.advanced.implementor.examples.full.InterfaceWithoutMethods")) {
+          cerr = System.out;
+        cerr.println("___________________________________________");
+//        }
+        root = root.resolve(packageNameFor(token).replace('.', File.separatorChar))
+                .resolve(getClassName(token) + ".java");
+        if (root.getParent() != null) {
+            try {
+                Files.createDirectories(root.getParent());
+            } catch (IOException e) {
+                throw new ImplerException("Unable to create directories for output file", e);
+            }
+        }
+
+        try (BufferedWriter writer = Files.newBufferedWriter(root)) {
+            try {
+                String buffer = getPackage(token) + "public class " + getClassName(token) + SPACE +
+                        (token.isInterface() ? "implements" : "extends") + SPACE +
+                        token.getSimpleName() + SPACE + "{" + EOLN;
+                write(writer, buffer);
+                if (!token.isInterface()) {
+                    implementConstructors(token, writer);
+                }
+                implementAbstractMethods(token, writer);
+                write(writer, "}" + EOLN);
+            } catch (IOException e) {
+                throw new ImplerException("Unable to write to output file", e);
+            }
+        } catch (IOException e) {
+            throw new ImplerException("Unable to create output file", e);
+        }
+        cerr.println("___________________________________________");
+    }
+
+    private String getParam(Parameter param) {
+        String res = "";
+        return res + param.getName();
+    }
+
+    private String getParams(Executable exec) {
+        return Arrays.stream(exec.getParameters()).map(this::getParam)
+                .collect(Collectors.joining(COMMA + SPACE, "(", ")"));
+    }
+
+    private StringBuilder getExceptions(Executable exec) {
+        StringBuilder res = new StringBuilder();
+        Class<?>[] exceptions = exec.getExceptionTypes();
+        if (exceptions.length > 0) {
+            res.append(SPACE + "throws" + SPACE);
+        }
+        res.append(Arrays.stream(exceptions).map(Class::getCanonicalName).collect(Collectors.joining(COMMA + SPACE)));
+        return res;
+    }
+
+    private String getReturnTypeAndName(Class<?> token, Executable exec) {
+        if (exec instanceof Method) {
+            Method tmp = (Method) exec;
+            return tmp.getReturnType().getCanonicalName() + SPACE + tmp.getName();
+        } else {
+            return getClassName(token);
+        }
+    }
+
+    private String getBody(Class<?> token, Executable exec) {
+        if (exec instanceof Method) {
+            Method tmp = (Method) exec;
+            return "return" + getDefaultValue(tmp.getReturnType());
+        } else {
+            return "super" + getParams(exec);
+        }
+    }
+
+    private void getAbstractMethods(Method[] methods, Set<MethodSignature> storage) {
+        Arrays.stream(methods).filter(method -> Modifier.isAbstract(method.getModifiers()))
+                .map(MethodSignature::new).collect(Collectors.toCollection(() -> storage));
+    }
+
+    private void implementAbstractMethods(Class<?> token, BufferedWriter writer) throws IOException {
+        HashSet<MethodSignature> methods = new HashSet<>();
+        getAbstractMethods(token.getMethods(), methods);
+        while (token != null) {
+            getAbstractMethods(token.getDeclaredMethods(), methods);
+            token = token.getSuperclass();
+        }
+        for (MethodSignature method : methods) {
+            write(writer, getMethodImpl(method.method, null));
+        }
+    }
+
+    private void implementConstructors(Class<?> token, BufferedWriter writer) throws IOException, ImplerException {
+        Constructor<?>[] constructors = token.getDeclaredConstructors();
+        constructors = Arrays.stream(constructors).filter(constructor -> !Modifier.isPrivate(constructor.getModifiers()))
+                .toArray(Constructor<?>[]::new);
+        if (constructors.length == 0) {
+            throw new ImplerException("No non-private constructors in class");
+        }
+        for (Constructor<?> constructor : constructors) {
+            write(writer, getMethodImpl(constructor, getClassName(token)));
+        }
+    }
+}
