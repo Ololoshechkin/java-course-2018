@@ -26,22 +26,30 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 
 /**
- * This class creates Impl-classes - implementations of classes and interfaces, that user provides.
- * Class offers user
+ * Class for generation implementations of given abstract classes or interfaces
+ * public Methods
  * <ul>
- *     <li>to create .lava files with source codes of implementations</li>
- *     <li>to compile them and pack compiled .class into Jar-archives </li>
+ * <li>{@link Implementor#implement(Class, Path)} generates implementation source code and outputs it to .java file</li>
+ * <li>{@link Implementor#implement(Class, Path)} generates implementation source code and packs it to .jar archive </li>
  * </ul>
- *
- * implements {@link Impler} and {@link JarImpler}
+ * <p>
+ * implements {@link JarImpler}
  *
  * @author Vadim Brilyantov
  * @version 1.0
- * @since 1.0
  * @see JarImpler
+ * @since 1.0
  */
 public class Implementor implements JarImpler {
 
+    /**
+     * Creates a {@link String} consisting of given <tt><list/tt>'s elements with <tt>transform</tt> function applied
+     * joined by ", "
+     *
+     * @param list      {@link List} to be joined
+     * @param transform {@link Function} to be applied to all elements of the given <tt>list</>
+     * @return joined sequence of transformed elements separated by ", "
+     */
     private static <T> String joinToString(List<T> list, Function<T, String> transform) {
         return list
                 .stream()
@@ -49,11 +57,35 @@ public class Implementor implements JarImpler {
                 .collect(Collectors.joining(", "));
     }
 
+    /**
+     * Generates a throw-statement for given method or constructor
+     *
+     * @param method {@link Executable} that can be either {@link Method} or {@link Constructor}
+     * @return {@link String} containing text of throw-statement for the given <tt>method</tt> that consists of
+     * <ul>
+     * <li>throws keyword</li>
+     * <li> list of fully-qualified names of all the Exceptions that can be thrown by given <tt>method</tt> separated by ", " </li>
+     * </ul>
+     */
     private static String getThrows(Executable method) {
         List<Class<?>> exceptions = Arrays.asList(method.getExceptionTypes());
         return exceptions.isEmpty() ? "" : "throws " + joinToString(exceptions, Class::getCanonicalName);
     }
 
+    /**
+     * Returns the argument list of the given method. Method supports 2 modes
+     * <ul>
+     * <li> typed mode : arguments are following their types</li>
+     * <li> untyped mode : arguments are printed without any types </li>
+     * </ul>
+     * @param method {@link Executable} that can be either {@link Method} or {@link Constructor} - method to generate arguments list of
+     * @param typed indicates whether a mode should be typed or not
+     * @return {@link String} containing text of arguments list of the given <tt>method</tt> that consists of
+     * <ul>
+     * <li> list of <tt>method</tt>'s argument names separated by ", " for untyped mode </li>
+     * <li> list of <tt>method</tt>'s argument types fully-qualified names followed by <tt>method</tt>'s argument names separated by ", " for untyped mode  </li>
+     * </ul>
+     */
     private static String getArguments(Executable method, boolean typed) {
         final int[] varName = {0};
         return joinToString(
@@ -64,6 +96,20 @@ public class Implementor implements JarImpler {
         );
     }
 
+    /**
+     *
+     * <ul>
+     * <li> typed mode : arguments are following their types</li>
+     * <li> untyped mode : arguments are printed without any types </li>
+     * </ul>
+     * @param method {@link Executable} that can be either {@link Method} or {@link Constructor} - method to generate arguments list of
+     * @param typed indicates whether a mode should be typed or not
+     * @return {@link String} containing text of arguments list of the given <tt>method</tt> that consists of
+     * <ul>
+     * <li> list of <tt>method</tt>'s argument names separated by ", " for untyped mode </li>
+     * <li> list of <tt>method</tt>'s argument types fully-qualified names followed by <tt>method</tt>'s argument names separated by ", " for untyped mode  </li>
+     * </ul>
+     */
     private static String getMethodImpl(Executable method, String newClassName) {
         String returnTypeName;
         Class<?> returnType;
@@ -295,7 +341,7 @@ public class Implementor implements JarImpler {
                 return;
             }
             impler.implementJar(token, outPath);
-        } else  {
+        } else {
             impler.implementJar(token, Paths.get(""));
         }
     }
