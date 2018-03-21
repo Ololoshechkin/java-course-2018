@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98b9903b-cf6a-4225-9df5-6dc1d10b75ef" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -74,22 +75,22 @@
       <file leaf-file-name="Implementor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="99" column="7" lean-forward="false" selection-start-line="99" selection-start-column="7" selection-end-line="99" selection-end-column="7" />
+            <state relative-caret-position="-1607">
+              <caret line="87" column="12" lean-forward="false" selection-start-line="84" selection-start-column="5" selection-end-line="87" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6306#6307#0" expanded="true" />
-                <element signature="e#6350#6351#0" expanded="true" />
-                <element signature="e#6386#6387#0" expanded="true" />
-                <element signature="e#6433#6434#0" expanded="true" />
-                <element signature="e#6477#6478#0" expanded="true" />
-                <element signature="e#6530#6531#0" expanded="true" />
-                <element signature="e#6570#6571#0" expanded="true" />
-                <element signature="e#6627#6628#0" expanded="true" />
-                <element signature="e#6681#6682#0" expanded="true" />
-                <element signature="e#6751#6752#0" expanded="true" />
-                <element signature="e#8949#8950#0" expanded="true" />
-                <element signature="e#9002#9003#0" expanded="true" />
+                <element signature="e#6883#6884#0" expanded="true" />
+                <element signature="e#6927#6928#0" expanded="true" />
+                <element signature="e#7112#7113#0" expanded="true" />
+                <element signature="e#7159#7160#0" expanded="true" />
+                <element signature="e#7365#7366#0" expanded="true" />
+                <element signature="e#7418#7419#0" expanded="true" />
+                <element signature="e#7622#7623#0" expanded="true" />
+                <element signature="e#7679#7680#0" expanded="true" />
+                <element signature="e#7937#7938#0" expanded="true" />
+                <element signature="e#8007#8008#0" expanded="true" />
+                <element signature="e#10441#10442#0" expanded="true" />
+                <element signature="e#10494#10495#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -107,7 +108,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sub</find>
       <find>tail</find>
       <find>unmodifiableList</find>
       <find>subS</find>
@@ -137,6 +137,7 @@
       <find>package</find>
       <find>Implemented</find>
       <find>Path(&quot;.&quot;</find>
+      <find>\n</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -813,7 +814,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
+    <property name="settings.editor.selected.configurable" value="preferences.intentionPowerPack" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -1088,7 +1089,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58504000" />
+    <option name="totallyTimeSpent" value="59668000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1104,7 +1105,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30123797" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17881706" sideWeight="0.49676898" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16231087" sideWeight="0.49676898" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15912762" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />

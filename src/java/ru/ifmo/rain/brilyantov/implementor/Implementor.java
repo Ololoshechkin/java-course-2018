@@ -78,8 +78,9 @@ public class Implementor implements JarImpler {
      * <li> typed mode : arguments are following their types</li>
      * <li> untyped mode : arguments are printed without any types </li>
      * </ul>
+     *
      * @param method {@link Executable} that can be either {@link Method} or {@link Constructor} - method to generate arguments list of
-     * @param typed indicates whether a mode should be typed or not
+     * @param typed  indicates whether a mode should be typed or not
      * @return {@link String} containing text of arguments list of the given <tt>method</tt> that consists of
      * <ul>
      * <li> list of <tt>method</tt>'s argument names separated by ", " for untyped mode </li>
@@ -97,18 +98,18 @@ public class Implementor implements JarImpler {
     }
 
     /**
+     * Generates default implementation source code of the given <tt>method</tt> assuming that it is a method or a constructor
+     * of a class with name = <tt>newClassName</tt>.
+     * Implementation is generated to be correct implementation of the given method and formated using Oracle's java code style
      *
-     * <ul>
-     * <li> typed mode : arguments are following their types</li>
-     * <li> untyped mode : arguments are printed without any types </li>
-     * </ul>
-     * @param method {@link Executable} that can be either {@link Method} or {@link Constructor} - method to generate arguments list of
-     * @param typed indicates whether a mode should be typed or not
-     * @return {@link String} containing text of arguments list of the given <tt>method</tt> that consists of
-     * <ul>
-     * <li> list of <tt>method</tt>'s argument names separated by ", " for untyped mode </li>
-     * <li> list of <tt>method</tt>'s argument types fully-qualified names followed by <tt>method</tt>'s argument names separated by ", " for untyped mode  </li>
-     * </ul>
+     * @param method       method or constructor to generate implementation of
+     * @param newClassName name of class containing the given <tt>method</tt>
+     * @return <tt>method</tt>'s default implementation.
+     * If the given <tt>method</tt> is a method then the body of it consists of a single return-statement.
+     * Return value is the default value of <tt>method</tt>'s return type. If <tt>method</tt>'s return type is void
+     * then return statement has no return value
+     * If the given <tt>method</tt> is a constructor then the body of it consists of a single super constructor invocation statement.
+     * Current <tt>method</tt>'s arguments are delegated to <tt>super</tt>
      */
     private static String getMethodImpl(Executable method, String newClassName) {
         String returnTypeName;
@@ -143,31 +144,60 @@ public class Implementor implements JarImpler {
         );
     }
 
+    /**
+     * Wrapper class for standard {@link Method} with overridden {@link MethodSignature#hashCode()} and {@link MethodSignature#equals(Object)}
+     */
     class MethodSignature {
 
+        /**
+         * method to be wrapped
+         */
         Method method;
 
+        /**
+         * instantiates new {@link MethodSignature} wrapping the given <tt>method</tt>
+         */
         MethodSignature(Method method) {
             this.method = method;
         }
 
+        /**
+         * get's name of wrapped <tt>method</tt>
+         * @return delegated to {@link Method#getName()} of <tt>method</tt>
+         */
         private String getName() {
             return method.getName();
         }
 
+        /**
+         * get's return type of wrapped <tt>method</tt>
+         * @return delegated to {@link Method#getReturnType()} of <tt>method</tt>
+         */
         private Class<?> getReturnType() {
             return method.getReturnType();
         }
 
+        /**
+         * get's arguments of wrapped <tt>method</tt>
+         * @return delegated to {@link Method#getParameterTypes()} of <tt>method</tt>
+         */
         private Class<?>[] getArgs() {
             return method.getParameterTypes();
         }
 
+        /**
+         * Generates the default implementation source code of wrapped <tt>method</tt>
+         * @return delegated to static {@link Implementor#getMethodImpl(Executable, String)}
+         */
         @Override
         public String toString() {
             return Implementor.getMethodImpl(method, null);
         }
 
+        /**
+         * Overrides {@link Object#hashCode()}
+         * @return hash code value for current {@link MethodSignature}
+         */
         @Override
         public int hashCode() {
             return getName().hashCode() * 31 * 31
@@ -175,6 +205,10 @@ public class Implementor implements JarImpler {
                     + getReturnType().hashCode();
         }
 
+        /**
+         * Overrides {@link Object#equals(Object)}
+         * @return
+         */
         @Override
         public boolean equals(Object obj) {
             if (!(obj instanceof MethodSignature)) {
