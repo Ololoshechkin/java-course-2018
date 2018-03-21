@@ -163,6 +163,7 @@ public class Implementor implements JarImpler {
 
         /**
          * get's name of wrapped <tt>method</tt>
+         *
          * @return delegated to {@link Method#getName()} of <tt>method</tt>
          */
         private String getName() {
@@ -171,6 +172,7 @@ public class Implementor implements JarImpler {
 
         /**
          * get's return type of wrapped <tt>method</tt>
+         *
          * @return delegated to {@link Method#getReturnType()} of <tt>method</tt>
          */
         private Class<?> getReturnType() {
@@ -179,6 +181,7 @@ public class Implementor implements JarImpler {
 
         /**
          * get's arguments of wrapped <tt>method</tt>
+         *
          * @return delegated to {@link Method#getParameterTypes()} of <tt>method</tt>
          */
         private Class<?>[] getArgs() {
@@ -187,6 +190,7 @@ public class Implementor implements JarImpler {
 
         /**
          * Generates the default implementation source code of wrapped <tt>method</tt>
+         *
          * @return delegated to static {@link Implementor#getMethodImpl(Executable, String)}
          */
         @Override
@@ -196,6 +200,7 @@ public class Implementor implements JarImpler {
 
         /**
          * Overrides {@link Object#hashCode()}
+         *
          * @return hash code value for current {@link MethodSignature}
          */
         @Override
@@ -207,7 +212,14 @@ public class Implementor implements JarImpler {
 
         /**
          * Overrides {@link Object#equals(Object)}
-         * @return
+         *
+         * @param obj object to be compared with
+         * @return <ul>
+         * <li> <tt>true</tt> if <tt>obj</tt> is an instance of {@link MethodSignature} and values returned by
+         * {@link MethodSignature#getName()}, {@link MethodSignature#getReturnType()} and {@link MethodSignature#getArgs()}
+         * of both <tt>this</tt> and <tt>obj</tt> equals. </li>
+         * <li> <tt>false</tt>, otherwise </li>
+         * </ul>
          */
         @Override
         public boolean equals(Object obj) {
@@ -222,36 +234,71 @@ public class Implementor implements JarImpler {
 
     }
 
-    private HashSet<MethodSignature> getMethodSignatures(Class<?> currentClass) {
-        HashSet<MethodSignature> methods = new HashSet<>();
+    /**
+     * Adds signatures of given <tt>methods</tt> to specified <tt>distination</tt>
+     *
+     * @param methods     array of {@link Method} to be added to distination
+     * @param distination {@link HashSet} of {@link MethodSignature} to add signatures of <tt>methods</tt> to
+     */
+    private void addMethodsToSet(Method[] methods, HashSet<MethodSignature> distination) {
         Arrays
-                .stream(currentClass.getMethods())
+                .stream(methods)
                 .filter(method -> Modifier.isAbstract(method.getModifiers()))
                 .map(MethodSignature::new)
-                .collect(Collectors.toCollection(() -> methods));
+                .collect(Collectors.toCollection(() -> distination));
+    }
+
+    /**
+     * Finds methods of given <tt>currentClass</tt> that are needed to be implemented in it's clildren.
+     *
+     * @param currentClass {@link Class} to retreive unimplemented methods
+     * @return signatures ({@link MethodSignature}) of all unimplemented methods of <tt>currentClass</tt>
+     */
+    private HashSet<MethodSignature> getMethodSignatures(Class<?> currentClass) {
+        HashSet<MethodSignature> methods = new HashSet<>();
+        addMethodsToSet(currentClass.getMethods(), methods);
         while (currentClass != null) {
-            Arrays
-                    .stream(currentClass.getDeclaredMethods())
-                    .filter(method -> Modifier.isAbstract(method.getModifiers()))
-                    .map(MethodSignature::new)
-                    .collect(Collectors.toCollection(() -> methods));
+            addMethodsToSet(currentClass.getDeclaredMethods(), methods);
             currentClass = currentClass.getSuperclass();
         }
         return methods;
     }
 
+    /**
+     * Gets all constructors to be implemented for given !interface! <tt>newClassName</tt> and produces the implementation text to <tt>output</tt>
+     *
+     * @param construcors  list of constructors to be implemented
+     * @param newClassName name of the new class
+     * @param output       the
+     * @throws ImplerException if the given <tt>construcors</tt> list contains no non-private constructors
+     */
     private void addMissingConstructors(Constructor[] construcors, String newClassName, StringBuffer output) throws ImplerException {
-        List<Constructor> constructors = Arrays.stream(construcors).filter(constr -> !Modifier.isPrivate(constr.getModifiers())).collect(Collectors.toList());
+        List<Constructor> constructors = Arrays
+                .stream(construcors)
+                .filter(constr -> !Modifier.isPrivate(constr.getModifiers()))
+                .collect(Collectors.toList());
         if (constructors.size() == 0) {
             throw new ImplerException("superclass has no accessible constructors");
         }
         constructors.forEach(constr -> output.append(getMethodImpl(constr, newClassName)));
     }
 
+    /**
+     * Returns package name of given class
+     *
+     * @param token Class to get package
+     * @return {@code token.getPackage().getName()} if {@code token.getPackage() != null} or empty string otherwise
+     */
     private static String packageNameFor(Class<?> token) {
         return token.getPackage() != null ? token.getPackage().getName() : "";
     }
 
+    /**
+     * Returns name of default implementer name of given class or interface <tt>token</tt>
+     *
+     * @param token Class to get impl-name
+     * @return simple name of given <tt>tt</tt> token followed by "Impl" suffix
+     */
     private static String implNameFor(Class<?> token) {
         return token.getSimpleName() + "Impl";
     }
@@ -349,6 +396,52 @@ public class Implementor implements JarImpler {
             throw new ImplerException("failed to output to jar file");
         }
     }
+
+//    public static void main(String[] args) {
+//        if (args == null ||
+//                args.length != 1 && args.length != 3 ||
+//                args.length == 3 && (!args[0].equals("-jar") || !args[2].endsWith(".jar"))) {
+//            System.out.println(
+//                    "Expected single argument(class name to implement) " +
+//                            "or 3 arguments (\"-jar\", class to implement and output file name .jar)"
+//            );
+//        }
+//        Implementor implementor = new Implementor();
+//        String className;
+//        String rootPath;
+//
+//        boolean implementJar = args[0].equals("-jar");
+//
+//        if (implementJar) {
+//            if (args.length != 3 || args[1] == null || args[2] == null) {
+//                System.out.println("2 arguments after -jar required: <full name of class to implement> " +
+//                        "<path to jar file>");
+//                return;
+//            }
+//            className = args[1];
+//            rootPath = args[2];
+//        } else {
+//            if (args.length != 2 || args[1] == null) {
+//                System.out.println("First argument must me -jar, otherwise, two arguments must be given " +
+//                        "<full name of class to implement> <path to root directory>");
+//            }
+//            className = args[0];
+//            rootPath = args[1];
+//        }
+//        try {
+//            if (implementJar) {
+//                implementor.implementJar(Class.forName(className), Paths.get(rootPath));
+//            } else {
+//                implementor.implement(Class.forName(className), Paths.get(rootPath));
+//            }
+//        } catch (InvalidPathException e) {
+//            System.out.println("Path to output file is invalid " + e.getMessage());
+//        } catch (ClassNotFoundException e) {
+//            System.out.println("Cannot find class to implement " + e.getMessage());
+//        } catch (ImplerException e) {
+//            System.out.println("Error implementing class: " + e.getMessage());
+//        }
+//    }
 
     public static void main(String[] args) throws ImplerException {
         if (args.length != 1 && args.length != 3
