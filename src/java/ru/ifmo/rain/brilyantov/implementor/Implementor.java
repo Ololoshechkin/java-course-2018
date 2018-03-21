@@ -25,6 +25,21 @@ import java.util.jar.Manifest;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 
+/**
+ * This class creates Impl-classes - implementations of classes and interfaces, that user provides.
+ * Class offers user
+ * <ul>
+ *     <li>to create .lava files with source codes of implementations</li>
+ *     <li>to compile them and pack compiled .class into Jar-archives </li>
+ * </ul>
+ *
+ * implements {@link Impler} and {@link JarImpler}
+ *
+ * @author Vadim Brilyantov
+ * @version 1.0
+ * @since 1.0
+ * @see JarImpler
+ */
 public class Implementor implements JarImpler {
 
     private static <T> String joinToString(List<T> list, Function<T, String> transform) {
