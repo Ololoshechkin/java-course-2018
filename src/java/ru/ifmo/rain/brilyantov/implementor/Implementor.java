@@ -397,80 +397,81 @@ public class Implementor implements JarImpler {
         }
     }
 
-//    public static void main(String[] args) {
-//        if (args == null ||
-//                args.length != 1 && args.length != 3 ||
-//                args.length == 3 && (!args[0].equals("-jar") || !args[2].endsWith(".jar"))) {
+    public static void main(String[] args) {
+        if (args == null ||
+                args.length != 1 && args.length != 3 ||
+                args.length == 3 && (!args[0].equals("-jar") || !args[2].endsWith(".jar"))) {
+            System.out.println(
+                    "Expected single argument(class name to implement) " +
+                            "or 3 arguments (\"-jar\", class to implement and output file name .jar)"
+            );
+            return;
+        }
+        Implementor implementor = new Implementor();
+        String className;
+        String rootPath;
+
+        boolean implementJar = args[0].equals("-jar");
+
+        if (implementJar) {
+            if (args.length != 3 || args[1] == null || args[2] == null) {
+                System.out.println("2 arguments after -jar required: <full name of class to implement> " +
+                        "<path to jar file>");
+                return;
+            }
+            className = args[1];
+            rootPath = args[2];
+        } else {
+            if (args.length != 2 || args[1] == null) {
+                System.out.println("First argument must me -jar, otherwise, two arguments must be given " +
+                        "<full name of class to implement> <path to root directory>");
+            }
+            className = args[0];
+            rootPath = args[1];
+        }
+        try {
+            if (implementJar) {
+                implementor.implementJar(Class.forName(className), Paths.get(rootPath));
+            } else {
+                implementor.implement(Class.forName(className), Paths.get(rootPath));
+            }
+        } catch (InvalidPathException e) {
+            System.out.println("Path to output file is invalid " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Cannot find class to implement " + e.getMessage());
+        } catch (ImplerException e) {
+            System.out.println("Error implementing class: " + e.getMessage());
+        }
+    }
+
+//    public static void main(String[] args) throws ImplerException {
+//        if (args.length != 1 && args.length != 3
+//                || args.length == 3 && (!args[0].equals("-jar") || !args[2].endsWith(".jar"))) {
 //            System.out.println(
 //                    "Expected single argument(class name to implement) " +
 //                            "or 3 arguments (\"-jar\", class to implement and output file name .jar)"
 //            );
 //        }
-//        Implementor implementor = new Implementor();
-//        String className;
-//        String rootPath;
-//
-//        boolean implementJar = args[0].equals("-jar");
-//
-//        if (implementJar) {
-//            if (args.length != 3 || args[1] == null || args[2] == null) {
-//                System.out.println("2 arguments after -jar required: <full name of class to implement> " +
-//                        "<path to jar file>");
+//        Implementor impler = new Implementor();
+//        Class<?> token;
+//        try {
+//            token = Class.forName(args.length == 1 ? args[0] : args[1]);
+//        } catch (ClassNotFoundException e) {
+//            System.out.println("Specified class cannot be found or loaded");
+//            return;
+//        }
+//        if (args.length == 3) {
+//            Path outPath;
+//            try {
+//                outPath = Paths.get(args[2]);
+//            } catch (InvalidPathException e) {
+//                System.out.println("jar file path is not actually a system-correct path");
 //                return;
 //            }
-//            className = args[1];
-//            rootPath = args[2];
+//            impler.implementJar(token, outPath);
 //        } else {
-//            if (args.length != 2 || args[1] == null) {
-//                System.out.println("First argument must me -jar, otherwise, two arguments must be given " +
-//                        "<full name of class to implement> <path to root directory>");
-//            }
-//            className = args[0];
-//            rootPath = args[1];
-//        }
-//        try {
-//            if (implementJar) {
-//                implementor.implementJar(Class.forName(className), Paths.get(rootPath));
-//            } else {
-//                implementor.implement(Class.forName(className), Paths.get(rootPath));
-//            }
-//        } catch (InvalidPathException e) {
-//            System.out.println("Path to output file is invalid " + e.getMessage());
-//        } catch (ClassNotFoundException e) {
-//            System.out.println("Cannot find class to implement " + e.getMessage());
-//        } catch (ImplerException e) {
-//            System.out.println("Error implementing class: " + e.getMessage());
+//            impler.implementJar(token, Paths.get(""));
 //        }
 //    }
-
-    public static void main(String[] args) throws ImplerException {
-        if (args.length != 1 && args.length != 3
-                || args.length == 3 && (!args[0].equals("-jar") || !args[2].endsWith(".jar"))) {
-            System.out.println(
-                    "Expected single argument(class name to implement) " +
-                            "or 3 arguments (\"-jar\", class to implement and output file name .jar)"
-            );
-        }
-        Implementor impler = new Implementor();
-        Class<?> token;
-        try {
-            token = Class.forName(args.length == 1 ? args[0] : args[1]);
-        } catch (ClassNotFoundException e) {
-            System.out.println("Specified class cannot be found or loaded");
-            return;
-        }
-        if (args.length == 3) {
-            Path outPath;
-            try {
-                outPath = Paths.get(args[2]);
-            } catch (InvalidPathException e) {
-                System.out.println("jar file path is not actually a system-correct path");
-                return;
-            }
-            impler.implementJar(token, outPath);
-        } else {
-            impler.implementJar(token, Paths.get(""));
-        }
-    }
 
 }
