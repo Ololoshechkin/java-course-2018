@@ -1,6 +1,5 @@
 package ru.ifmo.rain.brilyantov.implementor;
 
-import info.kgeorgiy.java.advanced.implementor.Impler;
 import info.kgeorgiy.java.advanced.implementor.ImplerException;
 import info.kgeorgiy.java.advanced.implementor.JarImpler;
 
@@ -14,18 +13,19 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 import java.util.jar.Attributes;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 
-public class Implementor implements Impler {
+public class Implementor implements JarImpler {
 
     private static <T> String joinToString(List<T> list, Function<T, String> transform) {
         return list
@@ -127,41 +127,6 @@ public class Implementor implements Impler {
 
     }
 
-    enum Implemented {
-        NEVER, IN_CLASS, IN_INTERFACE;
-
-        boolean inClass() {
-            return this == IN_CLASS;
-        }
-
-        boolean inInterface() {
-            return this == IN_INTERFACE;
-        }
-
-        boolean neverImplemented() {
-            return this == NEVER;
-        }
-    }
-
-    private void addMethod(
-            HashMap<MethodSignature, Implemented> result,
-            MethodSignature method,
-            Implemented methodImplemented
-    ) {
-        Implemented resultImplemented = result.getOrDefault(method, Implemented.NEVER);
-        if (resultImplemented.neverImplemented() || methodImplemented.neverImplemented()) {
-            result.put(method, resultImplemented.neverImplemented() ? methodImplemented : resultImplemented);
-        } else {
-            if (resultImplemented.inInterface() || methodImplemented.inInterface()) {
-                result.put(method, Implemented.NEVER);
-            } else if (resultImplemented.inClass() && methodImplemented.inClass()) { // new override
-                result.put(method, methodImplemented);
-            } else {
-                throw new IllegalStateException("-_-");
-            }
-        }
-    }
-
     private HashSet<MethodSignature> getMethodSignatures(Class<?> currentClass) {
         HashSet<MethodSignature> methods = new HashSet<>();
         Arrays
@@ -180,59 +145,6 @@ public class Implementor implements Impler {
         return methods;
     }
 
-    private void compileFiles(Path root, String file) {
-        final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-        final List<String> args = new ArrayList<>();
-        args.add(file);
-        args.add("-cp");
-        args.add(root + File.pathSeparator + System.getProperty("java.class.path"));
-        compiler.run(null, null, null, args.toArray(new String[args.size()]));
-    }
-
-    private class FileDeleter extends SimpleFileVisitor<Path> {
-        @Override
-        public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException {
-            Files.delete(file);
-            return FileVisitResult.CONTINUE;
-        }
-
-        @Override
-        public FileVisitResult postVisitDirectory(final Path dir, final IOException exc) throws IOException {
-            Files.delete(dir);
-            return FileVisitResult.CONTINUE;
-        }
-    }
-
-    private void jarWrite(Path jarFile, Path file) throws IOException {
-        Manifest manifest = new Manifest();
-        manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-        try (JarOutputStream out = new JarOutputStream(Files.newOutputStream(jarFile), manifest)) {
-            out.putNextEntry(new ZipEntry(file.normalize().toString()));
-            Files.copy(file, out);
-            out.closeEntry();
-        }
-    }
-
-    private static String getImplInterfacePath() {
-
-    }
-
-    @Override
-    public void implementJar(Class<?> token, Path jarFile) throws ImplerException {
-        try {
-            Path root = Paths.get(".");
-            JarImpler implementor = new Implementor();
-            implementor.implement(token, root);
-            Path javaFilePath = getImplInterfacePath(token, root);
-            Path classFilePath = getImplInterfaceJarPath(token, root);
-            compileFiles(root, javaFilePath.toString());
-            jarWrite(jarFile, classFilePath);
-            getImplInterfaceJarPath(token, root).toFile().deleteOnExit();
-        } catch (IOException e) {
-            System.out.print("ERROR: can't");
-        }
-    }
-
     private void addMissingConstructors(Constructor[] construcors, String newClassName, StringBuffer output) throws ImplerException {
         List<Constructor> constructors = Arrays.stream(construcors).filter(constr -> !Modifier.isPrivate(constr.getModifiers())).collect(Collectors.toList());
         if (constructors.size() == 0) {
@@ -243,6 +155,10 @@ public class Implementor implements Impler {
 
     private static String packageNameFor(Class<?> token) {
         return token.getPackage() != null ? token.getPackage().getName() : "";
+    }
+
+    private static String implNameFor(Class<?> token) {
+        return token.getSimpleName() + "Impl";
     }
 
     @Override
@@ -257,21 +173,15 @@ public class Implementor implements Impler {
             throw new ImplerException("Expected abstract class or an interface as a token");
         }
         String packageName = packageNameFor(token);
-        String newClassName = token.getSimpleName() + "Impl";
-        Path containingDirectory = root.resolve(packageName.replace('.', File.separatorChar));
-        try {
-            Files.createDirectories(containingDirectory);
-        } catch (IOException e) {
-            throw new ImplerException("failed to create parent directory for output java-file", e);
-        }
-        Path resultPath = containingDirectory.resolve(newClassName + ".java");
+        String newClassName = implNameFor(token);
+        Path resultPath = getOutputClassPath(packageName, newClassName, root);
         try (BufferedWriter output = Files.newBufferedWriter(resultPath)) {
             StringBuffer resultBuffer = new StringBuffer();
             if (!packageName.isEmpty()) {
                 resultBuffer
                         .append("package ")
                         .append(packageName)
-                        .append(";\n");//.append(File.separator);
+                        .append(";\n");
             }
             resultBuffer
                     .append("class ")
@@ -291,6 +201,60 @@ public class Implementor implements Impler {
         }
     }
 
+    private void compileFiles(Path root, String file) {
+        final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        final List<String> args = new ArrayList<>();
+        args.add(file);
+        args.add("-cp");
+        args.add(root + File.pathSeparator + System.getProperty("java.class.path"));
+        compiler.run(null, null, null, args.toArray(new String[args.size()]));
+    }
+
+    private void jarWrite(Path jarFile, Path file) throws IOException {
+        Manifest manifest = new Manifest();
+        manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+        try (JarOutputStream out = new JarOutputStream(Files.newOutputStream(jarFile), manifest)) {
+            out.putNextEntry(new ZipEntry(file.normalize().toString()));
+            Files.copy(file, out);
+            out.closeEntry();
+        }
+    }
+
+    private Path getOutputClassPath(String packageName, String newClassName, Path root) throws ImplerException {
+        Path containingDirectory = root.resolve(packageName.replace('.', File.separatorChar));
+        try {
+            Files.createDirectories(containingDirectory);
+        } catch (IOException e) {
+            throw new ImplerException("failed to create parent directory for output java-file", e);
+        }
+        return containingDirectory.resolve(newClassName + ".java");
+    }
+
+    private Path getOutputJarPath(String packageName, String newClassName, Path root) throws ImplerException {
+        String classPath = getOutputClassPath(packageName, newClassName, root).toString();
+        if (classPath.endsWith(".java")) {
+            return Paths.get(classPath.substring(0, classPath.length() - ".java".length()) + ".class");
+        } else {
+            throw new IllegalArgumentException("Token is not a java file");
+        }
+    }
+
+    @Override
+    public void implementJar(Class<?> token, Path jarFile) throws ImplerException {
+        try {
+            Path root = Paths.get(".");
+            JarImpler implementor = new Implementor();
+            implementor.implement(token, root);
+            Path javaFilePath = getOutputClassPath(packageNameFor(token), implNameFor(token), root);
+            Path classFilePath = getOutputJarPath(packageNameFor(token), implNameFor(token), root);
+            compileFiles(root, javaFilePath.toString());
+            jarWrite(jarFile, classFilePath);
+            classFilePath.toFile().deleteOnExit();
+        } catch (IOException e) {
+            throw new ImplerException("failed to output to jar file");
+        }
+    }
+
     public static void main(String[] args) throws ImplerException {
         if (args.length != 1 && args.length != 3
                 || args.length == 3 && (!args[0].equals("-jar") || !args[2].endsWith(".jar"))) {
@@ -304,9 +268,21 @@ public class Implementor implements Impler {
         try {
             token = Class.forName(args.length == 1 ? args[0] : args[1]);
         } catch (ClassNotFoundException e) {
-            throw new ImplerException("Specified class cannot be found or loaded");
+            System.out.println("Specified class cannot be found or loaded");
+            return;
         }
-        impler.implement(token, Paths.get(""));
+        if (args.length == 3) {
+            Path outPath;
+            try {
+                outPath = Paths.get(args[2]);
+            } catch (InvalidPathException e) {
+                System.out.println("jar file path is not actually a system-correct path");
+                return;
+            }
+            impler.implementJar(token, outPath);
+        } else  {
+            impler.implementJar(token, Paths.get(""));
+        }
     }
 
 }
