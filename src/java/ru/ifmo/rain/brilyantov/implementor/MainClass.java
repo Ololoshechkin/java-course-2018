@@ -6,12 +6,12 @@ import java.nio.file.Paths;
 
 
 public class MainClass {
-    interface I {
+    static interface I {
         void i();
         default void common() {}
     }
 
-    interface J {
+    static interface J {
         void j();
         default void common() {}
         default void j_impled() {
@@ -19,7 +19,7 @@ public class MainClass {
         }
     }
 
-    abstract class IJ implements I, J {
+    static abstract class IJ implements I, J {
         @Override
         public void common() {}
         abstract void ij();
@@ -28,7 +28,7 @@ public class MainClass {
         }
     }
 
-    abstract class C extends IJ {
+    static abstract class C extends IJ {
         void f() {
 
         }
@@ -43,9 +43,9 @@ public class MainClass {
     public static void main(String[] args) {
         Implementor impl = new Implementor();
         try {
-            impl.implement(
+            impl.implementJar(
                     C.class,
-                    Paths.get("/","Users","Vadim", "Documents", "coding", "java", "java-advanced-2018", "4_out")
+                    Paths.get("abacaba.jar")
             );
         } catch (ImplerException e) {
             e.printStackTrace();

@@ -1,11 +1,13 @@
 package ru.ifmo.rain.brilyantov.implementor;
 
+import info.kgeorgiy.java.advanced.implementor.Impler;
 import info.kgeorgiy.java.advanced.implementor.ImplerException;
 import info.kgeorgiy.java.advanced.implementor.JarImpler;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 import java.io.BufferedWriter;
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -43,11 +45,82 @@ import java.util.zip.ZipEntry;
 public class Implementor implements JarImpler {
 
     /**
-     * Creates a {@link String} consisting of given <tt><list/tt>'s elements with <tt>transform</tt> function applied
+     * Helper class to output every given string in Unicode encoding
+     * <p>
+     * Wraps {@link BufferedWriter}
+     * <p>
+     * implements {@link Closeable}
+     */
+    static class UnicodePrinter implements Closeable {
+        /**
+         * Wrapped <tt>BufferedWriter</tt>
+         */
+        private BufferedWriter output;
+
+        /**
+         * Creates new instance of {@link UnicodePrinter} wrapping given {@link BufferedWriter}
+         *
+         * @param output BufferedWriter to be wrapped
+         */
+        UnicodePrinter(BufferedWriter output) {
+            this.output = output;
+        }
+
+        /**
+         * Appends given <tt>text</tt> to <tt>output</tt>
+         *
+         * @param text text to be appended to wrapped <tt>output</tt>
+         * @throws IOException if <tt>output</tt> throws it
+         * @return reference to <tt>this</tt> object
+         */
+        UnicodePrinter append(String text) throws IOException {
+            output.append(unicodify(text));
+            return this;
+        }
+
+        /**
+         * Converts given <tt>text</tt> to Unicode
+         *
+         * @param text String to be converted
+         * @return Unicode-escaped representation of given <tt>text</tt>
+         */
+        private String unicodify(String text) {
+            StringBuilder b = new StringBuilder();
+            for (char c : text.toCharArray()) {
+                if (c >= 128) { // TODO Character.MAX_VALUE / 2
+                    b.append(String.format("\\u%04X", (int) c));
+                } else {
+                    b.append(c);
+                }
+            }
+            return b.toString();
+        }
+
+        /**
+         * Override of {@link Closeable#close()} method
+         * <p>
+         * This method delegates to <tt>output</tt>'s <tt>close</tt> method
+         *
+         * @throws IOException if wrapped <tt>output</tt> throws it
+         */
+        @Override
+        public void close() throws IOException {
+            output.close();
+        }
+    }
+
+    /**
+     * Instantiates a new Implementor object
+     */
+    public Implementor() {
+    }
+
+    /**
+     * Creates a {@link String} consisting of given <tt>list</tt>'s elements with <tt>transform</tt> function applied
      * joined by ", "
      *
-     * @param list      {@link List} to be joined
-     * @param transform {@link Function} to be applied to all elements of the given <tt>list</>
+     * @param list      list to be joined
+     * @param transform function to be applied to all elements of the given <tt>list</tt>
      * @return joined sequence of transformed elements separated by ", "
      */
     private static <T> String joinToString(List<T> list, Function<T, String> transform) {
@@ -60,8 +133,8 @@ public class Implementor implements JarImpler {
     /**
      * Generates a throw-statement for given method or constructor
      *
-     * @param method {@link Executable} that can be either {@link Method} or {@link Constructor}
-     * @return {@link String} containing text of throw-statement for the given <tt>method</tt> that consists of
+     * @param method executable that can be either {@link Method} or {@link Constructor}
+     * @return String containing text of throw-statement for the given <tt>method</tt> that consists of
      * <ul>
      * <li>throws keyword</li>
      * <li> list of fully-qualified names of all the Exceptions that can be thrown by given <tt>method</tt> separated by ", " </li>
@@ -69,7 +142,7 @@ public class Implementor implements JarImpler {
      */
     private static String getThrows(Executable method) {
         List<Class<?>> exceptions = Arrays.asList(method.getExceptionTypes());
-        return exceptions.isEmpty() ? "" : "throws " + joinToString(exceptions, Class::getCanonicalName);
+        return exceptions.isEmpty() ? "" : "throws " + joinToString(exceptions, Class::getCanonicalName) + " ";
     }
 
     /**
@@ -79,16 +152,15 @@ public class Implementor implements JarImpler {
      * <li> untyped mode : arguments are printed without any types </li>
      * </ul>
      *
-     * @param method {@link Executable} that can be either {@link Method} or {@link Constructor} - method to generate arguments list of
+     * @param method Executable that can be either {@link Method} or {@link Constructor} - method to generate arguments list of
      * @param typed  indicates whether a mode should be typed or not
-     * @return {@link String} containing text of arguments list of the given <tt>method</tt> that consists of
+     * @return String containing text of arguments list of the given <tt>method</tt> that consists of
      * <ul>
      * <li> list of <tt>method</tt>'s argument names separated by ", " for untyped mode </li>
      * <li> list of <tt>method</tt>'s argument types fully-qualified names followed by <tt>method</tt>'s argument names separated by ", " for untyped mode  </li>
      * </ul>
      */
     private static String getArguments(Executable method, boolean typed) {
-        final int[] varName = {0};
         return joinToString(
                 Arrays.stream(method.getParameters())
                         .map(arg -> (typed ? arg.getType().getCanonicalName() + " " : "") + arg.getName())
@@ -128,13 +200,11 @@ public class Implementor implements JarImpler {
                     ? (returnType.equals(boolean.class) ? " false" : returnType.equals(void.class) ? "" : " 0")
                     : " null";
         }
+        int modifiersMask = method.getModifiers() & ~Modifier.ABSTRACT & ~Modifier.TRANSIENT & ~Modifier.NATIVE;
+        String modifiers = Modifier.toString(modifiersMask) + (modifiersMask != 0 ? " " : "");
         return String.format(
-                "%n   %s %s %s(%s) %s {%n        %s;%n   }%n",
-                Arrays
-                        .stream(method.getAnnotations())
-                        .map(Annotation::toString)
-                        .collect(Collectors.joining("%n")),
-                Modifier.toString(method.getModifiers() & ~Modifier.ABSTRACT & ~Modifier.TRANSIENT & ~Modifier.NATIVE),
+                "%n   %s%s(%s) %s{%n        %s;%n   }%n",
+                modifiers,
                 returnTypeName,
                 getArguments(method, true),
                 getThrows(method),
@@ -252,7 +322,7 @@ public class Implementor implements JarImpler {
      * Finds methods of given <tt>currentClass</tt> that are needed to be implemented in it's clildren.
      *
      * @param currentClass {@link Class} to retreive unimplemented methods
-     * @return signatures ({@link MethodSignature}) of all unimplemented methods of <tt>currentClass</tt>
+     * @return signatures of all unimplemented methods of <tt>currentClass</tt>
      */
     private HashSet<MethodSignature> getMethodSignatures(Class<?> currentClass) {
         HashSet<MethodSignature> methods = new HashSet<>();
@@ -265,22 +335,50 @@ public class Implementor implements JarImpler {
     }
 
     /**
-     * Gets all constructors to be implemented for given !interface! <tt>newClassName</tt> and produces the implementation text to <tt>output</tt>
+     * Produces the implementation source code of each given {@link Executable} to <tt>output</tt> assuming them
+     * as implementations inside <tt>newClassName</tt> class
      *
-     * @param construcors  list of constructors to be implemented
-     * @param newClassName name of the new class
-     * @param output       the
-     * @throws ImplerException if the given <tt>construcors</tt> list contains no non-private constructors
+     * @param executables  array of {@link Executable} to be print
+     * @param newClassName name of the current class
+     * @param output       the {@link UnicodePrinter} to print all output data
+     * @throws ImplerException if <tt>output</tt> fails to append any method implementation
+     * @see Implementor#getMethodImpl(Executable, String)
      */
-    private void addMissingConstructors(Constructor[] construcors, String newClassName, StringBuffer output) throws ImplerException {
-        List<Constructor> constructors = Arrays
+    private void printMissingExecutables(Executable[] executables, UnicodePrinter output, String newClassName) throws ImplerException {
+        for (Executable exec : executables) {
+            try {
+                output.append(getMethodImpl(exec, newClassName));
+            } catch (IOException e) {
+                throw new ImplerException("failed to print method/constructor to output file");
+            }
+        }
+    }
+
+    /**
+     * Produces the implementation source code of each given {@link Constructor} to <tt>output</tt> assuming them
+     * as implementations of constructors of class with name <tt>newClassName</tt>
+     *
+     * @param construcors  array of {@link Executable} to be print
+     * @param newClassName name of the current class
+     * @param output       the {@link UnicodePrinter} to print all output data
+     * @throws ImplerException either if <tt>output</tt> fails to append any constructor implementation
+     *                         or if the given <tt>construcors</tt> list contains no non-private constructors
+     * @see Implementor#getMethodImpl(Executable, String)
+     * @see Implementor#printMissingExecutables(Executable[], UnicodePrinter, String)
+     */
+    private void addMissingConstructors(
+            Constructor[] construcors,
+            String newClassName,
+            UnicodePrinter output
+    ) throws ImplerException {
+        Constructor[] publicConstructors = Arrays
                 .stream(construcors)
                 .filter(constr -> !Modifier.isPrivate(constr.getModifiers()))
-                .collect(Collectors.toList());
-        if (constructors.size() == 0) {
+                .toArray(Constructor[]::new);
+        if (publicConstructors.length == 0) {
             throw new ImplerException("superclass has no accessible constructors");
         }
-        constructors.forEach(constr -> output.append(getMethodImpl(constr, newClassName)));
+        printMissingExecutables(publicConstructors, output, newClassName);
     }
 
     /**
@@ -303,6 +401,24 @@ public class Implementor implements JarImpler {
         return token.getSimpleName() + "Impl";
     }
 
+    /**
+     * Generates correct implementation source code of given <tt>token</tt> and produces coresponding .java file to given <tt>root</tt>
+     * Produced implementation consists of single class with name <tt>token</tt>'s name + "Impl" suffix.
+     * Impl-class has all default single-statement implementations of all required methods and constructors to be implemented.
+     *
+     * @param token {@link Class} to be implemented
+     * @param root  path to directory for output
+     * @throws ImplerException in the following situations:
+     *                         <ul>
+     *                         <li> <tt>token</tt> is <tt>null</tt> or <tt>root</tt> is <tt>null</tt> </li>
+     *                         <li> <tt>token</tt> represents either a primitive type, final class, enum or array
+     *                         (i.e. <tt>token</tt>) cannot be implemented </li>
+     *                         <li> <tt>root</tt> is incorrect path </li>
+     *                         <li> Error occurs while either creating of output file (with corresponding directories)
+     *                         or writing anything to output file </li>
+     *                         </ul>
+     * @see Implementor#getMethodImpl(Executable, String)
+     */
     @Override
     public void implement(Class<?> token, Path root) throws ImplerException {
         if (root == null || token == null) {
@@ -317,51 +433,80 @@ public class Implementor implements JarImpler {
         String packageName = packageNameFor(token);
         String newClassName = implNameFor(token);
         Path resultPath = getOutputClassPath(packageName, newClassName, root);
-        try (BufferedWriter output = Files.newBufferedWriter(resultPath)) {
-            StringBuffer resultBuffer = new StringBuffer();
+        System.out.println("__________________\n.java path : " + resultPath.toString() + "\n_________________________\n");
+        try (UnicodePrinter output = new UnicodePrinter(Files.newBufferedWriter(resultPath))) {
             if (!packageName.isEmpty()) {
-                resultBuffer
+                output
                         .append("package ")
                         .append(packageName)
                         .append(";\n");
             }
-            resultBuffer
+            output
                     .append("class ")
                     .append(newClassName)
                     .append(token.isInterface() ? " implements " : " extends ")
-                    .append(token.getSimpleName())
+                    .append(token.getCanonicalName())
                     .append(" {\n");
-            getMethodSignatures(token).forEach(method -> resultBuffer.append(method.toString()));
+            printMissingExecutables(
+                    getMethodSignatures(token)
+                            .stream()
+                            .map(it -> it.method)
+                            .toArray(Executable[]::new),
+                    output,
+                    newClassName
+            );
             if (!token.isInterface()) {
-                addMissingConstructors(token.getDeclaredConstructors(), newClassName, resultBuffer);
+                addMissingConstructors(token.getDeclaredConstructors(), newClassName, output);
             }
-            resultBuffer.append("}");
-            String result = resultBuffer.toString();
-            output.write(result);
+            output.append("}");
         } catch (IOException e) {
             System.out.println("failed to output result to expected file");
         }
     }
 
+    /**
+     * Compiles given <tt>file</tt> and produces .class file to given <tt>root</tt> path
+     *
+     * @param root path to output
+     * @param file file name to be compiled
+     */
     private void compileFiles(Path root, String file) {
         final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         final List<String> args = new ArrayList<>();
-        args.add(file);
         args.add("-cp");
         args.add(root + File.pathSeparator + System.getProperty("java.class.path"));
+        args.add(file);
         compiler.run(null, null, null, args.toArray(new String[args.size()]));
     }
 
-    private void jarWrite(Path jarFile, Path file) throws IOException {
+    /**
+     * Produces jar file from given .class file
+     *
+     * @param jarFile output jar file path
+     * @param file    input .class file path
+     */
+    private void jarWrite(Path jarFile, Path file, String root) throws IOException {
         Manifest manifest = new Manifest();
         manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+        String fileName = file.toString();
+        String rootlessFileName = fileName.substring(root.length(), fileName.length());
         try (JarOutputStream out = new JarOutputStream(Files.newOutputStream(jarFile), manifest)) {
-            out.putNextEntry(new ZipEntry(file.normalize().toString()));
+            System.out.println("file name : " + file.toString());
+            System.out.println("rootless file name : " + rootlessFileName);
+            out.putNextEntry(new ZipEntry(rootlessFileName));
             Files.copy(file, out);
-            out.closeEntry();
         }
     }
 
+    /**
+     * Returns output .java/.class file path for class with name <tt>newClassName</tt>, of package <tt>packageName</tt>
+     * starting with <tt>root</tt> Path
+     *
+     * @param packageName  name of package
+     * @param newClassName desired name of class
+     * @param root         start path
+     * @return path to output .java file (including package name)
+     */
     private Path getOutputClassPath(String packageName, String newClassName, Path root) throws ImplerException {
         Path containingDirectory = root.resolve(packageName.replace('.', File.separatorChar));
         try {
@@ -372,6 +517,15 @@ public class Implementor implements JarImpler {
         return containingDirectory.resolve(newClassName + ".java");
     }
 
+    /**
+     * Returns output .jar file path for class with name <tt>newClassName</tt>, of package <tt>packageName</tt>
+     * starting with <tt>root</tt> Path
+     *
+     * @param packageName  name of package
+     * @param newClassName desired name of class
+     * @param root         start path
+     * @return path to output .java file (including package name)
+     */
     private Path getOutputJarPath(String packageName, String newClassName, Path root) throws ImplerException {
         String classPath = getOutputClassPath(packageName, newClassName, root).toString();
         if (classPath.endsWith(".java")) {
@@ -381,25 +535,70 @@ public class Implementor implements JarImpler {
         }
     }
 
+    /**
+     * Generates correct implementation source code of given <tt>token</tt> and produces a jar archive to given <tt>jarFile</tt> path
+     * Produced implementation consists of single class with name <tt>token</tt>'s name + "Impl" suffix.
+     * Impl-class has all default single-statement implementations of all required methods and constructors to be implemented.
+     *
+     * @param token   {@link Class} to be implemented
+     * @param jarFile path to directory for output
+     * @throws ImplerException in the following situations:
+     *                         <ul>
+     *                         <li> <tt>token</tt> is <tt>null</tt> or <tt>root</tt> is <tt>null</tt> </li>
+     *                         <li> <tt>token</tt> represents either a primitive type, final class, enum or array
+     *                         (i.e. <tt>token</tt>) cannot be implemented </li>
+     *                         <li> <tt>root</tt> is incorrect path </li>
+     *                         <li> Error occurs while either creating of output file (with corresponding directories)
+     *                         or writing anything to output file </li>
+     *                         </ul>
+     * @see Implementor#getMethodImpl(Executable, String)
+     */
     @Override
     public void implementJar(Class<?> token, Path jarFile) throws ImplerException {
         try {
-            Path root = Paths.get(".");
+            if (jarFile.getParent() != null) {
+                try {
+                    Files.createDirectories(jarFile.getParent());
+                } catch (IOException e) {
+                    throw new ImplerException("Unable to create directories for output file", e);
+                }
+            }
+            Path root = Files.createTempDirectory(jarFile.toAbsolutePath().getParent(), "temp");//Files.createTempDirectory(Paths.get("."), "");//Paths.get(".");
             JarImpler implementor = new Implementor();
             implementor.implement(token, root);
             Path javaFilePath = getOutputClassPath(packageNameFor(token), implNameFor(token), root);
+            System.out.println("__________________\njavaFilePath path : " + javaFilePath.toString() + "\n_________________________\n");
             Path classFilePath = getOutputJarPath(packageNameFor(token), implNameFor(token), root);
+            System.out.println("__________________\nclassFilePath path : " + classFilePath.toString() + "\n_________________________\n");
             compileFiles(root, javaFilePath.toString());
-            jarWrite(jarFile, classFilePath);
-            classFilePath.toFile().deleteOnExit();
+            System.out.println("__________________\njarFile : " + jarFile.toString() + "\n_________________________\n");
+            jarWrite(jarFile, classFilePath, root.toString());
+//            jarWrite(Paths.get("JARS"), classFilePath, root.toString());
         } catch (IOException e) {
             throw new ImplerException("failed to output to jar file");
         }
     }
 
+    /**
+     * Provides comand line interface for <tt>Implementor</tt> class.
+     * Available methods: {@link Implementor#implement(Class, Path)} and {@link Implementor#implementJar(Class, Path)}
+     * <p>
+     * arguments :
+     * <ul>
+     * <li> (1) class name, output path </li>
+     * <li> (2) "-jar", class name, output path </li>
+     * </ul>
+     * <p>
+     * Whether if {@link Class} for given class name cannot be loaded or if given an incorrect <tt>args</tt> array
+     * or if invoked method (<tt>implement</tt> or <tt>implementJar</tt>) fails
+     * then prints corresponding output messages
+     * <p>
+     * When given arguments(1) invokes {@link Implementor#implement(Class, Path)}
+     * When given arguments(2) invokes {@link Implementor#implementJar(Class, Path)}
+     */
     public static void main(String[] args) {
         if (args == null ||
-                args.length != 1 && args.length != 3 ||
+                args.length != 2 && args.length != 3 ||
                 args.length == 3 && (!args[0].equals("-jar") || !args[2].endsWith(".jar"))) {
             System.out.println(
                     "Expected single argument(class name to implement) " +
@@ -407,71 +606,32 @@ public class Implementor implements JarImpler {
             );
             return;
         }
-        Implementor implementor = new Implementor();
-        String className;
-        String rootPath;
-
-        boolean implementJar = args[0].equals("-jar");
-
-        if (implementJar) {
-            if (args.length != 3 || args[1] == null || args[2] == null) {
-                System.out.println("2 arguments after -jar required: <full name of class to implement> " +
-                        "<path to jar file>");
-                return;
-            }
-            className = args[1];
-            rootPath = args[2];
-        } else {
-            if (args.length != 2 || args[1] == null) {
-                System.out.println("First argument must me -jar, otherwise, two arguments must be given " +
-                        "<full name of class to implement> <path to root directory>");
-            }
-            className = args[0];
-            rootPath = args[1];
-        }
+        boolean isJar = args.length == 2;
+        Class<?> token;
         try {
-            if (implementJar) {
-                implementor.implementJar(Class.forName(className), Paths.get(rootPath));
-            } else {
-                implementor.implement(Class.forName(className), Paths.get(rootPath));
-            }
-        } catch (InvalidPathException e) {
-            System.out.println("Path to output file is invalid " + e.getMessage());
+            token = Class.forName(isJar ? args[0] : args[1]);
         } catch (ClassNotFoundException e) {
-            System.out.println("Cannot find class to implement " + e.getMessage());
+            System.out.println("Specified class cannot be found or loaded");
+            return;
+        }
+        Path root;
+        try {
+            root = Paths.get(isJar ? args[2] : args[1]);
+        } catch (InvalidPathException e) {
+            System.out.println("Specified path is not a system-correct path");
+            return;
+        }
+        Implementor impler = new Implementor();
+        try {
+            if (isJar) {
+                impler.implementJar(token, root);
+            } else {
+                impler.implement(token, root);
+            }
         } catch (ImplerException e) {
-            System.out.println("Error implementing class: " + e.getMessage());
+            System.out.println("Failed to generate implementation of the given class: " + e.getMessage());
         }
     }
 
-//    public static void main(String[] args) throws ImplerException {
-//        if (args.length != 1 && args.length != 3
-//                || args.length == 3 && (!args[0].equals("-jar") || !args[2].endsWith(".jar"))) {
-//            System.out.println(
-//                    "Expected single argument(class name to implement) " +
-//                            "or 3 arguments (\"-jar\", class to implement and output file name .jar)"
-//            );
-//        }
-//        Implementor impler = new Implementor();
-//        Class<?> token;
-//        try {
-//            token = Class.forName(args.length == 1 ? args[0] : args[1]);
-//        } catch (ClassNotFoundException e) {
-//            System.out.println("Specified class cannot be found or loaded");
-//            return;
-//        }
-//        if (args.length == 3) {
-//            Path outPath;
-//            try {
-//                outPath = Paths.get(args[2]);
-//            } catch (InvalidPathException e) {
-//                System.out.println("jar file path is not actually a system-correct path");
-//                return;
-//            }
-//            impler.implementJar(token, outPath);
-//        } else {
-//            impler.implementJar(token, Paths.get(""));
-//        }
-//    }
-
 }
+

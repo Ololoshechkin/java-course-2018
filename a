@@ -1,3 +1,0 @@
-00000000 #!bin/bash
-00000000 bash compile.sh
-00000000 java -cp ./classes ru.ifmo.rain.brilyantov.walk.RecursiveWalk $0 $1

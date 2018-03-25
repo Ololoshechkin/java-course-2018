@@ -1,19 +1,11 @@
 package info.kgeorgiy.java.advanced.implementor.standard.full;
 class LdapReferralExceptionImpl extends LdapReferralException {
 
-    public java.lang.Object getReferralInfo()  {
+    public javax.naming.Context getReferralContext(java.util.Hashtable arg0, javax.naming.ldap.Control[] arg1) throws javax.naming.NamingException {
         return null;
-   }
-
-    public boolean skipReferral()  {
-        return false;
    }
 
     public javax.naming.Context getReferralContext() throws javax.naming.NamingException {
-        return null;
-   }
-
-    public javax.naming.Context getReferralContext(java.util.Hashtable arg0, javax.naming.ldap.Control[] arg1) throws javax.naming.NamingException {
         return null;
    }
 
@@ -22,6 +14,14 @@ class LdapReferralExceptionImpl extends LdapReferralException {
    }
 
     public javax.naming.Context getReferralContext(java.util.Hashtable arg0) throws javax.naming.NamingException {
+        return null;
+   }
+
+    public boolean skipReferral()  {
+        return false;
+   }
+
+    public java.lang.Object getReferralInfo()  {
         return null;
    }
 

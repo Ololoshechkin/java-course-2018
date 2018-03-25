@@ -1,3 +1,2 @@
 Manifest-Version: 1.0
 Main-class: ru.ifmo.rain.brilyantov.implementor.Implementor
-Class-path: ./classes:./artifacts/JarImplementorTest.jar:./lib/*.jar

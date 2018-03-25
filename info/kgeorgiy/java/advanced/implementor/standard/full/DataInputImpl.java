@@ -5,7 +5,51 @@ class DataInputImpl implements DataInput {
         return 0;
    }
 
+    public double readDouble() throws java.io.IOException {
+        return 0;
+   }
+
     public int skipBytes(int arg0) throws java.io.IOException {
+        return 0;
+   }
+
+    public void readFully(byte[] arg0) throws java.io.IOException {
+        return;
+   }
+
+    public short readShort() throws java.io.IOException {
+        return 0;
+   }
+
+    public int readInt() throws java.io.IOException {
+        return 0;
+   }
+
+    public java.lang.String readLine() throws java.io.IOException {
+        return null;
+   }
+
+    public int readUnsignedByte() throws java.io.IOException {
+        return 0;
+   }
+
+    public byte readByte() throws java.io.IOException {
+        return 0;
+   }
+
+    public int readUnsignedShort() throws java.io.IOException {
+        return 0;
+   }
+
+    public boolean readBoolean() throws java.io.IOException {
+        return false;
+   }
+
+    public java.lang.String readUTF() throws java.io.IOException {
+        return null;
+   }
+
+    public long readLong() throws java.io.IOException {
         return 0;
    }
 
@@ -15,49 +59,5 @@ class DataInputImpl implements DataInput {
 
     public char readChar() throws java.io.IOException {
         return 0;
-   }
-
-    public long readLong() throws java.io.IOException {
-        return 0;
-   }
-
-    public java.lang.String readUTF() throws java.io.IOException {
-        return null;
-   }
-
-    public void readFully(byte[] arg0) throws java.io.IOException {
-        return;
-   }
-
-    public byte readByte() throws java.io.IOException {
-        return 0;
-   }
-
-    public short readShort() throws java.io.IOException {
-        return 0;
-   }
-
-    public double readDouble() throws java.io.IOException {
-        return 0;
-   }
-
-    public int readUnsignedShort() throws java.io.IOException {
-        return 0;
-   }
-
-    public int readUnsignedByte() throws java.io.IOException {
-        return 0;
-   }
-
-    public int readInt() throws java.io.IOException {
-        return 0;
-   }
-
-    public boolean readBoolean() throws java.io.IOException {
-        return false;
-   }
-
-    public java.lang.String readLine() throws java.io.IOException {
-        return null;
    }
 }

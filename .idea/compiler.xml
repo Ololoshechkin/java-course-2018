@@ -5,6 +5,8 @@
       <module name="java-advanced-2018_main" target="1.8" />
       <module name="java-advanced-2018_sourceSets" target="1.8" />
       <module name="java-advanced-2018_test" target="1.8" />
+      <module name="java-course-2018_main" target="1.8" />
+      <module name="java-course-2018_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
