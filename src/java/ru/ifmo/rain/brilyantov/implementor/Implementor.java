@@ -275,9 +275,8 @@ public class Implementor implements JarImpler {
          */
         @Override
         public int hashCode() {
-            return getName().hashCode() * 31 * 31
-                    + Arrays.hashCode(getArgs()) * 31
-                    + getReturnType().hashCode();
+            return getName().hashCode() * 31
+                    + Arrays.hashCode(getArgs());
         }
 
         /**
@@ -298,7 +297,6 @@ public class Implementor implements JarImpler {
             }
             MethodSignature other = (MethodSignature) obj;
             return Objects.equals(getName(), other.getName())
-                    && Objects.equals(getReturnType(), other.getReturnType())
                     && Arrays.equals(getArgs(), other.getArgs());
         }
 
@@ -470,13 +468,19 @@ public class Implementor implements JarImpler {
      * @param root path to output
      * @param file file name to be compiled
      */
-    private void compileFiles(Path root, String file) {
+    private void compileFiles(Path root, String file) throws ImplerException {
         final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        if (compiler == null) {
+            throw new ImplerException("Compiler not found");
+        }
         final List<String> args = new ArrayList<>();
         args.add("-cp");
         args.add(root + File.pathSeparator + System.getProperty("java.class.path"));
         args.add(file);
-        compiler.run(null, null, null, args.toArray(new String[args.size()]));
+        int exitCode = compiler.run(null, null, null, args.toArray(new String[args.size()]));
+        if (exitCode != 0) {
+            throw new ImplerException("Compilation ended with non-zero code " + exitCode);
+        }
     }
 
     /**
@@ -564,8 +568,7 @@ public class Implementor implements JarImpler {
                 }
             }
             Path root = Files.createTempDirectory(jarFile.toAbsolutePath().getParent(), "temp");//Files.createTempDirectory(Paths.get("."), "");//Paths.get(".");
-            JarImpler implementor = new Implementor();
-            implementor.implement(token, root);
+            implement(token, root);
             Path javaFilePath = getOutputClassPath(packageNameFor(token), implNameFor(token), root);
             System.out.println("__________________\njavaFilePath path : " + javaFilePath.toString() + "\n_________________________\n");
             Path classFilePath = getOutputJarPath(packageNameFor(token), implNameFor(token), root);
@@ -606,10 +609,15 @@ public class Implementor implements JarImpler {
             );
             return;
         }
-        boolean isJar = args.length == 2;
+        for (int i = 0; i < args.length; ++i)
+            System.out.println("arg: " + args[i]);
+        boolean isJar = args.length == 3;
         Class<?> token;
         try {
-            token = Class.forName(isJar ? args[0] : args[1]);
+            String className = isJar ? args[1] : args[0];
+            System.out.println(className);
+            token = Class.forName(className);
+            System.out.println(token);
         } catch (ClassNotFoundException e) {
             System.out.println("Specified class cannot be found or loaded");
             return;
