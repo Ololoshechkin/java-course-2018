@@ -2,87 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98b9903b-cf6a-4225-9df5-6dc1d10b75ef" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_11.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_11.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/java-course-2018.iml" afterPath="$PROJECT_DIR$/.idea/modules/java-course-2018.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/java-course-2018_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/java-course-2018_main.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/java-course-2018_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/java-course-2018_test.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
-      <change beforePath="$PROJECT_DIR$/Manifest.txt" afterPath="$PROJECT_DIR$/Manifest.txt" />
-      <change beforePath="$PROJECT_DIR$/artifacts/IterativeParallelismTest.jar" afterPath="$PROJECT_DIR$/artifacts/IterativeParallelismTest.jar" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin-build/version.txt" afterPath="$PROJECT_DIR$/build/kotlin-build/version.txt" />
       <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor$1.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor$1.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor$MethodSignature.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor$MethodSignature.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor$UnicodePrinter.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor$UnicodePrinter.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor.class" />
-      <change beforePath="$PROJECT_DIR$/dock.sh" afterPath="$PROJECT_DIR$/dock.sh" />
-      <change beforePath="$PROJECT_DIR$/err.txt" afterPath="$PROJECT_DIR$/err.txt" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/basic/InterfaceWithDefaultMethodImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/basic/InterfaceWithDefaultMethodImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/basic/InterfaceWithStaticMethodImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/basic/InterfaceWithStaticMethodImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/full/ClassWithPackagePrivateConstructorImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/full/ClassWithPackagePrivateConstructorImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/full/InterfaceWithoutMethodsImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/full/InterfaceWithoutMethodsImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/lang/ArabicImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/lang/ArabicImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/lang/GreekImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/lang/GreekImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/lang/HebrewImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/lang/HebrewImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/lang/RussianImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/examples/lang/RussianImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/AccessibleImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/AccessibleImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/ClassLoggerImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/ClassLoggerImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/DescriptorImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/DescriptorImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/IIOExceptionImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/IIOExceptionImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/IIOImageImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/IIOImageImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/LoggerImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/LoggerImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/RMIServerImplImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/RMIServerImplImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/RandomAccessImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/RandomAccessImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/RelationNotFoundExceptionImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/basic/RelationNotFoundExceptionImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/AccessibleActionImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/AccessibleActionImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/BMPImageWriteParamImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/BMPImageWriteParamImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/CachedRowSetImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/CachedRowSetImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/DataInputImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/DataInputImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/DataOutputImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/DataOutputImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/FileCacheImageInputStreamImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/FileCacheImageInputStreamImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/ImmutableDescriptorImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/ImmutableDescriptorImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/LdapReferralExceptionImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/LdapReferralExceptionImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/RMIIIOPServerImplImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/RMIIIOPServerImplImpl.class" />
-      <change beforePath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/SDeprecatedImpl.class" afterPath="$PROJECT_DIR$/info/kgeorgiy/java/advanced/implementor/standard/full/SDeprecatedImpl.class" />
       <change beforePath="$PROJECT_DIR$/jar5.sh" afterPath="$PROJECT_DIR$/jar5.sh" />
-      <change beforePath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/ListIP.java" afterPath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/ListIP.java" />
-      <change beforePath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/ListIPTest.java" afterPath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/ListIPTest.java" />
-      <change beforePath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/ScalarIP.java" afterPath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/ScalarIP.java" />
-      <change beforePath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/ScalarIPTest.java" afterPath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/ScalarIPTest.java" />
-      <change beforePath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/Tester.java" afterPath="$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/concurrent/Tester.java" />
-      <change beforePath="$PROJECT_DIR$/javadock/allclasses-frame.html" afterPath="$PROJECT_DIR$/javadock/allclasses-frame.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/allclasses-noframe.html" afterPath="$PROJECT_DIR$/javadock/allclasses-noframe.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/constant-values.html" afterPath="$PROJECT_DIR$/javadock/constant-values.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/deprecated-list.html" afterPath="$PROJECT_DIR$/javadock/deprecated-list.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/help-doc.html" afterPath="$PROJECT_DIR$/javadock/help-doc.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/index-all.html" afterPath="$PROJECT_DIR$/javadock/index-all.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/index.html" afterPath="$PROJECT_DIR$/javadock/index.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/Impler.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/Impler.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/ImplerException.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/ImplerException.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/JarImpler.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/JarImpler.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-frame.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-frame.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-summary.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-summary.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-tree.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-tree.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/overview-frame.html" afterPath="$PROJECT_DIR$/javadock/overview-frame.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/overview-summary.html" afterPath="$PROJECT_DIR$/javadock/overview-summary.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/overview-tree.html" afterPath="$PROJECT_DIR$/javadock/overview-tree.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/package-list" afterPath="$PROJECT_DIR$/javadock/package-list" />
-      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.MethodSignature.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.MethodSignature.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-frame.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-frame.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-summary.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-summary.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-tree.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-tree.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/script.js" afterPath="$PROJECT_DIR$/javadock/script.js" />
-      <change beforePath="$PROJECT_DIR$/javadock/serialized-form.html" afterPath="$PROJECT_DIR$/javadock/serialized-form.html" />
-      <change beforePath="$PROJECT_DIR$/javadock/stylesheet.css" afterPath="$PROJECT_DIR$/javadock/stylesheet.css" />
-      <change beforePath="$PROJECT_DIR$/production/Implementor.jar" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/production/ru/ifmo/rain/brilyantov/implementor/Implementor$MethodSignature.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/production/ru/ifmo/rain/brilyantov/implementor/Implementor.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" />
+      <change beforePath="$PROJECT_DIR$/production/Implementor.jar" afterPath="$PROJECT_DIR$/production/Implementor.jar" />
+      <change beforePath="$PROJECT_DIR$/production/META-INF/MANIFEST.MF" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -121,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IterativeParallelism.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="IterativeParallelism.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+            <state relative-caret-position="103">
+              <caret line="97" column="76" lean-forward="false" selection-start-line="97" selection-start-column="76" selection-end-line="97" selection-end-column="76" />
               <folding />
             </state>
           </provider>
@@ -187,11 +111,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jar5.sh" pinned="false" current-in-tab="false">
+      <file leaf-file-name="jar5.sh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/jar5.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="5" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+            <state relative-caret-position="90">
+              <caret line="6" column="14" lean-forward="true" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -201,7 +125,7 @@
         <entry file="file://$PROJECT_DIR$/Manifest.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
-              <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+              <caret line="1" column="59" lean-forward="false" selection-start-line="1" selection-start-column="59" selection-end-line="1" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -219,8 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>print</find>
-      <find>parti</find>
       <find>tempDi</find>
       <find>SimpleFileVisitor</find>
       <find>failed to output to jar file</find>
@@ -241,7 +163,6 @@
       <find>throws</find>
       <find>joinToString</find>
       <find>jarWrite</find>
-      <find>main</find>
       <find>MethodSignature</find>
       <find>instan</find>
       <find>h</find>
@@ -249,6 +170,9 @@
       <find>filter</find>
       <find>merge</find>
       <find>flatMap</find>
+      <find>main</find>
+      <find>KGEORGY_PACKAGE</find>
+      <find>MY_PACKAGE</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;/tt&gt;</replace>
@@ -736,9 +660,9 @@
         <option value="$PROJECT_DIR$/run4.sh" />
         <option value="$PROJECT_DIR$/compile4.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" />
-        <option value="$PROJECT_DIR$/jar5.sh" />
-        <option value="$PROJECT_DIR$/Manifest.txt" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java" />
+        <option value="$PROJECT_DIR$/Manifest.txt" />
+        <option value="$PROJECT_DIR$/jar5.sh" />
       </list>
     </option>
   </component>
@@ -1268,7 +1192,7 @@
       <workItem from="1520414570552" duration="1160000" />
       <workItem from="1521912525423" duration="3707000" />
       <workItem from="1521988192518" duration="18746000" />
-      <workItem from="1522070493408" duration="14033000" />
+      <workItem from="1522070493408" duration="15650000" />
     </task>
     <servers />
   </component>
@@ -1281,7 +1205,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102217000" />
+    <option name="totallyTimeSpent" value="103834000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1297,7 +1221,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30123797" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.055020634" sideWeight="0.49353796" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27235213" sideWeight="0.49353796" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21324718" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
@@ -1370,17 +1294,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/Collection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="580" column="33" lean-forward="false" selection-start-line="580" selection-start-column="33" selection-end-line="580" selection-end-column="33" />
-          <folding>
-            <element signature="e#26957#26958#0" expanded="false" />
-            <element signature="e#27022#27023#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/Comparator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1674,22 +1587,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jar5.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="5" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Manifest.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/implementor/InterfaceImplementorTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -1732,8 +1629,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="103">
+          <caret line="97" column="76" lean-forward="false" selection-start-line="97" selection-start-column="76" selection-end-line="97" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Manifest.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="59" lean-forward="false" selection-start-line="1" selection-start-column="59" selection-end-line="1" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/production/ru/ifmo/rain/brilyantov/implementor/Implementor.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="636">
+          <caret line="306" column="39" lean-forward="false" selection-start-line="306" selection-start-column="39" selection-end-line="306" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jar5.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="14" lean-forward="true" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
           <folding />
         </state>
       </provider>
