@@ -1,6 +1,5 @@
 package ru.ifmo.rain.brilyantov.implementor;
 
-import info.kgeorgiy.java.advanced.implementor.Impler;
 import info.kgeorgiy.java.advanced.implementor.ImplerException;
 import info.kgeorgiy.java.advanced.implementor.JarImpler;
 
@@ -10,15 +9,12 @@ import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 import java.util.function.Function;
 import java.util.jar.Attributes;
@@ -70,8 +66,8 @@ public class Implementor implements JarImpler {
          * Appends given <tt>text</tt> to <tt>output</tt>
          *
          * @param text text to be appended to wrapped <tt>output</tt>
-         * @throws IOException if <tt>output</tt> throws it
          * @return reference to <tt>this</tt> object
+         * @throws IOException if <tt>output</tt> throws it
          */
         UnicodePrinter append(String text) throws IOException {
             output.append(unicodify(text));
@@ -85,15 +81,14 @@ public class Implementor implements JarImpler {
          * @return Unicode-escaped representation of given <tt>text</tt>
          */
         private String unicodify(String text) {
-            StringBuilder b = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             for (char c : text.toCharArray()) {
-                if (c >= 128) { // TODO Character.MAX_VALUE / 2
-                    b.append(String.format("\\u%04X", (int) c));
-                } else {
-                    b.append(c);
-                }
+                builder.append(2 * c >= Character.MAX_VALUE
+                        ? String.format("\\u%04X", (int) c)
+                        : c
+                );
             }
-            return b.toString();
+            return builder.toString();
         }
 
         /**
@@ -431,7 +426,6 @@ public class Implementor implements JarImpler {
         String packageName = packageNameFor(token);
         String newClassName = implNameFor(token);
         Path resultPath = getOutputClassPath(packageName, newClassName, root);
-        System.out.println("__________________\n.java path : " + resultPath.toString() + "\n_________________________\n");
         try (UnicodePrinter output = new UnicodePrinter(Files.newBufferedWriter(resultPath))) {
             if (!packageName.isEmpty()) {
                 output
@@ -493,10 +487,8 @@ public class Implementor implements JarImpler {
         Manifest manifest = new Manifest();
         manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
         String fileName = file.toString();
-        String rootlessFileName = fileName.substring(root.length(), fileName.length());
+        String rootlessFileName = fileName.substring(root.length() + 1, fileName.length());
         try (JarOutputStream out = new JarOutputStream(Files.newOutputStream(jarFile), manifest)) {
-            System.out.println("file name : " + file.toString());
-            System.out.println("rootless file name : " + rootlessFileName);
             out.putNextEntry(new ZipEntry(rootlessFileName));
             Files.copy(file, out);
         }
@@ -560,23 +552,39 @@ public class Implementor implements JarImpler {
     @Override
     public void implementJar(Class<?> token, Path jarFile) throws ImplerException {
         try {
-            if (jarFile.getParent() != null) {
+            if (jarFile.toAbsolutePath().getParent() != null) {
                 try {
-                    Files.createDirectories(jarFile.getParent());
+                    Files.createDirectories(jarFile.toAbsolutePath().getParent());
                 } catch (IOException e) {
                     throw new ImplerException("Unable to create directories for output file", e);
                 }
             }
-            Path root = Files.createTempDirectory(jarFile.toAbsolutePath().getParent(), "temp");//Files.createTempDirectory(Paths.get("."), "");//Paths.get(".");
+            Path root = Files.createTempDirectory(jarFile.toAbsolutePath().getParent(), "temp_production");
             implement(token, root);
             Path javaFilePath = getOutputClassPath(packageNameFor(token), implNameFor(token), root);
-            System.out.println("__________________\njavaFilePath path : " + javaFilePath.toString() + "\n_________________________\n");
             Path classFilePath = getOutputJarPath(packageNameFor(token), implNameFor(token), root);
-            System.out.println("__________________\nclassFilePath path : " + classFilePath.toString() + "\n_________________________\n");
             compileFiles(root, javaFilePath.toString());
-            System.out.println("__________________\njarFile : " + jarFile.toString() + "\n_________________________\n");
             jarWrite(jarFile, classFilePath, root.toString());
-//            jarWrite(Paths.get("JARS"), classFilePath, root.toString());
+            Files.walkFileTree(
+                    root,
+                    new SimpleFileVisitor<Path>() {
+                        private FileVisitResult erase(Path file) throws IOException {
+                            Files.delete(file);
+                            return FileVisitResult.CONTINUE;
+                        }
+
+                        @Override
+                        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                            return erase(file);
+                        }
+
+                        @Override
+                        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                            return erase(dir);
+
+                        }
+                    }
+            );
         } catch (IOException e) {
             throw new ImplerException("failed to output to jar file");
         }
@@ -609,15 +617,11 @@ public class Implementor implements JarImpler {
             );
             return;
         }
-        for (int i = 0; i < args.length; ++i)
-            System.out.println("arg: " + args[i]);
         boolean isJar = args.length == 3;
         Class<?> token;
         try {
             String className = isJar ? args[1] : args[0];
-            System.out.println(className);
             token = Class.forName(className);
-            System.out.println(token);
         } catch (ClassNotFoundException e) {
             System.out.println("Specified class cannot be found or loaded");
             return;

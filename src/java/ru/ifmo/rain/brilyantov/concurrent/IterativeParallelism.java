@@ -52,7 +52,7 @@ public class IterativeParallelism implements ListIP, ScalarIP {
 
     @Override
     public <T> T minimum(int threads, List<? extends T> values, Comparator<? super T> comparator) throws InterruptedException {
-        Function<Stream<? extends T>, T> getMin = list -> list.max(comparator).get();
+        Function<Stream<? extends T>, T> getMin = list -> list.min(comparator).get();
         return runInParallel(threads, values, getMin, getMin);
     }
 
@@ -62,7 +62,7 @@ public class IterativeParallelism implements ListIP, ScalarIP {
                 threads,
                 values,
                 list -> list.allMatch(predicate),
-                list -> list.allMatch(it -> it)
+                list -> list.allMatch(Boolean::booleanValue)
         );
     }
 
@@ -72,9 +72,17 @@ public class IterativeParallelism implements ListIP, ScalarIP {
                 threads,
                 values,
                 list -> list.anyMatch(predicate),
-                list -> list.anyMatch(it -> it)
+                list -> list.anyMatch(Boolean::booleanValue)
         );
     }
+
+//    private <T> T runInParallel(
+//            int threads,
+//            List<? extends T> values,
+//            Function<Stream<? extends T>, T> mapper
+//    ) throws InterruptedException {
+//        return runInParallel(threads, values, mapper, mapper);
+//    }
 
     private <T, R> R runInParallel(
             int threads,
@@ -82,9 +90,8 @@ public class IterativeParallelism implements ListIP, ScalarIP {
             Function<Stream<? extends T>, R> mapper,
             Function<? super Stream<R>, R> reducer
     ) throws InterruptedException {
-        return reduce(
-                map(
-                        threads,
+        return reduceTask(
+                mapTask(
                         partition(threads, values),
                         mapper
                 ).stream(),
@@ -96,19 +103,19 @@ public class IterativeParallelism implements ListIP, ScalarIP {
         List<Stream<? extends T>> partitionedList = new ArrayList<>();
         int blockSize = values.size() / threads + (values.size() % threads != 0 ? 1 : 0);
         for (int leftBound = 0; leftBound < values.size(); leftBound += blockSize) {
-            int rightBound = Math.min(leftBound + blockSize, values.size()) - 1;
+            int rightBound = Math.min(leftBound + blockSize, values.size());
             partitionedList.add(values.subList(leftBound, rightBound).stream());
         }
         return partitionedList;
     }
 
-    private <T, R> List<R> map(
+    private <T, R> List<R> mapTask(
             List<Stream<? extends T>> inputValues,
             Function<Stream<? extends T>, R> mapper
     ) throws InterruptedException {
         List<R> intermediateValues = new ArrayList<>(Collections.nCopies(inputValues.size(), null));
         List<Thread> workingThreads = new ArrayList<>();
-        for (int i = 0; i < intermediateValues.size(); i++) {
+        for (int i = 0; i < inputValues.size(); i++) {
             final int index = i;
             Thread thread = new Thread(() -> intermediateValues.set(
                     index,
@@ -123,7 +130,7 @@ public class IterativeParallelism implements ListIP, ScalarIP {
         return intermediateValues;
     }
 
-    private <R> R reduce(
+    private <R> R reduceTask(
             Stream<R> intermediateValues,
             Function<? super Stream<R>, R> reducer
     ) throws InterruptedException {
