@@ -105,7 +105,7 @@ public class Implementor implements JarImpler {
     }
 
     /**
-     * Instantiates a new Implementor object
+     * Instantiates a new {@link Implementor} object
      */
     public Implementor() {
     }
@@ -115,6 +115,7 @@ public class Implementor implements JarImpler {
      * joined by ", "
      *
      * @param list      list to be joined
+     * @param <T> type of elements in <tt>list</tt>
      * @param transform function to be applied to all elements of the given <tt>list</tt>
      * @return joined sequence of transformed elements separated by ", "
      */
@@ -221,6 +222,7 @@ public class Implementor implements JarImpler {
 
         /**
          * instantiates new {@link MethodSignature} wrapping the given <tt>method</tt>
+         * @param method method to weap
          */
         MethodSignature(Method method) {
             this.method = method;
@@ -461,6 +463,7 @@ public class Implementor implements JarImpler {
      *
      * @param root path to output
      * @param file file name to be compiled
+     * @throws ImplerException if either failed to find system {@link JavaCompiler} or compiler returned non-null exit code
      */
     private void compileFiles(Path root, String file) throws ImplerException {
         final JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
@@ -482,6 +485,8 @@ public class Implementor implements JarImpler {
      *
      * @param jarFile output jar file path
      * @param file    input .class file path
+     * @param root root directory
+     * @throws IOException if fails to write in jar file
      */
     private void jarWrite(Path jarFile, Path file, String root) throws IOException {
         Manifest manifest = new Manifest();
@@ -501,6 +506,7 @@ public class Implementor implements JarImpler {
      * @param packageName  name of package
      * @param newClassName desired name of class
      * @param root         start path
+     * @throws ImplerException if fails to create containing directory of desired class file
      * @return path to output .java file (including package name)
      */
     private Path getOutputClassPath(String packageName, String newClassName, Path root) throws ImplerException {
@@ -520,15 +526,13 @@ public class Implementor implements JarImpler {
      * @param packageName  name of package
      * @param newClassName desired name of class
      * @param root         start path
+     * @throws ImplerException if {@link Implementor#getOutputClassPath(String, String, Path)} fails with arguments
+     * <tt>packageName</tt>, <tt>newClassName</tt>, <tt>root</tt>
      * @return path to output .java file (including package name)
      */
     private Path getOutputJarPath(String packageName, String newClassName, Path root) throws ImplerException {
         String classPath = getOutputClassPath(packageName, newClassName, root).toString();
-        if (classPath.endsWith(".java")) {
-            return Paths.get(classPath.substring(0, classPath.length() - ".java".length()) + ".class");
-        } else {
-            throw new IllegalArgumentException("Token is not a java file");
-        }
+        return Paths.get(classPath.substring(0, classPath.length() - ".java".length()) + ".class");
     }
 
     /**
@@ -594,7 +598,7 @@ public class Implementor implements JarImpler {
      * Provides comand line interface for <tt>Implementor</tt> class.
      * Available methods: {@link Implementor#implement(Class, Path)} and {@link Implementor#implementJar(Class, Path)}
      * <p>
-     * arguments :
+     * @param args :
      * <ul>
      * <li> (1) class name, output path </li>
      * <li> (2) "-jar", class name, output path </li>

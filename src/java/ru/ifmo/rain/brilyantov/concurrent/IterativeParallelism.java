@@ -11,8 +11,8 @@ import java.util.stream.Stream;
 
 public class IterativeParallelism implements ListIP, ScalarIP {
 
-    private <T> Function<? super Stream<List<T>>, List<T>> merge() {
-        return list -> list.flatMap(Collection::stream).collect(Collectors.toList());
+    private <T> List<T> merge(Stream<? extends Stream<? extends T>> list) {
+        return list.flatMap(Function.identity()).collect(Collectors.toList());
     }
 
     @Override
@@ -21,7 +21,7 @@ public class IterativeParallelism implements ListIP, ScalarIP {
                 threads,
                 values,
                 list -> list.map(Object::toString).collect(Collectors.joining()),
-                list -> list.map(Object::toString).collect(Collectors.joining())
+                list -> list.collect(Collectors.joining())
         );
     }
 
@@ -30,8 +30,8 @@ public class IterativeParallelism implements ListIP, ScalarIP {
         return runInParallel(
                 threads,
                 values,
-                list -> list.filter(predicate).collect(Collectors.toList()),
-                merge()
+                list -> list.filter(predicate),
+                this::merge
         );
     }
 
@@ -40,8 +40,8 @@ public class IterativeParallelism implements ListIP, ScalarIP {
         return runInParallel(
                 threads,
                 values,
-                list -> list.map(f).collect(Collectors.toList()),
-                merge()
+                list -> list.map(f),
+                this::merge
         );
     }
 
@@ -76,25 +76,17 @@ public class IterativeParallelism implements ListIP, ScalarIP {
         );
     }
 
-//    private <T> T runInParallel(
-//            int threads,
-//            List<? extends T> values,
-//            Function<Stream<? extends T>, T> mapper
-//    ) throws InterruptedException {
-//        return runInParallel(threads, values, mapper, mapper);
-//    }
-
-    private <T, R> R runInParallel(
+    private <T, M, R> R runInParallel(
             int threads,
             List<? extends T> values,
-            Function<Stream<? extends T>, R> mapper,
-            Function<? super Stream<R>, R> reducer
+            Function<Stream<? extends T>, M> mapper,
+            Function<? super Stream<M>, R> reducer
     ) throws InterruptedException {
         return reduceTask(
                 mapTask(
                         partition(threads, values),
                         mapper
-                ).stream(),
+                ),
                 reducer
         );
     }
@@ -109,11 +101,11 @@ public class IterativeParallelism implements ListIP, ScalarIP {
         return partitionedList;
     }
 
-    private <T, R> List<R> mapTask(
+    private <T, M> Stream<M> mapTask(
             List<Stream<? extends T>> inputValues,
-            Function<Stream<? extends T>, R> mapper
+            Function<Stream<? extends T>, M> mapper
     ) throws InterruptedException {
-        List<R> intermediateValues = new ArrayList<>(Collections.nCopies(inputValues.size(), null));
+        List<M> intermediateValues = new ArrayList<>(Collections.nCopies(inputValues.size(), null));
         List<Thread> workingThreads = new ArrayList<>();
         for (int i = 0; i < inputValues.size(); i++) {
             final int index = i;
@@ -127,13 +119,13 @@ public class IterativeParallelism implements ListIP, ScalarIP {
         for (Thread thread : workingThreads) {
             thread.join();
         }
-        return intermediateValues;
+        return intermediateValues.stream();
     }
 
-    private <R> R reduceTask(
-            Stream<R> intermediateValues,
-            Function<? super Stream<R>, R> reducer
-    ) throws InterruptedException {
+    private <M, R> R reduceTask(
+            Stream<M> intermediateValues,
+            Function<? super Stream<M>, R> reducer
+    ) {
         return reducer.apply(intermediateValues);
     }
 
