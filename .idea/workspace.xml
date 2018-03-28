@@ -2,10 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98b9903b-cf6a-4225-9df5-6dc1d10b75ef" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/package-info.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.class" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java" />
+      <change beforePath="$PROJECT_DIR$/dock.sh" afterPath="$PROJECT_DIR$/dock.sh" />
+      <change beforePath="$PROJECT_DIR$/javadock/allclasses-frame.html" afterPath="$PROJECT_DIR$/javadock/allclasses-frame.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/allclasses-noframe.html" afterPath="$PROJECT_DIR$/javadock/allclasses-noframe.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/constant-values.html" afterPath="$PROJECT_DIR$/javadock/constant-values.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/deprecated-list.html" afterPath="$PROJECT_DIR$/javadock/deprecated-list.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/help-doc.html" afterPath="$PROJECT_DIR$/javadock/help-doc.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/index-all.html" afterPath="$PROJECT_DIR$/javadock/index-all.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/index.html" afterPath="$PROJECT_DIR$/javadock/index.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/Impler.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/Impler.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/ImplerException.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/ImplerException.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/JarImpler.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/JarImpler.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-frame.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-frame.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-summary.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-tree.html" afterPath="$PROJECT_DIR$/javadock/info/kgeorgiy/java/advanced/implementor/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/overview-frame.html" afterPath="$PROJECT_DIR$/javadock/overview-frame.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/overview-summary.html" afterPath="$PROJECT_DIR$/javadock/overview-summary.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/overview-tree.html" afterPath="$PROJECT_DIR$/javadock/overview-tree.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.MethodSignature.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.MethodSignature.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.UnicodePrinter.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.UnicodePrinter.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/Implementor.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-frame.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-frame.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-summary.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-summary.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-tree.html" afterPath="$PROJECT_DIR$/javadock/ru/ifmo/rain/brilyantov/implementor/package-tree.html" />
+      <change beforePath="$PROJECT_DIR$/javadock/serialized-form.html" afterPath="$PROJECT_DIR$/javadock/serialized-form.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -37,18 +59,18 @@
       <file leaf-file-name="run4.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run4.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
+            <state relative-caret-position="0">
               <caret line="2" column="206" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="206" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IterativeParallelism.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="IterativeParallelism.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+            <state relative-caret-position="1590">
+              <caret line="113" column="44" lean-forward="false" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -77,8 +99,8 @@
       <file leaf-file-name="Implementor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="27" column="14" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="14" />
+            <state relative-caret-position="268">
+              <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1891#1892#0" expanded="true" />
@@ -125,6 +147,26 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
               <caret line="1" column="59" lean-forward="false" selection-start-line="1" selection-start-column="59" selection-end-line="1" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package-info.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/package-info.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dock.sh" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dock.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="288" lean-forward="true" selection-start-line="0" selection-start-column="288" selection-end-line="0" selection-end-column="288" />
               <folding />
             </state>
           </provider>
@@ -665,6 +707,8 @@
         <option value="$PROJECT_DIR$/Manifest.txt" />
         <option value="$PROJECT_DIR$/jar5.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/package-info.java" />
+        <option value="$PROJECT_DIR$/dock.sh" />
       </list>
     </option>
   </component>
@@ -856,25 +900,34 @@
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="javadock" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="javadock" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="javadock" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="javadock" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
               <item name="rain" type="462c0819:PsiDirectoryNode" />
@@ -882,7 +935,8 @@
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="javadock" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
               <item name="rain" type="462c0819:PsiDirectoryNode" />
@@ -891,7 +945,8 @@
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="javadock" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
               <item name="rain" type="462c0819:PsiDirectoryNode" />
@@ -1195,7 +1250,7 @@
       <workItem from="1521912525423" duration="3707000" />
       <workItem from="1521988192518" duration="18746000" />
       <workItem from="1522070493408" duration="16031000" />
-      <workItem from="1522233425813" duration="706000" />
+      <workItem from="1522233425813" duration="1601000" />
     </task>
     <servers />
   </component>
@@ -1208,7 +1263,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104921000" />
+    <option name="totallyTimeSpent" value="105816000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1224,7 +1279,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30123797" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30811554" sideWeight="0.49353796" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26272354" sideWeight="0.49353796" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21647818" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
@@ -1297,14 +1352,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/Comparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="355" column="66" lean-forward="false" selection-start-line="355" selection-start-column="66" selection-end-line="355" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/student/Testing.kt" />
     <entry file="file://$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/student/StudentQuery.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1463,6 +1510,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="376">
           <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1551,7 +1599,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/run4.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
+        <state relative-caret-position="0">
           <caret line="2" column="206" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="206" />
           <folding />
         </state>
@@ -1568,30 +1616,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="31" column="32" lean-forward="false" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="27" column="14" lean-forward="false" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1891#1892#0" expanded="true" />
-            <element signature="e#1935#1936#0" expanded="true" />
-            <element signature="e#8848#8849#0" expanded="true" />
-            <element signature="e#8892#8893#0" expanded="true" />
-            <element signature="e#9088#9089#0" expanded="true" />
-            <element signature="e#9135#9136#0" expanded="true" />
-            <element signature="e#9352#9353#0" expanded="true" />
-            <element signature="e#9405#9406#0" expanded="true" />
-            <element signature="e#9620#9621#0" expanded="true" />
-            <element signature="e#9677#9678#0" expanded="true" />
-            <element signature="e#9946#9947#0" expanded="true" />
-            <element signature="e#10016#10017#0" expanded="true" />
-            <element signature="e#15564#15565#0" expanded="true" />
-            <element signature="e#15617#15618#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1620,8 +1644,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+        <state relative-caret-position="1590">
+          <caret line="113" column="44" lean-forward="false" selection-start-line="113" selection-start-column="33" selection-end-line="113" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="38" column="13" lean-forward="false" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1891#1892#0" expanded="true" />
+            <element signature="e#1935#1936#0" expanded="true" />
+            <element signature="e#8848#8849#0" expanded="true" />
+            <element signature="e#8892#8893#0" expanded="true" />
+            <element signature="e#9088#9089#0" expanded="true" />
+            <element signature="e#9135#9136#0" expanded="true" />
+            <element signature="e#9352#9353#0" expanded="true" />
+            <element signature="e#9405#9406#0" expanded="true" />
+            <element signature="e#9620#9621#0" expanded="true" />
+            <element signature="e#9677#9678#0" expanded="true" />
+            <element signature="e#9946#9947#0" expanded="true" />
+            <element signature="e#10016#10017#0" expanded="true" />
+            <element signature="e#15564#15565#0" expanded="true" />
+            <element signature="e#15617#15618#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/package-info.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dock.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="288" lean-forward="true" selection-start-line="0" selection-start-column="288" selection-end-line="0" selection-end-column="288" />
           <folding />
         </state>
       </provider>
