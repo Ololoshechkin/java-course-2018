@@ -116,10 +116,21 @@ public class IterativeParallelism implements ListIP, ScalarIP {
             workingThreads.add(thread);
             thread.start();
         }
+        boolean failed = false;
+        InterruptedException exception = new InterruptedException("At least 1 of threads failed to join");
         for (Thread thread : workingThreads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                exception.addSuppressed(e);
+                failed = true;
+            }
         }
-        return intermediateValues.stream();
+        if (failed) {
+            throw exception;
+        } else {
+            return intermediateValues.stream();
+        }
     }
 
     private <M, R> R reduceTask(
