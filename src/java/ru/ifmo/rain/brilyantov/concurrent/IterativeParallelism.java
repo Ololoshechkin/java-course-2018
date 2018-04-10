@@ -2,14 +2,26 @@ package ru.ifmo.rain.brilyantov.concurrent;
 
 import info.kgeorgiy.java.advanced.concurrent.ListIP;
 import info.kgeorgiy.java.advanced.concurrent.ScalarIP;
+import info.kgeorgiy.java.advanced.mapper.ParallelMapper;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class IterativeParallelism implements ListIP, ScalarIP {
+
+    private ParallelMapper mapper;
+
+    public IterativeParallelism(ParallelMapper mapper) {
+        this.mapper = mapper;
+    }
+
+    public IterativeParallelism() {
+        this(null);
+    }
 
     private <T> List<T> merge(Stream<? extends Stream<? extends T>> list) {
         return list.flatMap(Function.identity()).collect(Collectors.toList());
@@ -79,19 +91,21 @@ public class IterativeParallelism implements ListIP, ScalarIP {
     private <T, M, R> R runInParallel(
             int threads,
             List<? extends T> values,
-            Function<Stream<? extends T>, M> mapper,
-            Function<? super Stream<M>, R> reducer
+            Function<Stream<? extends T>, M> mapFunction,
+            Function<? super Stream<M>, R> reduceFunction
     ) throws InterruptedException {
         return reduceTask(
-                mapTask(
-                        partition(threads, values),
-                        mapper
-                ),
-                reducer
+                reduceFunction,
+                mapper != null
+                        ? mapper.map(mapFunction, partition(threads, values)).stream()
+                        : mapTask(mapFunction, partition(threads, values))
         );
     }
 
     private <T> List<Stream<? extends T>> partition(int threads, List<? extends T> values) {
+        if (threads <= 0) {
+            throw new IllegalArgumentException("Expected > 0 number of threads, but found : " + threads);
+        }
         List<Stream<? extends T>> partitionedList = new ArrayList<>();
         int blockSize = values.size() / threads + (values.size() % threads != 0 ? 1 : 0);
         for (int leftBound = 0; leftBound < values.size(); leftBound += blockSize) {
@@ -102,42 +116,23 @@ public class IterativeParallelism implements ListIP, ScalarIP {
     }
 
     private <T, M> Stream<M> mapTask(
-            List<Stream<? extends T>> inputValues,
-            Function<Stream<? extends T>, M> mapper
+            Function<Stream<? extends T>, M> mapper,
+            List<Stream<? extends T>> inputValues
     ) throws InterruptedException {
         List<M> intermediateValues = new ArrayList<>(Collections.nCopies(inputValues.size(), null));
         List<Thread> workingThreads = new ArrayList<>();
-        for (int i = 0; i < inputValues.size(); i++) {
-            final int index = i;
-            Thread thread = new Thread(() -> intermediateValues.set(
-                    index,
-                    mapper.apply(inputValues.get(index))
-            ));
-            workingThreads.add(thread);
-            thread.start();
-        }
-        boolean failed = false;
-        InterruptedException exception = new InterruptedException("At least 1 of threads failed to join");
-        for (Thread thread : workingThreads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                exception.addSuppressed(e);
-                failed = true;
-            }
-        }
-        if (failed) {
-            throw exception;
-        } else {
-            return intermediateValues.stream();
-        }
+        ParallelMapperImpl.startThreads(inputValues.size(), workingThreads, i -> () -> intermediateValues.set(
+                i, mapper.apply(inputValues.get(i))
+        ));
+        ParallelMapperImpl.endThreads(workingThreads);
+        return intermediateValues.stream();
     }
 
     private <M, R> R reduceTask(
-            Stream<M> intermediateValues,
-            Function<? super Stream<M>, R> reducer
+            Function<? super Stream<M>, R> reduceFunction,
+            Stream<M> intermediateValues
     ) {
-        return reducer.apply(intermediateValues);
+        return reduceFunction.apply(intermediateValues);
     }
 
 }

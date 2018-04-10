@@ -83,7 +83,7 @@ public class Implementor implements JarImpler {
         private String unicodify(String text) {
             StringBuilder builder = new StringBuilder();
             for (char c : text.toCharArray()) {
-                builder.append(2 * c >= Character.MAX_VALUE
+                builder.append(c >= 127
                         ? String.format("\\u%04X", (int) c)
                         : c
                 );
@@ -115,7 +115,7 @@ public class Implementor implements JarImpler {
      * joined by ", "
      *
      * @param list      list to be joined
-     * @param <T> type of elements in <tt>list</tt>
+     * @param <T>       type of elements in <tt>list</tt>
      * @param transform function to be applied to all elements of the given <tt>list</tt>
      * @return joined sequence of transformed elements separated by ", "
      */
@@ -180,15 +180,15 @@ public class Implementor implements JarImpler {
      * Current <tt>method</tt>'s arguments are delegated to <tt>super</tt>
      */
     private static String getMethodImpl(Executable method, String newClassName) {
-        String returnTypeName;
+        String returnTypeAndName;
         Class<?> returnType;
         if (method instanceof Method) {
             Method mtd = ((Method) method);
             returnType = mtd.getReturnType();
-            returnTypeName = returnType.getCanonicalName() + " " + mtd.getName();
+            returnTypeAndName = returnType.getCanonicalName() + " " + mtd.getName();
         } else {
             returnType = null;
-            returnTypeName = newClassName;
+            returnTypeAndName = newClassName;
         }
         String returnTypeRetValue = "";
         if (returnType != null) {
@@ -198,16 +198,14 @@ public class Implementor implements JarImpler {
         }
         int modifiersMask = method.getModifiers() & ~Modifier.ABSTRACT & ~Modifier.TRANSIENT & ~Modifier.NATIVE;
         String modifiers = Modifier.toString(modifiersMask) + (modifiersMask != 0 ? " " : "");
-        return String.format(
-                "%n   %s%s(%s) %s{%n        %s;%n   }%n",
-                modifiers,
-                returnTypeName,
-                getArguments(method, true),
-                getThrows(method),
-                method instanceof Method
-                        ? "return" + returnTypeRetValue
-                        : "super(" + getArguments(method, false) + ")"
-        );
+        String arguments = getArguments(method, true);
+        String throwsStatement = getThrows(method);
+        String body = method instanceof Method
+                ? "return" + returnTypeRetValue + ";"
+                : "super(" + getArguments(method, false) + ");";
+
+        return modifiers + "   " + returnTypeAndName + "(" + arguments + ") " + throwsStatement +
+                "{\n" + "        " + body + "\n   }\n";
     }
 
     /**
@@ -222,6 +220,7 @@ public class Implementor implements JarImpler {
 
         /**
          * instantiates new {@link MethodSignature} wrapping the given <tt>method</tt>
+         *
          * @param method method to weap
          */
         MethodSignature(Method method) {
@@ -235,15 +234,6 @@ public class Implementor implements JarImpler {
          */
         private String getName() {
             return method.getName();
-        }
-
-        /**
-         * get's return type of wrapped <tt>method</tt>
-         *
-         * @return delegated to {@link Method#getReturnType()} of <tt>method</tt>
-         */
-        private Class<?> getReturnType() {
-            return method.getReturnType();
         }
 
         /**
@@ -282,7 +272,7 @@ public class Implementor implements JarImpler {
          * @param obj object to be compared with
          * @return <ul>
          * <li> <tt>true</tt> if <tt>obj</tt> is an instance of {@link MethodSignature} and values returned by
-         * {@link MethodSignature#getName()}, {@link MethodSignature#getReturnType()} and {@link MethodSignature#getArgs()}
+         * {@link MethodSignature#getName()} and {@link MethodSignature#getArgs()}
          * of both <tt>this</tt> and <tt>obj</tt> equals. </li>
          * <li> <tt>false</tt>, otherwise </li>
          * </ul>
@@ -473,6 +463,8 @@ public class Implementor implements JarImpler {
         final List<String> args = new ArrayList<>();
         args.add("-cp");
         args.add(root + File.pathSeparator + System.getProperty("java.class.path"));
+        args.add("-encoding");
+        args.add("UTF-8");
         args.add(file);
         int exitCode = compiler.run(null, null, null, args.toArray(new String[args.size()]));
         if (exitCode != 0) {
@@ -485,7 +477,7 @@ public class Implementor implements JarImpler {
      *
      * @param jarFile output jar file path
      * @param file    input .class file path
-     * @param root root directory
+     * @param root    root directory
      * @throws IOException if fails to write in jar file
      */
     private void jarWrite(Path jarFile, Path file, String root) throws IOException {
@@ -506,8 +498,8 @@ public class Implementor implements JarImpler {
      * @param packageName  name of package
      * @param newClassName desired name of class
      * @param root         start path
-     * @throws ImplerException if fails to create containing directory of desired class file
      * @return path to output .java file (including package name)
+     * @throws ImplerException if fails to create containing directory of desired class file
      */
     private Path getOutputClassPath(String packageName, String newClassName, Path root) throws ImplerException {
         Path containingDirectory = root.resolve(packageName.replace('.', File.separatorChar));
@@ -523,16 +515,23 @@ public class Implementor implements JarImpler {
      * Returns output .jar file path for class with name <tt>newClassName</tt>, of package <tt>packageName</tt>
      * starting with <tt>root</tt> Path
      *
+     *
      * @param packageName  name of package
      * @param newClassName desired name of class
      * @param root         start path
-     * @throws ImplerException if {@link Implementor#getOutputClassPath(String, String, Path)} fails with arguments
-     * <tt>packageName</tt>, <tt>newClassName</tt>, <tt>root</tt>
      * @return path to output .java file (including package name)
+     * @throws ImplerException if {@link Implementor#getOutputClassPath(String, String, Path)} fails with arguments
+     *                         <tt>packageName</tt>, <tt>newClassName</tt>, <tt>root</tt>
      */
     private Path getOutputJarPath(String packageName, String newClassName, Path root) throws ImplerException {
         String classPath = getOutputClassPath(packageName, newClassName, root).toString();
-        return Paths.get(classPath.substring(0, classPath.length() - ".java".length()) + ".class");
+        Path result;
+        try {
+            result = Paths.get(classPath.substring(0, classPath.length() - ".java".length()) + ".class");
+        } catch (InvalidPathException e) {
+            throw new ImplerException("Output jar path is invalid (failed to create path for .class file)");
+        }
+        return result;
     }
 
     /**
@@ -556,13 +555,6 @@ public class Implementor implements JarImpler {
     @Override
     public void implementJar(Class<?> token, Path jarFile) throws ImplerException {
         try {
-            if (jarFile.toAbsolutePath().getParent() != null) {
-                try {
-                    Files.createDirectories(jarFile.toAbsolutePath().getParent());
-                } catch (IOException e) {
-                    throw new ImplerException("Unable to create directories for output file", e);
-                }
-            }
             Path root = Files.createTempDirectory(jarFile.toAbsolutePath().getParent(), "temp_production");
             implement(token, root);
             Path javaFilePath = getOutputClassPath(packageNameFor(token), implNameFor(token), root);
@@ -598,18 +590,19 @@ public class Implementor implements JarImpler {
      * Provides comand line interface for <tt>Implementor</tt> class.
      * Available methods: {@link Implementor#implement(Class, Path)} and {@link Implementor#implementJar(Class, Path)}
      * <p>
+     *
      * @param args :
-     * <ul>
-     * <li> (1) class name, output path </li>
-     * <li> (2) "-jar", class name, output path </li>
-     * </ul>
-     * <p>
-     * Whether if {@link Class} for given class name cannot be loaded or if given an incorrect <tt>args</tt> array
-     * or if invoked method (<tt>implement</tt> or <tt>implementJar</tt>) fails
-     * then prints corresponding output messages
-     * <p>
-     * When given arguments(1) invokes {@link Implementor#implement(Class, Path)}
-     * When given arguments(2) invokes {@link Implementor#implementJar(Class, Path)}
+     *             <ul>
+     *             <li> (1) class name, output path </li>
+     *             <li> (2) "-jar", class name, output path </li>
+     *             </ul>
+     *             <p>
+     *             Whether if {@link Class} for given class name cannot be loaded or if given an incorrect <tt>args</tt> array
+     *             or if invoked method (<tt>implement</tt> or <tt>implementJar</tt>) fails
+     *             then prints corresponding output messages
+     *             <p>
+     *             When given arguments(1) invokes {@link Implementor#implement(Class, Path)}
+     *             When given arguments(2) invokes {@link Implementor#implementJar(Class, Path)}
      */
     public static void main(String[] args) {
         if (args == null ||

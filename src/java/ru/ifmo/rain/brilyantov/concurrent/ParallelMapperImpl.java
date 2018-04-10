@@ -94,7 +94,7 @@ public class ParallelMapperImpl implements ParallelMapper {
             }
         }
         synchronized (cnt) {
-            while (cnt.isZero()) {
+            while (!cnt.isZero()) {
                 cnt.wait();
             }
         }
