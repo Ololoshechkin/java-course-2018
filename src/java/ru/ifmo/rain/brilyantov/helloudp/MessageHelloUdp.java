@@ -28,7 +28,7 @@ public class MessageHelloUdp {
 
         @Override
         public String toString() {
-            return "(thread = " + threadId + ", number = "  +requestNumber + ")";
+            return "(thread = " + threadId + ", number = " + requestNumber + ")";
         }
     }
 
@@ -55,10 +55,12 @@ public class MessageHelloUdp {
 
     public static MessageHelloUdp fromString(String requestString) throws MessageHelloUdpParseException {
         int digitPos = 0;
+        int underlinePos = 0;
         while (digitPos < requestString.length() && !Character.isDigit(requestString.charAt(digitPos)))
             digitPos++;
-        int underlinePos = requestString.indexOf('_');
-        if (underlinePos == -1) {
+        while (underlinePos < requestString.length() && requestString.charAt(underlinePos) != '_')
+            underlinePos++;
+        if (underlinePos == requestString.length()) {
             throw new MessageHelloUdpParseException("no \"_\" found in the given string");
         }
         if (digitPos == requestString.length()) {
@@ -84,8 +86,12 @@ public class MessageHelloUdp {
         }
     }
 
+    public static String packetToString(DatagramPacket packet) {
+        return new String(packet.getData(), 0, packet.getLength());
+    }
+
     public static MessageHelloUdp fromPacket(DatagramPacket packet) throws MessageHelloUdpParseException {
-        return fromString(new String(packet.getData(), 0, packet.getLength()));
+        return fromString(packetToString(packet));
     }
 
     MessageHelloUdp transformed() {

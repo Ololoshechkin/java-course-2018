@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.*;
+import java.util.function.*;
 
 public class WebCrawler implements Crawler {
 
@@ -23,7 +24,6 @@ public class WebCrawler implements Crawler {
         this.downloadersPool = Executors.newFixedThreadPool(downloaders);
         this.extractorsPool = Executors.newFixedThreadPool(extractors);
         this.perHost = perHost;
-        // System.out.println("perHost = " + perHost);
     }
 
     private Semaphore addSemaphoreIfNeeded(String host) {
@@ -51,23 +51,33 @@ public class WebCrawler implements Crawler {
     }
 
     private void downloadImplDfs(String url, int depth, ResultWrapper resultWrapper, Phaser phaser) {
+        System.out.println("url:" + url);
         if (depth > 0 && resultWrapper.downloaded.add(url)) {
             submitToDownloaderWithHostBarier(url, resultWrapper, phaser, () -> {
                 try {
+                     System.out.println("5_url:" + url);
                     Document dock = downloader.download(url);
+                     System.out.println("6_url:" + url);
                     phaser.register();
+                     System.out.println("7_url:" + url);
                     extractorsPool.submit(() -> {
+                        System.out.println("8_url:" + url);
                         try {
                             dock
                             .extractLinks()
-                            .forEach(link -> downloadImplDfs(link, depth - 1, resultWrapper, phaser));
+                            .forEach(link -> {
+                                System.out.println("link:" + link);
+                                downloadImplDfs(link, depth - 1, resultWrapper, phaser)
+                            });
                         } catch (IOException e) {
+                            System.out.println("e_url:" + url);
                             resultWrapper.errors.put(url, e);
                         } finally {
                             phaser.arrive();
                         }
                     });
                 } catch (IOException e) {
+                    System.out.println("e_url:" + url);
                     resultWrapper.errors.put(url, e);
                 } finally {
                     phaser.arrive();
@@ -79,18 +89,25 @@ public class WebCrawler implements Crawler {
     private void submitToDownloaderWithHostBarier(String url, ResultWrapper resultWrapper, Phaser phaser, Runnable task) {
         try {
             String host = URLUtils.getHost(url);
+            System.out.println("host:" + host);
             phaser.register();
             Semaphore semaphore = addSemaphoreIfNeeded(host);
+             System.out.println("1_url:" + url);
             downloadersPool.submit(() -> {
                 try {
+                    System.out.println("2_url:" + url);
                     semaphore.acquire();
+                    System.out.println("3_url:" + url);
                     task.run();
+                    System.out.println("4_url:" + url);
                 } catch (InterruptedException ignored) {
+                    System.out.println("e_url:" + url);
                 } finally {
                     semaphore.release();
                 }
             });
         } catch (MalformedURLException e) {
+            System.out.println("e_url:" + url);
             resultWrapper.errors.put(url, e);
         }
     }
