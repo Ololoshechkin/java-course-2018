@@ -98,4 +98,8 @@ public class MessageHelloUdp {
         return new MessageHelloUdp("Hello, " + queryPrefix, requestId);
     }
 
+    public boolean check(MessageHelloUdp query) {
+        return query.requestId.equals(requestId) && queryPrefix.endsWith(query.queryPrefix);
+    }
+
 }

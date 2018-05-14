@@ -4,26 +4,45 @@ import info.kgeorgiy.java.advanced.hello.HelloClient;
 import ru.ifmo.rain.brilyantov.concurrent.ParallelMapperImpl;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.RequestId;
 
 public class HelloUDPClient implements HelloClient {
 
-    private Multiplexor multiplexor = null;
+    private static final int MAX_PORT = 65536;
 
     public static void main(String[] args) {
+        if (args == null || args.length != 5) {
+            System.out.println("expected exactly 5 args : host, port, queryPrefix, threadsCount, queriesPerThread");
+            return;
+        }
         String host = args[0];
-        int port = Integer.parseInt(args[1]);
         String queryPrefix = args[2];
-        int threadsCount = Integer.parseInt(args[3]);
-        int queriesPerThread = Integer.parseInt(args[4]);
+        int port;
+        int threadsCount;
+        int queriesPerThread;
+        try {
+            port = Integer.parseInt(args[1]);
+            threadsCount = Integer.parseInt(args[3]);
+            queriesPerThread = Integer.parseInt(args[4]);
+        } catch (NumberFormatException e) {
+            System.out.println("port, threadsCount and queriesPerThread should be a integers");
+            return;
+        }
+        if (port < 0 || port > MAX_PORT) {
+            System.out.println("port should be in [1..65536]");
+            return;
+        }
+        if (threadsCount < 0) {
+            System.out.println("threadsCount should be positive number");
+            return;
+        }
         System.out.println("running client... host = " + host + " , port = " + port + " , prefix = " + queryPrefix);
         try {
             new HelloUDPClient().run(
@@ -38,56 +57,49 @@ public class HelloUDPClient implements HelloClient {
         }
     }
 
+    private MessageHelloUdp readCheckedMessage(HelloUDPStreams streams, MessageHelloUdp query) throws IOException {
+        MessageHelloUdp response;
+        while (true) {
+            streams.sendMessage(query);
+            try {
+                response = streams.readMessage();
+                if (response.check(query)) {
+                    break;
+                }
+            } catch (MessageHelloUdp.MessageHelloUdpParseException | IOException e) {
+                System.out.println("received broken UDP packet");
+            }
+        }
+        System.out.println("response : " + response + " we are : " + query.requestId);
+        return response;
+    }
+
     @Override
     public void run(String host, int port, String queryPrefix, int threadCount, int queriesPerThread) {
         System.out.println(queryPrefix);
-        final DatagramSocket socket;
-        try {
-            socket = new DatagramSocket();
-        } catch (SocketException e) {
-            System.out.println("failed to start connection" + e.getMessage());
-            return;
-        }
-        try {
-            this.multiplexor = new Multiplexor(InetAddress.getByName(host), port, socket);
-        } catch (UnknownHostException e) {
-            System.out.println("invalid host name");
-            return;
-        }
         List<Thread> threads = new ArrayList<>();
         ParallelMapperImpl.startThreads(threadCount, threads, threadId -> () -> {
-            for (int j = 0; j < queriesPerThread; j++) {
-                RequestId requestId = new RequestId(threadId, j);
-                try {
-                    MessageHelloUdp query = new MessageHelloUdp(queryPrefix, requestId);
-                    String expectedResponce = query.transformed().toString();
-                    String response = null;
-                    while (true) {
-                        multiplexor.sendRequest(query);
-                        CompletableFuture<MessageHelloUdp> responseFuture = multiplexor.expectResponce(requestId);
-                        try {
-                            response = responseFuture.get(500, TimeUnit.MILLISECONDS).toString();
-                            System.out.println("response : " + response + " we are : " + threadId);
-                            if (response.equals(expectedResponce)) {
-                                break;
-                            }
-                        } catch (TimeoutException ignored) {
-                        } catch (InterruptedException | ExecutionException e) {
-                            break;
-                        }
+            try (HelloUDPStreams streams = new HelloUDPStreams(
+                    InetAddress.getByName(host),
+                    port,
+                    new DatagramSocket()
+            )) {
+                for (int i = 0; i < queriesPerThread; i++) {
+                    RequestId requestId = new RequestId(threadId, i);
+                    try {
+                        MessageHelloUdp query = new MessageHelloUdp(queryPrefix, requestId);
+                        MessageHelloUdp response = readCheckedMessage(streams, query);
+                        System.out.println("received response : " + response);
+                    } catch (IOException e) {
+                        System.out.println("failed to send request in thread " + threadId);
                     }
-                    System.out.println("response : " + response + " we are : " + threadId);
-                } catch (IOException e) {
-                    System.out.println("failed to send request in thread " + threadId);
                 }
+            } catch (UnknownHostException | SocketException e) {
+                System.out.println("failed to connect to server");
             }
         });
         try {
-            try {
-                ParallelMapperImpl.endThreads(threads);
-            } finally {
-                multiplexor.shutdown();
-            }
+            ParallelMapperImpl.endThreads(threads);
         } catch (InterruptedException e) {
             System.out.println("failed to finish client's job : " + e.getMessage());
         }

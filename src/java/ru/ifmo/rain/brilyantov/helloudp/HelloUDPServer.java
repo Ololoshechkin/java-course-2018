@@ -1,30 +1,27 @@
 package ru.ifmo.rain.brilyantov.helloudp;
 
 import info.kgeorgiy.java.advanced.hello.HelloServer;
-import ru.ifmo.rain.brilyantov.concurrent.ParallelMapperImpl;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.packetToString;
 
 public class HelloUDPServer implements HelloServer {
 
-    private static int BUF_SIZE = 1024;
-    private DatagramSocket socket = null;
-    private List<Thread> threads = new ArrayList<>();
+    //    private List<Thread> threads = new ArrayList<>();
+    private ExecutorService threadPool;
+    private HelloUDPStreams streams;
 
-    private void process(DatagramPacket packet) {
-        String reply = "Hello, " + MessageHelloUdp.packetToString(packet);
+    private void process(HelloUDPStreams streams, DatagramPacket packet) {
+        String reply = "Hello, " + packetToString(packet);
         try {
-            Multiplexor.sendMessage(
-                    socket,
-                    packet.getAddress(),
-                    packet.getPort(),
-                    reply
-            );
+            streams.sendString(reply);
         } catch (IOException e) {
             System.out.println("failed to send reply");
         }
@@ -39,32 +36,37 @@ public class HelloUDPServer implements HelloServer {
     @Override
     public void start(int port, int threadCount) {
         try {
-            socket = new DatagramSocket(port);
+            streams = new HelloUDPStreams(
+                    InetAddress.getLoopbackAddress(),
+                    port,
+                    new DatagramSocket(port)
+            );
+            Runnable task = () -> {
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        DatagramPacket packet = streams.readPacket();
+                        process(streams, packet);
+                    } catch (IOException e) {
+                        if (!streams.socketIsClosed()) {
+                            System.out.println("failed to read message");
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            };
+            threadPool = Executors.newFixedThreadPool(threadCount);
+            for (int i = 0; i < threadCount; i++) {
+                threadPool.submit(task);
+            }
         } catch (SocketException e) {
             System.out.println("failed to create server's socket");
-            return;
         }
-        byte[] buffer = new byte[BUF_SIZE];
-        Runnable task = () -> {
-            while (!Thread.currentThread().isInterrupted()) {
-                try {
-                    process(Multiplexor.readPacket(socket, buffer));
-                } catch (IOException e) {
-                    System.out.println("failed to read message");
-                    break;
-                }
-            }
-        };
-        ParallelMapperImpl.startThreads(threadCount, threads, i -> task);
     }
 
     @Override
     public void close() {
-        try {
-            threads.stream().forEach(Thread::interrupt);
-            ParallelMapperImpl.endThreads(threads);
-        } catch (InterruptedException e) {
-            System.out.println("failed to finish working threads : " + e.getMessage());
-        }
+        threadPool.shutdown();
+        streams.close();
     }
 }
