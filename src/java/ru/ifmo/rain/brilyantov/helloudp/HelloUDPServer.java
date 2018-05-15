@@ -5,68 +5,95 @@ import info.kgeorgiy.java.advanced.hello.HelloServer;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.packetToString;
 
+
 public class HelloUDPServer implements HelloServer {
 
-    //    private List<Thread> threads = new ArrayList<>();
     private ExecutorService threadPool;
     private HelloUDPStreams streams;
+    private boolean isRunning = true;
 
-    private void process(HelloUDPStreams streams, DatagramPacket packet) {
-        String reply = "Hello, " + packetToString(packet);
-        try {
-            streams.sendString(reply);
-        } catch (IOException e) {
-            System.out.println("failed to send reply");
-        }
+    private String process(String request) {
+        return "Hello, " + request;
     }
 
-    public static void main(String[] args) {
-        int port = Integer.parseInt(args[0]);
-        int threadsCount = Integer.parseInt(args[1]);
-        new HelloUDPServer().start(port, threadsCount);
-    }
-
-    @Override
-    public void start(int port, int threadCount) {
+    public void start(int port, int threads) {
         try {
-            streams = new HelloUDPStreams(
-                    InetAddress.getLoopbackAddress(),
-                    port,
-                    new DatagramSocket(port)
-            );
+            streams = new HelloUDPStreams(new DatagramSocket(port));
+            threadPool = Executors.newFixedThreadPool(threads);
             Runnable task = () -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
-                        DatagramPacket packet = streams.readPacket();
-                        process(streams, packet);
+//                        byte[] receiveBuffer = new byte[streams.getSocket().getReceiveBufferSize()];
+//                        DatagramPacket receivePacket = streams.getReceivePacket(receiveBuffer);
+//                        streams.getSocket().receive(receivePacket);
+
+                        DatagramPacket receivePacket = streams.readPacket();
+
+
+                        String requestMsg = packetToString(receivePacket);
+//                        DatagramPacket request = streams.readPacket();
+//                        String requestMsg = packetToString(request);
+//                        System.out.println("request : " + requestMsg);
+                        String response = process(requestMsg);
+                        streams.sendString(response, receivePacket.getSocketAddress());
+//                        String response = "Hello, " + requestMsg;
+//                        byte[] responseBuffer = response.getBytes(StandardCharsets.UTF_8);
+//
+//                        DatagramPacket packetToSend = new DatagramPacket(
+//                                responseBuffer,
+//                                responseBuffer.length
+//                        );
+//                        packetToSend.setSocketAddress(receivePacket.getSocketAddress());
+//
+//                        streams.sendPacket(packetToSend);
                     } catch (IOException e) {
-                        if (!streams.socketIsClosed()) {
-                            System.out.println("failed to read message");
-                        } else {
-                            break;
+                        if (isRunning) {
+                            System.err.println("Error working with datagram: " + e.getMessage());
                         }
                     }
                 }
             };
-            threadPool = Executors.newFixedThreadPool(threadCount);
-            for (int i = 0; i < threadCount; i++) {
-                threadPool.submit(task);
-            }
+            IntStream.range(0, threads).forEach(i -> threadPool.submit(task));
         } catch (SocketException e) {
-            System.out.println("failed to create server's socket");
+            System.err.println("Failed to bind to address");
         }
     }
 
     @Override
     public void close() {
-        threadPool.shutdown();
+        threadPool.shutdownNow();
         streams.close();
+        isRunning = false;
+    }
+
+    private static final String ERROR_MSG = "Running:\n" +
+            "HelloUDPServer <port> <number of threads>";
+
+    public static void main(String[] args) {
+        if (args == null || args.length != 2 || args[0] == null || args[1] == null) {
+            System.out.println(ERROR_MSG);
+            return;
+        }
+
+        int port;
+        int threads;
+
+        try {
+            port = Integer.parseInt(args[0]);
+            threads = Integer.parseInt(args[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing number " + e.getMessage());
+            return;
+        }
+
+        new HelloUDPServer().start(port, threads);
     }
 }

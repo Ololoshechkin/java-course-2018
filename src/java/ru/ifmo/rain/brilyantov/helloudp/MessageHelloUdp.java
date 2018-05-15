@@ -1,6 +1,7 @@
 package ru.ifmo.rain.brilyantov.helloudp;
 
 import java.net.DatagramPacket;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 
 public class MessageHelloUdp {
@@ -87,15 +88,7 @@ public class MessageHelloUdp {
     }
 
     public static String packetToString(DatagramPacket packet) {
-        return new String(packet.getData(), 0, packet.getLength());
-    }
-
-    public static MessageHelloUdp fromPacket(DatagramPacket packet) throws MessageHelloUdpParseException {
-        return fromString(packetToString(packet));
-    }
-
-    MessageHelloUdp transformed() {
-        return new MessageHelloUdp("Hello, " + queryPrefix, requestId);
+        return new String(packet.getData(), packet.getOffset(), packet.getLength(), StandardCharsets.UTF_8);
     }
 
     public boolean check(MessageHelloUdp query) {

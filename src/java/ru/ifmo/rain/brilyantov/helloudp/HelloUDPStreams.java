@@ -1,57 +1,59 @@
 package ru.ifmo.rain.brilyantov.helloudp;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 
-import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.fromString;
 import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.packetToString;
 
 public class HelloUDPStreams implements AutoCloseable {
-    private final InetAddress serverAddress;
-    private final int port;
     private final DatagramSocket socket;
-    private static int SOCKET_TIMEOUT = 100;
-    private byte[] receiveBuffer;
+    private static final int SOCKET_TIMEOUT = 500;
 
-    public HelloUDPStreams(InetAddress serverAddress, int port, DatagramSocket socket) throws SocketException {
-        this.serverAddress = serverAddress;
-        this.port = port;
+    private byte[] createReceiveBuffer() throws SocketException {
+        return new byte[socket.getReceiveBufferSize()];
+    }
+
+    public HelloUDPStreams(DatagramSocket socket) throws SocketException {
         this.socket = socket;
-        receiveBuffer = new byte[socket.getReceiveBufferSize()];
+        this.socket.setSoTimeout(SOCKET_TIMEOUT);
     }
 
-    public void sendString(String requestMsg) throws IOException {
+    public void sendString(
+            String requestMsg,
+            SocketAddress destinationAddress
+    ) throws IOException {
         byte[] sendBuffer = requestMsg.getBytes(StandardCharsets.UTF_8);
-        DatagramPacket message = new DatagramPacket(sendBuffer, sendBuffer.length, serverAddress, port);
-        socket.send(message);
+        DatagramPacket packet = new DatagramPacket(
+                sendBuffer,
+                0,
+                sendBuffer.length,
+                destinationAddress
+        );
+        sendPacket(packet);
     }
 
-    public void sendMessage(MessageHelloUdp requestMsg) throws IOException {
-        sendString(requestMsg.toString());
+    DatagramSocket getSocket() {
+        return socket;
+    }
+
+    void sendPacket(DatagramPacket packet) throws IOException {
+        socket.send(packet);
+    }
+
+    DatagramPacket getReceivePacket(byte[] receiveBuffer) {
+        return new DatagramPacket(receiveBuffer, receiveBuffer.length);
     }
 
     public DatagramPacket readPacket() throws IOException {
+        byte[] receiveBuffer = createReceiveBuffer();
         DatagramPacket packet = new DatagramPacket(receiveBuffer, receiveBuffer.length);
-        socket.setSoTimeout(SOCKET_TIMEOUT);
         socket.receive(packet);
         return packet;
     }
 
-    public String readString() throws IOException {
+    protected String readString() throws IOException {
         return packetToString(readPacket());
-    }
-
-    public MessageHelloUdp readMessage() throws IOException, MessageHelloUdp.MessageHelloUdpParseException {
-        String responce = readString();
-        return fromString(responce);
-    }
-
-    public boolean socketIsClosed() {
-        return socket.isClosed();
     }
 
     @Override

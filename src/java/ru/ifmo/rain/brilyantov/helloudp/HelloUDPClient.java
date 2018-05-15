@@ -1,15 +1,17 @@
 package ru.ifmo.rain.brilyantov.helloudp;
 
 import info.kgeorgiy.java.advanced.hello.HelloClient;
-import ru.ifmo.rain.brilyantov.concurrent.ParallelMapperImpl;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.RequestId;
 
@@ -57,7 +59,7 @@ public class HelloUDPClient implements HelloClient {
         }
     }
 
-    private MessageHelloUdp readCheckedMessage(HelloUDPStreams streams, MessageHelloUdp query) throws IOException {
+    private MessageHelloUdp readCheckedMessage(HelloUDPClientStreams streams, MessageHelloUdp query) throws IOException {
         MessageHelloUdp response;
         while (true) {
             streams.sendMessage(query);
@@ -77,9 +79,9 @@ public class HelloUDPClient implements HelloClient {
     @Override
     public void run(String host, int port, String queryPrefix, int threadCount, int queriesPerThread) {
         System.out.println(queryPrefix);
-        List<Thread> threads = new ArrayList<>();
-        ParallelMapperImpl.startThreads(threadCount, threads, threadId -> () -> {
-            try (HelloUDPStreams streams = new HelloUDPStreams(
+        ExecutorService threadPool = Executors.newFixedThreadPool(threadCount);
+        Function<Integer, Callable<Void>> taskGen = threadId -> () -> {
+            try (HelloUDPClientStreams streams = new HelloUDPClientStreams(
                     InetAddress.getByName(host),
                     port,
                     new DatagramSocket()
@@ -97,11 +99,25 @@ public class HelloUDPClient implements HelloClient {
             } catch (UnknownHostException | SocketException e) {
                 System.out.println("failed to connect to server");
             }
-        });
+            return null;
+        };
         try {
-            ParallelMapperImpl.endThreads(threads);
-        } catch (InterruptedException e) {
-            System.out.println("failed to finish client's job : " + e.getMessage());
+            threadPool.invokeAll(
+                    IntStream
+                            .range(0, threadCount)
+                            .boxed()
+                            .map(taskGen)
+                            .collect(Collectors.toList())
+            ).forEach(future -> {
+                try {
+                    future.get();
+                } catch (InterruptedException | ExecutionException e) {
+                    System.out.println("failed to invoke task");
+                }
+            });
+        } catch (Exception e) {
+            System.out.println("failed to invoke all given tasks");
         }
+        threadPool.shutdown();
     }
 }
