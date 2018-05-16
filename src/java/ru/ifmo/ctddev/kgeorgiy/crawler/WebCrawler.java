@@ -1,14 +1,13 @@
 package ru.ifmo.ctddev.kgeorgiy.crawler;
 
+import com.sun.javafx.binding.StringFormatter;
 import info.kgeorgiy.java.advanced.crawler.*;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.*;
 
 public class WebCrawler implements Crawler {
@@ -17,18 +16,22 @@ public class WebCrawler implements Crawler {
     private final ExecutorService downloadersPool;
     private final ExecutorService extractorsPool;
     private final int perHost;
-    private final Map<String, Semaphore> semaphorePerHost = new ConcurrentHashMap<>();
+    private final Map<String, TaskPoolPerHost> tasksPerHost = new ConcurrentHashMap<>();
+
+    private TaskPoolPerHost getTaskPoolForHost(String hostname) {
+        synchronized (tasksPerHost) {
+            if (!tasksPerHost.containsKey(hostname)) {
+                tasksPerHost.put(hostname, new TaskPoolPerHost());
+            }
+            return tasksPerHost.get(hostname);
+        }
+    }
 
     public WebCrawler(Downloader downloader, int downloaders, int extractors, int perHost) {
         this.downloader = downloader;
         this.downloadersPool = Executors.newFixedThreadPool(downloaders);
         this.extractorsPool = Executors.newFixedThreadPool(extractors);
         this.perHost = perHost;
-    }
-
-    private Semaphore addSemaphoreIfNeeded(String host) {
-        semaphorePerHost.putIfAbsent(host, new Semaphore(perHost));
-        return semaphorePerHost.get(host);
     }
 
     @Override
@@ -51,33 +54,23 @@ public class WebCrawler implements Crawler {
     }
 
     private void downloadImplDfs(String url, int depth, ResultWrapper resultWrapper, Phaser phaser) {
-        System.out.println("url:" + url);
         if (depth > 0 && resultWrapper.downloaded.add(url)) {
             submitToDownloaderWithHostBarier(url, resultWrapper, phaser, () -> {
                 try {
-                     System.out.println("5_url:" + url);
                     Document dock = downloader.download(url);
-                     System.out.println("6_url:" + url);
                     phaser.register();
-                     System.out.println("7_url:" + url);
                     extractorsPool.submit(() -> {
-                        System.out.println("8_url:" + url);
                         try {
                             dock
-                            .extractLinks()
-                            .forEach(link -> {
-                                System.out.println("link:" + link);
-                                downloadImplDfs(link, depth - 1, resultWrapper, phaser)
-                            });
+                                    .extractLinks()
+                                    .forEach(link -> downloadImplDfs(link, depth - 1, resultWrapper, phaser));
                         } catch (IOException e) {
-                            System.out.println("e_url:" + url);
                             resultWrapper.errors.put(url, e);
                         } finally {
                             phaser.arrive();
                         }
                     });
                 } catch (IOException e) {
-                    System.out.println("e_url:" + url);
                     resultWrapper.errors.put(url, e);
                 } finally {
                     phaser.arrive();
@@ -86,29 +79,52 @@ public class WebCrawler implements Crawler {
         }
     }
 
-    private void submitToDownloaderWithHostBarier(String url, ResultWrapper resultWrapper, Phaser phaser, Runnable task) {
+    private void submitToDownloaderWithHostBarier(
+            String url,
+            ResultWrapper resultWrapper,
+            Phaser phaser,
+            Runnable task
+    ) {
         try {
             String host = URLUtils.getHost(url);
-            System.out.println("host:" + host);
             phaser.register();
-            Semaphore semaphore = addSemaphoreIfNeeded(host);
-             System.out.println("1_url:" + url);
-            downloadersPool.submit(() -> {
-                try {
-                    System.out.println("2_url:" + url);
-                    semaphore.acquire();
-                    System.out.println("3_url:" + url);
-                    task.run();
-                    System.out.println("4_url:" + url);
-                } catch (InterruptedException ignored) {
-                    System.out.println("e_url:" + url);
-                } finally {
-                    semaphore.release();
-                }
-            });
+            TaskPoolPerHost taskPoolPerHost = getTaskPoolForHost(host);
+            submitToDownloaderWithHostBarierImpl(taskPoolPerHost, resultWrapper, phaser, task);
         } catch (MalformedURLException e) {
-            System.out.println("e_url:" + url);
             resultWrapper.errors.put(url, e);
+        }
+    }
+
+    private void submitToDownloaderWithHostBarierImpl(
+            TaskPoolPerHost taskPoolPerHost,
+            ResultWrapper resultWrapper,
+            Phaser phaser,
+            Runnable task
+    ) {
+        synchronized (taskPoolPerHost.suspendedTasks) {
+            if (taskPoolPerHost.threadCount < perHost) {
+                taskPoolPerHost.threadCount++;
+                downloadersPool.submit(() -> {
+                    task.run();
+                    synchronized (taskPoolPerHost.suspendedTasks) {
+                        if (!taskPoolPerHost.suspendedTasks.isEmpty()) {
+                            taskPoolPerHost.suspendedTasks.forEach(suspendedTask -> {
+                                phaser.register();
+                                submitToDownloaderWithHostBarierImpl(
+                                        taskPoolPerHost,
+                                        resultWrapper,
+                                        phaser,
+                                        suspendedTask
+                                );
+                            });
+                            taskPoolPerHost.suspendedTasks.clear();
+                        }
+                    }
+                });
+            } else {
+                taskPoolPerHost.suspendedTasks.add(task);
+            }
+            phaser.arrive();
         }
     }
 
@@ -116,6 +132,11 @@ public class WebCrawler implements Crawler {
     public void close() {
         extractorsPool.shutdown();
         downloadersPool.shutdown();
+    }
+
+    private class TaskPoolPerHost {
+        int threadCount = 0;
+        final Queue<Runnable> suspendedTasks = new ArrayDeque<>();
     }
 
 }

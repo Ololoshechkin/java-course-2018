@@ -31,32 +31,12 @@ public class HelloUDPServer implements HelloServer {
             Runnable task = () -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
-//                        byte[] receiveBuffer = new byte[streams.getSocket().getReceiveBufferSize()];
-//                        DatagramPacket receivePacket = streams.getReceivePacket(receiveBuffer);
-//                        streams.getSocket().receive(receivePacket);
-
                         DatagramPacket receivePacket = streams.readPacket();
-
-
-                        String requestMsg = packetToString(receivePacket);
-//                        DatagramPacket request = streams.readPacket();
-//                        String requestMsg = packetToString(request);
-//                        System.out.println("request : " + requestMsg);
-                        String response = process(requestMsg);
+                        String response = process(packetToString(receivePacket));
                         streams.sendString(response, receivePacket.getSocketAddress());
-//                        String response = "Hello, " + requestMsg;
-//                        byte[] responseBuffer = response.getBytes(StandardCharsets.UTF_8);
-//
-//                        DatagramPacket packetToSend = new DatagramPacket(
-//                                responseBuffer,
-//                                responseBuffer.length
-//                        );
-//                        packetToSend.setSocketAddress(receivePacket.getSocketAddress());
-//
-//                        streams.sendPacket(packetToSend);
                     } catch (IOException e) {
                         if (isRunning) {
-                            System.err.println("Error working with datagram: " + e.getMessage());
+                            System.err.println("Failed to receive/send message");
                         }
                     }
                 }
@@ -74,26 +54,17 @@ public class HelloUDPServer implements HelloServer {
         isRunning = false;
     }
 
-    private static final String ERROR_MSG = "Running:\n" +
-            "HelloUDPServer <port> <number of threads>";
-
     public static void main(String[] args) {
-        if (args == null || args.length != 2 || args[0] == null || args[1] == null) {
-            System.out.println(ERROR_MSG);
+        if (args == null || args.length != 2) {
+            System.out.println("expected exactly 2 arguments in not-null array");
             return;
         }
-
-        int port;
-        int threads;
-
         try {
-            port = Integer.parseInt(args[0]);
-            threads = Integer.parseInt(args[1]);
+            int port = Integer.parseInt(args[0]);
+            int threadsCount = Integer.parseInt(args[1]);
+            new HelloUDPServer().start(port, threadsCount);
         } catch (NumberFormatException e) {
-            System.out.println("Error parsing number " + e.getMessage());
-            return;
+            System.out.println("expected integer arguments");
         }
-
-        new HelloUDPServer().start(port, threads);
     }
 }

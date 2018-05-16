@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98b9903b-cf6a-4225-9df5-6dc1d10b75ef" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.class" />
+      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler$ResultWrapper.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler$ResultWrapper.class" />
+      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.class" />
       <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp$MessageHelloUdpParseException.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp$MessageHelloUdpParseException.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp$RequestId.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp$RequestId.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.class" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java" />
+      <change beforePath="$PROJECT_DIR$/run9.sh" afterPath="$PROJECT_DIR$/run9.sh" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" />
       <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -72,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HelloUDPServer.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HelloUDPServer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="37" column="66" lean-forward="true" selection-start-line="37" selection-start-column="66" selection-end-line="37" selection-end-column="66" />
+            <state relative-caret-position="370">
+              <caret line="62" column="49" lean-forward="true" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#679#680#0" expanded="true" />
@@ -89,8 +84,8 @@
       <file leaf-file-name="HelloUDPStreams.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="41" lean-forward="false" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+            <state relative-caret-position="-387">
+              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1103#1104#0" expanded="true" />
@@ -102,41 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="run10.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/run10.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="run10_s.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/run10_s.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="82" lean-forward="false" selection-start-line="4" selection-start-column="82" selection-end-line="4" selection-end-column="82" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WebCrawler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="79" column="13" lean-forward="false" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HelloUDPClientStreams.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HelloUDPClientStreams.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+            <state relative-caret-position="231">
+              <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -154,6 +119,42 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="WebCrawler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="111" column="27" lean-forward="true" selection-start-line="111" selection-start-column="27" selection-end-line="111" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="scratch_1.java" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="208" column="30" lean-forward="true" selection-start-line="208" selection-start-column="30" selection-end-line="208" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#7353#7354#0" expanded="true" />
+                <element signature="e#7388#7389#0" expanded="true" />
+                <element signature="e#7413#7414#0" expanded="true" />
+                <element signature="e#7450#7451#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="run9.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run9.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="83" lean-forward="false" selection-start-line="4" selection-start-column="83" selection-end-line="4" selection-end-column="83" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -166,26 +167,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>IntR</find>
-      <find>received</find>
-      <find>100</find>
-      <find>SOCKET_TIMEOUT</find>
-      <find>print</find>
-      <find>received response</find>
-      <find>broke</find>
-      <find>try</find>
-      <find>closeS</find>
-      <find>Socket closed</find>
-      <find>socket cl</find>
-      <find>threadPool</find>
-      <find>s</find>
-      <find>sendM</find>
-      <find>InetSocketAddress(</find>
-      <find>1000</find>
       <find>packetTo</find>
       <find>sendS</find>
       <find>test07_noDoS</find>
-      <find>phaser</find>
       <find>parallel</find>
       <find>countdown</find>
       <find>UTF_8</find>
@@ -196,6 +180,23 @@
       <find>invokeAll</find>
       <find>readPacket</find>
       <find>createReceiveBuffer</find>
+      <find>downloadImplDfs</find>
+      <find>semaphore</find>
+      <find>TaskPoolPerHost</find>
+      <find>tryRun</find>
+      <find>map</find>
+      <find>lock</find>
+      <find>threadCount</find>
+      <find>.lock()</find>
+      <find>.tasks.</find>
+      <find>tasks</find>
+      <find>resolveHost</find>
+      <find>task</find>
+      <find>tasksPerHost</find>
+      <find>phaser.</find>
+      <find>phaser</find>
+      <find>taskPoolPerHost</find>
+      <find>resultWrapper</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;/tt&gt;</replace>
@@ -648,8 +649,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/__Test__Walk__/test16.in" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/walk/MyTester.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/walk/BadPathException.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/walk/RecursiveWalk.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/walk/HashCounter.java" />
@@ -680,7 +679,6 @@
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" />
         <option value="$PROJECT_DIR$/compile9.sh" />
-        <option value="$PROJECT_DIR$/run9.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/tmp" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java" />
@@ -695,10 +693,13 @@
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/Multiplexor.java" />
         <option value="$PROJECT_DIR$/run10.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.java" />
+        <option value="$PROJECT_DIR$/run9.sh" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java" />
       </list>
     </option>
   </component>
@@ -885,75 +886,34 @@
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="info" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="info" type="462c0819:PsiDirectoryNode" />
-              <item name="kgeorgiy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="info" type="462c0819:PsiDirectoryNode" />
-              <item name="kgeorgiy" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="info" type="462c0819:PsiDirectoryNode" />
-              <item name="kgeorgiy" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="advanced" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="info" type="462c0819:PsiDirectoryNode" />
-              <item name="kgeorgiy" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="advanced" type="462c0819:PsiDirectoryNode" />
-              <item name="hello" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="artifacts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
               <item name="ctddev" type="462c0819:PsiDirectoryNode" />
@@ -961,7 +921,8 @@
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
               <item name="ctddev" type="462c0819:PsiDirectoryNode" />
@@ -970,7 +931,8 @@
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
               <item name="ctddev" type="462c0819:PsiDirectoryNode" />
@@ -980,59 +942,6 @@
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="rain" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="rain" type="462c0819:PsiDirectoryNode" />
-              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="classes" type="462c0819:PsiDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="rain" type="462c0819:PsiDirectoryNode" />
-              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
-              <item name="concurrent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
@@ -1048,39 +957,6 @@
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
               <item name="rain" type="462c0819:PsiDirectoryNode" />
               <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="rain" type="462c0819:PsiDirectoryNode" />
-              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
-              <item name="arrayset" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="rain" type="462c0819:PsiDirectoryNode" />
-              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
-              <item name="concurrent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="rain" type="462c0819:PsiDirectoryNode" />
-              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
-              <item name="crawler" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
@@ -1092,17 +968,6 @@
               <item name="rain" type="462c0819:PsiDirectoryNode" />
               <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
               <item name="helloudp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="rain" type="462c0819:PsiDirectoryNode" />
-              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
-              <item name="implementor" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1432,7 +1297,7 @@
       <workItem from="1525682716615" duration="16860000" />
       <workItem from="1526228233394" duration="2127000" />
       <workItem from="1526243130892" duration="7087000" />
-      <workItem from="1526377187779" duration="9525000" />
+      <workItem from="1526377187779" duration="21050000" />
     </task>
     <servers />
   </component>
@@ -1445,7 +1310,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="174603000" />
+    <option name="totallyTimeSpent" value="186128000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1470,10 +1335,10 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30123797" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.49353796" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2943604" sideWeight="0.49030694" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287483" sideWeight="0.49030694" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34168014" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22940226" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="ANTLR Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1503,37 +1368,15 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="6" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7305">
-          <caret line="520" column="37" lean-forward="false" selection-start-line="520" selection-start-column="37" selection-end-line="520" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/concurrent/ThreadPoolExecutor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="1189" column="11" lean-forward="false" selection-start-line="1189" selection-start-column="11" selection-end-line="1189" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/crawler/Result.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="11" column="50" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="11" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run9.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="24" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -1574,14 +1417,6 @@
             <element signature="e#58481#58482#0" expanded="false" />
             <element signature="e#58518#58519#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/lang/Integer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="531" column="22" lean-forward="false" selection-start-line="531" selection-start-column="22" selection-end-line="531" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1836,14 +1671,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="79" column="13" lean-forward="false" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
@@ -1886,22 +1713,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java">
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="37" column="66" lean-forward="true" selection-start-line="37" selection-start-column="66" selection-end-line="37" selection-end-column="66" />
+        <state relative-caret-position="231">
+          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#721#722#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/lang/Integer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="51" column="19" lean-forward="false" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="208" column="30" lean-forward="true" selection-start-line="208" selection-start-column="30" selection-end-line="208" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7353#7354#0" expanded="true" />
+            <element signature="e#7388#7389#0" expanded="true" />
+            <element signature="e#7413#7414#0" expanded="true" />
+            <element signature="e#7450#7451#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run9.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="83" lean-forward="false" selection-start-line="4" selection-start-column="83" selection-end-line="4" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="78" column="35" lean-forward="true" selection-start-line="78" selection-start-column="35" selection-end-line="78" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="111" column="27" lean-forward="true" selection-start-line="111" selection-start-column="27" selection-end-line="111" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="41" lean-forward="false" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+        <state relative-caret-position="-387">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1103#1104#0" expanded="true" />
@@ -1912,12 +1783,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java">
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="12" lean-forward="true" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+        <state relative-caret-position="370">
+          <caret line="62" column="49" lean-forward="true" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#679#680#0" expanded="true" />
+            <element signature="e#721#722#0" expanded="true" />
           </folding>
         </state>
       </provider>
