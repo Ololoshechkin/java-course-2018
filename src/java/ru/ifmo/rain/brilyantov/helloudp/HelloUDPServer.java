@@ -6,10 +6,9 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.IntStream;
+import java.util.concurrent.TimeUnit;
 
 import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.packetToString;
 
@@ -26,22 +25,30 @@ public class HelloUDPServer implements HelloServer {
 
     public void start(int port, int threads) {
         try {
-            streams = new HelloUDPStreams(new DatagramSocket(port));
-            threadPool = Executors.newFixedThreadPool(threads);
-            Runnable task = () -> {
-                while (!Thread.currentThread().isInterrupted()) {
+            streams = new HelloUDPServerStreams(new DatagramSocket(port));
+            threadPool = Executors.newFixedThreadPool(threads + 1);
+            Runnable readerTask = () -> {
+                while (!streams.isClosed()) {
                     try {
-                        DatagramPacket receivePacket = streams.readPacket();
-                        String response = process(packetToString(receivePacket));
-                        streams.sendString(response, receivePacket.getSocketAddress());
+                        DatagramPacket curPacket = streams.readPacket();
+                        threadPool.submit(() -> {
+                            String response = process(packetToString(curPacket));
+                            try {
+                                streams.sendString(response, curPacket.getSocketAddress());
+                            } catch (IOException e) {
+                                System.err.println("Failed to send message");
+                            }
+                        });
                     } catch (IOException e) {
                         if (isRunning) {
-                            System.err.println("Failed to receive/send message");
+                            System.err.println("Failed to receive message");
+                        } else {
+                            break;
                         }
                     }
                 }
             };
-            IntStream.range(0, threads).forEach(i -> threadPool.submit(task));
+            threadPool.submit(readerTask);
         } catch (SocketException e) {
             System.err.println("Failed to bind to address");
         }
@@ -49,9 +56,9 @@ public class HelloUDPServer implements HelloServer {
 
     @Override
     public void close() {
-        threadPool.shutdownNow();
         streams.close();
         isRunning = false;
+        ShutdownHelper.shutdownAndAwaitTermination(threadPool);
     }
 
     public static void main(String[] args) {

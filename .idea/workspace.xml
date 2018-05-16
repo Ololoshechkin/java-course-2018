@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98b9903b-cf6a-4225-9df5-6dc1d10b75ef" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServerStreams.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/ShutdownHelper.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler$ResultWrapper.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler$ResultWrapper.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.class" />
+      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.class" />
+      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.class" />
       <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.class" />
-      <change beforePath="$PROJECT_DIR$/run9.sh" afterPath="$PROJECT_DIR$/run9.sh" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" />
+      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.class" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" />
       <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -37,29 +42,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MessageHelloUdp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#467#468#0" expanded="true" />
-                <element signature="e#527#528#0" expanded="true" />
-                <element signature="e#833#834#0" expanded="true" />
-                <element signature="e#925#926#0" expanded="true" />
-                <element signature="e#1180#1181#0" expanded="true" />
-                <element signature="e#1267#1268#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="HelloUDPClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+            <state relative-caret-position="213">
+              <caret line="29" column="40" lean-forward="false" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -67,15 +54,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HelloUDPServer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HelloUDPServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="62" column="49" lean-forward="true" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
+            <state relative-caret-position="236">
+              <caret line="60" column="29" lean-forward="true" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#679#680#0" expanded="true" />
-                <element signature="e#721#722#0" expanded="true" />
+                <element signature="e#640#641#0" expanded="true" />
+                <element signature="e#682#683#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessageHelloUdp.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="101">
+              <caret line="85" column="14" lean-forward="true" selection-start-line="85" selection-start-column="14" selection-end-line="85" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#515#516#0" expanded="true" />
+                <element signature="e#575#576#0" expanded="true" />
+                <element signature="e#881#882#0" expanded="true" />
+                <element signature="e#973#974#0" expanded="true" />
+                <element signature="e#1228#1229#0" expanded="true" />
+                <element signature="e#1315#1316#0" expanded="true" />
+                <element signature="e#3320#3321#0" expanded="true" />
+                <element signature="e#3369#3370#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,14 +91,14 @@
       <file leaf-file-name="HelloUDPStreams.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-387">
-              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+            <state relative-caret-position="153">
+              <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1103#1104#0" expanded="true" />
-                <element signature="e#1132#1133#0" expanded="true" />
-                <element signature="e#1784#1785#0" expanded="true" />
-                <element signature="e#1814#1815#0" expanded="true" />
+                <element signature="e#1583#1584#0" expanded="true" />
+                <element signature="e#1613#1614#0" expanded="true" />
+                <element signature="e#1646#1647#0" expanded="true" />
+                <element signature="e#1686#1687#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -100,21 +107,13 @@
       <file leaf-file-name="HelloUDPClientStreams.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+            <state relative-caret-position="71">
+              <caret line="9" column="41" lean-forward="true" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#788#789#0" expanded="true" />
+                <element signature="e#824#825#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Future.java" pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/concurrent/Future.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="150" column="59" lean-forward="false" selection-start-line="150" selection-start-column="19" selection-end-line="150" selection-end-column="59" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -129,28 +128,46 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scratch_1.java" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="208" column="30" lean-forward="true" selection-start-line="208" selection-start-column="30" selection-end-line="208" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#7353#7354#0" expanded="true" />
-                <element signature="e#7388#7389#0" expanded="true" />
-                <element signature="e#7413#7414#0" expanded="true" />
-                <element signature="e#7450#7451#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="run9.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run9.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
               <caret line="4" column="83" lean-forward="false" selection-start-line="4" selection-start-column="83" selection-end-line="4" selection-end-column="83" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatagramPacket.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/DatagramPacket.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="42" column="6" lean-forward="false" selection-start-line="42" selection-start-column="6" selection-end-line="42" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HelloUDPServerStreams.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServerStreams.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShutdownHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/ShutdownHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="43" lean-forward="true" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -167,14 +184,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>packetTo</find>
-      <find>sendS</find>
-      <find>test07_noDoS</find>
-      <find>parallel</find>
-      <find>countdown</find>
-      <find>UTF_8</find>
-      <find>send</find>
-      <find>getStringFromPacket</find>
       <find>re</find>
       <find>read</find>
       <find>invokeAll</find>
@@ -197,6 +206,14 @@
       <find>phaser</find>
       <find>taskPoolPerHost</find>
       <find>resultWrapper</find>
+      <find>= null</find>
+      <find>receiveBuffer</find>
+      <find>setSoTi</find>
+      <find>while</find>
+      <find>= nul</find>
+      <find>send</find>
+      <find>readM</find>
+      <find>check</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;/tt&gt;</replace>
@@ -649,9 +666,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/walk/BadPathException.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/walk/RecursiveWalk.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/walk/HashCounter.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/arrayset/ArraySet.kt" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/arrayset/Deaadad.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/arrayset/DescendingList.java" />
@@ -692,14 +706,17 @@
         <option value="$PROJECT_DIR$/run10_server.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/Multiplexor.java" />
         <option value="$PROJECT_DIR$/run10.sh" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch_1.java" />
         <option value="$PROJECT_DIR$/run9.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreamsServer.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServerStreams.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/ShutdownHelper.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" />
       </list>
     </option>
   </component>
@@ -1297,7 +1314,7 @@
       <workItem from="1525682716615" duration="16860000" />
       <workItem from="1526228233394" duration="2127000" />
       <workItem from="1526243130892" duration="7087000" />
-      <workItem from="1526377187779" duration="21050000" />
+      <workItem from="1526377187779" duration="25527000" />
     </task>
     <servers />
   </component>
@@ -1310,7 +1327,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="186128000" />
+    <option name="totallyTimeSpent" value="190605000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1335,7 +1352,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30123797" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.49353796" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287483" sideWeight="0.49030694" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35900962" sideWeight="0.49030694" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22940226" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
@@ -1373,20 +1390,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/crawler/Result.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" column="50" lean-forward="true" selection-start-line="10" selection-start-column="4" selection-end-line="11" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/crawler/Downloader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/concurrent/Phaser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="121">
@@ -1460,21 +1463,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="40" column="22" lean-forward="false" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/DatagramPacket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="328" column="33" lean-forward="true" selection-start-line="328" selection-start-column="33" selection-end-line="328" selection-end-column="33" />
-          <folding>
-            <element signature="e#5232#5233#0" expanded="false" />
-            <element signature="e#5277#5278#0" expanded="false" />
-            <element signature="e#5705#5706#0" expanded="false" />
-            <element signature="e#5735#5736#0" expanded="false" />
-            <element signature="e#9957#9958#0" expanded="false" />
-            <element signature="e#10026#10027#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1655,35 +1643,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/lang/AutoCloseable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="50" column="17" lean-forward="false" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/hello/HelloServerTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="115" column="48" lean-forward="true" selection-start-line="115" selection-start-column="48" selection-end-line="115" selection-end-column="48" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#467#468#0" expanded="true" />
-            <element signature="e#527#528#0" expanded="true" />
-            <element signature="e#833#834#0" expanded="true" />
-            <element signature="e#925#926#0" expanded="true" />
-            <element signature="e#1180#1181#0" expanded="true" />
-            <element signature="e#1267#1268#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1700,26 +1664,6 @@
         <state relative-caret-position="161">
           <caret line="150" column="59" lean-forward="false" selection-start-line="150" selection-start-column="19" selection-end-line="150" selection-end-column="59" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="123" column="0" lean-forward="true" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1769,28 +1713,104 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/DatagramPacket.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-387">
-          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1103#1104#0" expanded="true" />
-            <element signature="e#1132#1133#0" expanded="true" />
-            <element signature="e#1784#1785#0" expanded="true" />
-            <element signature="e#1814#1815#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="108">
+          <caret line="42" column="6" lean-forward="false" selection-start-line="42" selection-start-column="6" selection-end-line="42" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/lang/AutoCloseable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="50" column="17" lean-forward="false" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="62" column="49" lean-forward="true" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
+        <state relative-caret-position="236">
+          <caret line="60" column="29" lean-forward="true" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#721#722#0" expanded="true" />
+            <element signature="e#640#641#0" expanded="true" />
+            <element signature="e#682#683#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/ShutdownHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="43" lean-forward="true" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1583#1584#0" expanded="true" />
+            <element signature="e#1613#1614#0" expanded="true" />
+            <element signature="e#1646#1647#0" expanded="true" />
+            <element signature="e#1686#1687#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServerStreams.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="9" column="41" lean-forward="true" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#788#789#0" expanded="true" />
+            <element signature="e#824#825#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="29" column="40" lean-forward="false" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="101">
+          <caret line="85" column="14" lean-forward="true" selection-start-line="85" selection-start-column="14" selection-end-line="85" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#515#516#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#881#882#0" expanded="true" />
+            <element signature="e#973#974#0" expanded="true" />
+            <element signature="e#1228#1229#0" expanded="true" />
+            <element signature="e#1315#1316#0" expanded="true" />
+            <element signature="e#3320#3321#0" expanded="true" />
+            <element signature="e#3369#3370#0" expanded="true" />
           </folding>
         </state>
       </provider>

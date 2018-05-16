@@ -7,9 +7,12 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -18,6 +21,51 @@ import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.RequestId;
 public class HelloUDPClient implements HelloClient {
 
     private static final int MAX_PORT = 65536;
+
+    private String readCheckedMessage(HelloUDPClientStreams streams, MessageHelloUdp query) throws IOException {
+        while (true) {
+            streams.sendMessage(query);
+            try {
+                String response = streams.readString();
+                if (MessageHelloUdp.check(response, query.toString())) {
+                    return response;
+                }
+            } catch (IOException e) {
+                System.out.println("received broken UDP packet");
+            }
+        }
+    }
+
+    @Override
+    public void run(String host, int port, String queryPrefix, int threadCount, int queriesPerThread) {
+        System.out.println(queryPrefix);
+        ExecutorService threadPool = Executors.newFixedThreadPool(threadCount);
+        IntFunction<Callable<Void>> taskGen = threadId -> () -> {
+            try (HelloUDPClientStreams streams = new HelloUDPClientStreams(
+                    InetAddress.getByName(host),
+                    port,
+                    new DatagramSocket()
+            )) {
+                for (int i = 0; i < queriesPerThread; i++) {
+                    RequestId requestId = new RequestId(threadId, i);
+                    try {
+                        MessageHelloUdp query = new MessageHelloUdp(queryPrefix, requestId);
+                        String response = readCheckedMessage(streams, query);
+                        System.out.println("received response : " + response);
+                    } catch (IOException e) {
+                        System.out.println("failed to send request in thread " + threadId);
+                    }
+                }
+            } catch (UnknownHostException | SocketException e) {
+                System.out.println("failed to connect to server");
+            }
+            return null;
+        };
+        IntStream.range(0, threadCount)
+                .mapToObj(taskGen)
+                .forEach(threadPool::submit);
+        ShutdownHelper.shutdownAndAwaitTermination(threadPool);
+    }
 
     public static void main(String[] args) {
         if (args == null || args.length != 5) {
@@ -59,65 +107,4 @@ public class HelloUDPClient implements HelloClient {
         }
     }
 
-    private MessageHelloUdp readCheckedMessage(HelloUDPClientStreams streams, MessageHelloUdp query) throws IOException {
-        MessageHelloUdp response;
-        while (true) {
-            streams.sendMessage(query);
-            try {
-                response = streams.readMessage();
-                if (response.check(query)) {
-                    break;
-                }
-            } catch (MessageHelloUdp.MessageHelloUdpParseException | IOException e) {
-                System.out.println("received broken UDP packet");
-            }
-        }
-        System.out.println("response : " + response + " we are : " + query.requestId);
-        return response;
-    }
-
-    @Override
-    public void run(String host, int port, String queryPrefix, int threadCount, int queriesPerThread) {
-        System.out.println(queryPrefix);
-        ExecutorService threadPool = Executors.newFixedThreadPool(threadCount);
-        Function<Integer, Callable<Void>> taskGen = threadId -> () -> {
-            try (HelloUDPClientStreams streams = new HelloUDPClientStreams(
-                    InetAddress.getByName(host),
-                    port,
-                    new DatagramSocket()
-            )) {
-                for (int i = 0; i < queriesPerThread; i++) {
-                    RequestId requestId = new RequestId(threadId, i);
-                    try {
-                        MessageHelloUdp query = new MessageHelloUdp(queryPrefix, requestId);
-                        MessageHelloUdp response = readCheckedMessage(streams, query);
-                        System.out.println("received response : " + response);
-                    } catch (IOException e) {
-                        System.out.println("failed to send request in thread " + threadId);
-                    }
-                }
-            } catch (UnknownHostException | SocketException e) {
-                System.out.println("failed to connect to server");
-            }
-            return null;
-        };
-        try {
-            threadPool.invokeAll(
-                    IntStream
-                            .range(0, threadCount)
-                            .boxed()
-                            .map(taskGen)
-                            .collect(Collectors.toList())
-            ).forEach(future -> {
-                try {
-                    future.get();
-                } catch (InterruptedException | ExecutionException e) {
-                    System.out.println("failed to invoke task");
-                }
-            });
-        } catch (Exception e) {
-            System.out.println("failed to invoke all given tasks");
-        }
-        threadPool.shutdown();
-    }
 }

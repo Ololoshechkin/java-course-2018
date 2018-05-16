@@ -6,13 +6,9 @@ import java.nio.charset.StandardCharsets;
 
 import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.packetToString;
 
-public class HelloUDPStreams implements AutoCloseable {
-    private final DatagramSocket socket;
+public abstract class HelloUDPStreams implements AutoCloseable {
+    protected final DatagramSocket socket;
     private static final int SOCKET_TIMEOUT = 500;
-
-    private byte[] createReceiveBuffer() throws SocketException {
-        return new byte[socket.getReceiveBufferSize()];
-    }
 
     public HelloUDPStreams(DatagramSocket socket) throws SocketException {
         this.socket = socket;
@@ -30,24 +26,18 @@ public class HelloUDPStreams implements AutoCloseable {
                 sendBuffer.length,
                 destinationAddress
         );
-        sendPacket(packet);
-    }
-
-    DatagramSocket getSocket() {
-        return socket;
-    }
-
-    void sendPacket(DatagramPacket packet) throws IOException {
         socket.send(packet);
     }
 
-    DatagramPacket getReceivePacket(byte[] receiveBuffer) {
+    protected DatagramPacket createReceivePacket() throws SocketException {
+        byte[] receiveBuffer = new byte[socket.getReceiveBufferSize()];
         return new DatagramPacket(receiveBuffer, receiveBuffer.length);
     }
 
+    protected abstract DatagramPacket getReceivePacket() throws SocketException;
+
     public DatagramPacket readPacket() throws IOException {
-        byte[] receiveBuffer = createReceiveBuffer();
-        DatagramPacket packet = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+        DatagramPacket packet = getReceivePacket();
         socket.receive(packet);
         return packet;
     }
@@ -59,5 +49,9 @@ public class HelloUDPStreams implements AutoCloseable {
     @Override
     public void close() {
         socket.close();
+    }
+
+    public boolean isClosed() {
+        return socket.isClosed();
     }
 }
