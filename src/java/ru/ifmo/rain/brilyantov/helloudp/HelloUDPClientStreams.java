@@ -3,7 +3,6 @@ package ru.ifmo.rain.brilyantov.helloudp;
 import java.io.IOException;
 import java.net.*;
 
-import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.fromString;
 
 public class HelloUDPClientStreams extends HelloUDPStreams {
 

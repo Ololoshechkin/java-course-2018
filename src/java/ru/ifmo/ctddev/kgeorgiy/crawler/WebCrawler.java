@@ -72,8 +72,6 @@ public class WebCrawler implements Crawler {
                     });
                 } catch (IOException e) {
                     resultWrapper.errors.put(url, e);
-                } finally {
-                    phaser.arrive();
                 }
             });
         }
@@ -95,37 +93,47 @@ public class WebCrawler implements Crawler {
         }
     }
 
+    private Random rnd = new Random();
+
+    private int getId() {
+        return Math.abs(rnd.nextInt()) % 100;
+    }
+
     private void submitToDownloaderWithHostBarierImpl(
             TaskPoolPerHost taskPoolPerHost,
             ResultWrapper resultWrapper,
             Phaser phaser,
             Runnable task
     ) {
+        int _id_ = getId();
         synchronized (taskPoolPerHost.suspendedTasks) {
             if (taskPoolPerHost.threadCount < perHost) {
                 taskPoolPerHost.threadCount++;
-                downloadersPool.submit(() -> {
-                    task.run();
-                    synchronized (taskPoolPerHost.suspendedTasks) {
-                        if (!taskPoolPerHost.suspendedTasks.isEmpty()) {
-                            taskPoolPerHost.suspendedTasks.forEach(suspendedTask -> {
-                                phaser.register();
-                                submitToDownloaderWithHostBarierImpl(
-                                        taskPoolPerHost,
-                                        resultWrapper,
-                                        phaser,
-                                        suspendedTask
-                                );
-                            });
-                            taskPoolPerHost.suspendedTasks.clear();
-                        }
-                    }
-                });
+                downloadersPool.submit(transformedTask(taskPoolPerHost, task, phaser));
             } else {
                 taskPoolPerHost.suspendedTasks.add(task);
+                phaser.arrive();
+            }
+        }
+    }
+
+    private Runnable transformedTask(TaskPoolPerHost taskPoolPerHost, Runnable task, Phaser phaser) {
+        return () -> {
+            task.run();
+            synchronized (taskPoolPerHost.suspendedTasks) {
+                if (!taskPoolPerHost.suspendedTasks.isEmpty()) {
+                    phaser.register();
+                    downloadersPool.submit(transformedTask(
+                            taskPoolPerHost,
+                            taskPoolPerHost.suspendedTasks.poll(),
+                            phaser
+                    ));
+                } else {
+                    taskPoolPerHost.threadCount--;
+                }
             }
             phaser.arrive();
-        }
+        };
     }
 
     @Override
