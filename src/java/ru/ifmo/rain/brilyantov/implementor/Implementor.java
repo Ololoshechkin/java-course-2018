@@ -535,6 +535,35 @@ public class Implementor implements JarImpler {
     }
 
     /**
+     * Clears all subdirectories in ierarchy starting in given <tt>root</tt> folder
+     *
+     * @param root folder to start cleaning from
+     * @throws IOException if {@link Files#walkFileTree(Path, FileVisitor)} fails
+     */
+    public static void clearDirs(Path root) throws IOException {
+        Files.walkFileTree(
+                root,
+                new SimpleFileVisitor<Path>() {
+                    private FileVisitResult erase(Path file) throws IOException {
+                        Files.delete(file);
+                        return FileVisitResult.CONTINUE;
+                    }
+
+                    @Override
+                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                        return erase(file);
+                    }
+
+                    @Override
+                    public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                        return erase(dir);
+
+                    }
+                }
+        );
+    }
+
+    /**
      * Generates correct implementation source code of given <tt>token</tt> and produces a jar archive to given <tt>jarFile</tt> path
      * Produced implementation consists of single class with name <tt>token</tt>'s name + "Impl" suffix.
      * Impl-class has all default single-statement implementations of all required methods and constructors to be implemented.
@@ -561,26 +590,7 @@ public class Implementor implements JarImpler {
             Path classFilePath = getOutputJarPath(packageNameFor(token), implNameFor(token), root);
             compileFiles(root, javaFilePath.toString());
             jarWrite(jarFile, classFilePath, root.toString());
-            Files.walkFileTree(
-                    root,
-                    new SimpleFileVisitor<Path>() {
-                        private FileVisitResult erase(Path file) throws IOException {
-                            Files.delete(file);
-                            return FileVisitResult.CONTINUE;
-                        }
-
-                        @Override
-                        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                            return erase(file);
-                        }
-
-                        @Override
-                        public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-                            return erase(dir);
-
-                        }
-                    }
-            );
+            clearDirs(root);
         } catch (IOException e) {
             throw new ImplerException("failed to output to jar file");
         }

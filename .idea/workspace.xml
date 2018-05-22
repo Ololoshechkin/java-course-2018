@@ -2,19 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="98b9903b-cf6a-4225-9df5-6dc1d10b75ef" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/BookDownloader.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp$MessageHelloUdpParseException.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp$MessageHelloUdpParseException.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp$RequestId.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp$RequestId.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.class" />
-      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/ShutdownHelper.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/helloudp/ShutdownHelper.class" />
+      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/crawler/WebCrawler$ResultWrapper.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/crawler/WebCrawler$ResultWrapper.class" />
+      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/crawler/WebCrawler.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/crawler/WebCrawler.class" />
+      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor$1.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor$1.class" />
+      <change beforePath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor.class" afterPath="$PROJECT_DIR$/classes/ru/ifmo/rain/brilyantov/implementor/Implementor.class" />
+      <change beforePath="$PROJECT_DIR$/compile9.sh" afterPath="$PROJECT_DIR$/compile9.sh" />
       <change beforePath="$PROJECT_DIR$/run9.sh" afterPath="$PROJECT_DIR$/run9.sh" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" />
-      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" />
+      <change beforePath="$PROJECT_DIR$/run9_1.sh" afterPath="$PROJECT_DIR$/run9_1.sh" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/BookDownloader.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/tmp" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" afterPath="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -43,91 +44,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="HelloUDPClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java">
+      <file leaf-file-name="BookDownloader.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/BookDownloader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="34" column="13" lean-forward="true" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+            <state relative-caret-position="470">
+              <caret line="43" column="6" lean-forward="true" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1886#1887#0" expanded="true" />
+                <element signature="e#1924#1925#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HelloUDPServer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServer.java">
+      <file leaf-file-name="Writer.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/io/Writer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="63" column="10" lean-forward="false" selection-start-line="63" selection-start-column="10" selection-end-line="63" selection-end-column="10" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#640#641#0" expanded="true" />
-                <element signature="e#682#683#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="233">
+              <caret line="49" column="22" lean-forward="false" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MessageHelloUdp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java">
+      <file leaf-file-name="run7.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run7.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="37" column="22" lean-forward="false" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#434#435#0" expanded="true" />
-                <element signature="e#494#495#0" expanded="true" />
-                <element signature="e#800#801#0" expanded="true" />
-                <element signature="e#892#893#0" expanded="true" />
-                <element signature="e#1147#1148#0" expanded="true" />
-                <element signature="e#1234#1235#0" expanded="true" />
-                <element signature="e#1483#1484#0" expanded="true" />
-                <element signature="e#1532#1533#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HelloUDPStreams.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPStreams.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1583#1584#0" expanded="true" />
-                <element signature="e#1613#1614#0" expanded="true" />
-                <element signature="e#1646#1647#0" expanded="true" />
-                <element signature="e#1686#1687#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HelloUDPClientStreams.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#713#714#0" expanded="true" />
-                <element signature="e#749#750#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WebCrawler.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="135" column="10" lean-forward="false" selection-start-line="135" selection-start-column="10" selection-end-line="135" selection-end-column="10" />
-              <folding>
-                <element signature="e#3585#3586#0" expanded="true" />
-                <element signature="e#3637#3638#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="30">
+              <caret line="2" column="4" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -135,42 +81,62 @@
       <file leaf-file-name="run9.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run9.sh">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="36" lean-forward="false" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="run4.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run4.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="9" lean-forward="true" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="compile9.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compile9.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="compile8.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/compile8.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="run9_1.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/run9_1.sh">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
-              <caret line="4" column="83" lean-forward="false" selection-start-line="4" selection-start-column="83" selection-end-line="4" selection-end-column="83" />
+              <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatagramPacket.java" pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/DatagramPacket.java">
+      <file leaf-file-name="WebCrawler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="42" column="6" lean-forward="false" selection-start-line="42" selection-start-column="6" selection-end-line="42" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HelloUDPServerStreams.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPServerStreams.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+            <state relative-caret-position="129">
+              <caret line="65" column="20" lean-forward="false" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShutdownHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/ShutdownHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1641#1642#0" expanded="true" />
+                <element signature="e#1698#1699#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -188,36 +154,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>createReceiveBuffer</find>
-      <find>downloadImplDfs</find>
-      <find>semaphore</find>
-      <find>TaskPoolPerHost</find>
-      <find>tryRun</find>
-      <find>map</find>
-      <find>lock</find>
-      <find>.lock()</find>
-      <find>.tasks.</find>
-      <find>tasks</find>
-      <find>resolveHost</find>
-      <find>task</find>
-      <find>tasksPerHost</find>
-      <find>phaser.</find>
-      <find>phaser</find>
-      <find>taskPoolPerHost</find>
-      <find>resultWrapper</find>
-      <find>= null</find>
-      <find>receiveBuffer</find>
-      <find>setSoTi</find>
-      <find>while</find>
-      <find>= nul</find>
-      <find>send</find>
-      <find>readM</find>
-      <find>check</find>
-      <find>download(</find>
-      <find>print</find>
-      <find>taskPoolPerHost.threadCount</find>
       <find>threadCount</find>
       <find>taskPoolPerHost.suspendedTasks</find>
+      <find>ru.ifmo.ctddev.kgeorgiy.crawler.WebCrawler.</find>
+      <find>transformedTask</find>
+      <find>print</find>
+      <find>webcrawlerBoo</find>
+      <find>downloader</find>
+      <find>.download</find>
+      <find>WebCraw</find>
+      <find>predi</find>
+      <find>Crawler</find>
+      <find>BOOK_URL</find>
+      <find>BIBL_RECORD_BEGIN</find>
+      <find>--all</find>
+      <find>-</find>
+      <find>--</find>
+      <find>temp</find>
+      <find>&quot;https://e.lanbook.com/books&quot;</find>
+      <find>walkF</find>
+      <find>Downloading</find>
+      <find>tryDeleteTempFile</find>
+      <find>implD</find>
+      <find>download(</find>
+      <find>in task</find>
+      <find>prin</find>
+      <find>delet</find>
+      <find>delete</find>
+      <find>downloadsPath</find>
+      <find>failed to process file</find>
+      <find>failed to process file</find>
     </findStrings>
     <replaceStrings>
       <replace>&lt;/tt&gt;</replace>
@@ -670,12 +636,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/arrayset/ArraySet.kt" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/arrayset/Deaadad.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/arrayset/DescendingList.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/arrayset/ReversedList.java" />
-        <option value="$PROJECT_DIR$/run.sh" />
-        <option value="$PROJECT_DIR$/compile.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/arrayset/MainClass.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/arrayset/ArraySet.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
@@ -695,11 +655,8 @@
         <option value="$PROJECT_DIR$/dock.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/ParallelMapper.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/concurrent/IterativeParallelism.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" />
-        <option value="$PROJECT_DIR$/compile9.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/tmp" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.java" />
-        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/RequestHelper.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/Request.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/aba.kt" />
@@ -719,8 +676,17 @@
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClient.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/HelloUDPClientStreams.java" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/helloudp/MessageHelloUdp.java" />
-        <option value="$PROJECT_DIR$/run9.sh" />
         <option value="$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCheckerBook.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebChecker.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/InfoExtractorBook.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/ConcurrentPageCollector.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java" />
+        <option value="$PROJECT_DIR$/compile9.sh" />
+        <option value="$PROJECT_DIR$/run9.sh" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java" />
+        <option value="$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/BookDownloader.java" />
+        <option value="$PROJECT_DIR$/run9_1.sh" />
       </list>
     </option>
   </component>
@@ -937,7 +903,7 @@
               <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="ctddev" type="462c0819:PsiDirectoryNode" />
+              <item name="rain" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
@@ -946,8 +912,8 @@
               <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="ctddev" type="462c0819:PsiDirectoryNode" />
-              <item name="kgeorgiy" type="462c0819:PsiDirectoryNode" />
+              <item name="rain" type="462c0819:PsiDirectoryNode" />
+              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
@@ -956,8 +922,19 @@
               <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="ctddev" type="462c0819:PsiDirectoryNode" />
-              <item name="kgeorgiy" type="462c0819:PsiDirectoryNode" />
+              <item name="rain" type="462c0819:PsiDirectoryNode" />
+              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
+              <item name="arrayset" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="ru" type="462c0819:PsiDirectoryNode" />
+              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
+              <item name="rain" type="462c0819:PsiDirectoryNode" />
+              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
               <item name="crawler" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -968,27 +945,8 @@
               <item name="ru" type="462c0819:PsiDirectoryNode" />
               <item name="ifmo" type="462c0819:PsiDirectoryNode" />
               <item name="rain" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="rain" type="462c0819:PsiDirectoryNode" />
               <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="java-course-2018" type="b2602c69:ProjectViewProjectNode" />
-              <item name="java-course-2018" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="ru" type="462c0819:PsiDirectoryNode" />
-              <item name="ifmo" type="462c0819:PsiDirectoryNode" />
-              <item name="rain" type="462c0819:PsiDirectoryNode" />
-              <item name="brilyantov" type="462c0819:PsiDirectoryNode" />
-              <item name="helloudp" type="462c0819:PsiDirectoryNode" />
+              <item name="implementor" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1012,6 +970,9 @@
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="JAVA" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/java" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="ru.ifmo.rain.brilyantov.walk" />
       <recent name="ru" />
@@ -1020,9 +981,6 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/java" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1319,7 +1277,7 @@
       <workItem from="1526228233394" duration="2127000" />
       <workItem from="1526243130892" duration="7087000" />
       <workItem from="1526377187779" duration="25527000" />
-      <workItem from="1526927203713" duration="3664000" />
+      <workItem from="1526927203713" duration="14492000" />
     </task>
     <servers />
   </component>
@@ -1332,7 +1290,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="194269000" />
+    <option name="totallyTimeSpent" value="205097000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1357,11 +1315,12 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.49353796" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30123797" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18431912" sideWeight="0.49030694" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15680881" sideWeight="0.49030694" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23263328" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3206785" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="ANTLR Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1379,7 +1338,6 @@
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="sbt-shell-toolwindow" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287483" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1395,138 +1353,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/concurrent/Phaser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="260" column="13" lean-forward="false" selection-start-line="260" selection-start-column="13" selection-end-line="260" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="106" column="46" lean-forward="false" selection-start-line="106" selection-start-column="29" selection-end-line="106" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/tmp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1905">
-          <caret line="127" column="21" lean-forward="false" selection-start-line="127" selection-start-column="16" selection-end-line="127" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="1501" column="15" lean-forward="false" selection-start-line="1501" selection-start-column="15" selection-end-line="1501" selection-end-column="15" />
-          <folding>
-            <element signature="e#58481#58482#0" expanded="false" />
-            <element signature="e#58518#58519#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/concurrent/AbstractExecutorService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="70" column="22" lean-forward="false" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/concurrent/ForkJoinPool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="2503" column="11" lean-forward="false" selection-start-line="2503" selection-start-column="11" selection-end-line="2503" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/jre/lib/plugin.jar!/sun/plugin2/message/Message.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/lang/Runnable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="67" column="25" lean-forward="false" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/InetAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="188" column="6" lean-forward="false" selection-start-line="188" selection-start-column="6" selection-end-line="188" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/SocketAddress.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="40" column="22" lean-forward="false" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.21/795e111c612ba96d0175f5705291228ca8167dc8/kotlin-stdlib-1.2.21-sources.jar!/generated/_Strings.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="83" column="25" lean-forward="false" selection-start-line="83" selection-start-column="25" selection-end-line="83" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/aba.kt" />
-    <entry file="file://$PROJECT_DIR$/compile7.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compile9.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/lang/InterruptedException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="49" column="6" lean-forward="false" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/SocketException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="36" column="6" lean-forward="false" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/DatagramSocketImplFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="30" column="19" lean-forward="true" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/PlainDatagramSocketImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="83" column="26" lean-forward="false" selection-start-line="83" selection-start-column="26" selection-end-line="83" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/DatagramSocketImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="95" column="0" lean-forward="false" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/util/concurrent/CompletableFuture.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
@@ -1640,6 +1466,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="115" column="48" lean-forward="true" selection-start-line="115" selection-start-column="48" selection-end-line="115" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1672,20 +1499,12 @@
         <state relative-caret-position="207">
           <caret line="208" column="30" lean-forward="true" selection-start-line="208" selection-start-column="30" selection-end-line="208" selection-end-column="30" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7353#7354#0" expanded="true" />
-            <element signature="e#7388#7389#0" expanded="true" />
-            <element signature="e#7413#7414#0" expanded="true" />
-            <element signature="e#7450#7451#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#7353#7354#0" expanded="false" />
+            <element signature="e#7388#7389#0" expanded="false" />
+            <element signature="e#7413#7414#0" expanded="false" />
+            <element signature="e#7450#7451#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="78" column="35" lean-forward="true" selection-start-line="78" selection-start-column="35" selection-end-line="78" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1710,11 +1529,11 @@
         <state relative-caret-position="525">
           <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1583#1584#0" expanded="true" />
-            <element signature="e#1613#1614#0" expanded="true" />
-            <element signature="e#1646#1647#0" expanded="true" />
-            <element signature="e#1686#1687#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1583#1584#0" expanded="false" />
+            <element signature="e#1613#1614#0" expanded="false" />
+            <element signature="e#1646#1647#0" expanded="false" />
+            <element signature="e#1686#1687#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1724,7 +1543,7 @@
         <state relative-caret-position="210">
           <caret line="16" column="1" lean-forward="false" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1734,9 +1553,9 @@
         <state relative-caret-position="71">
           <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#713#714#0" expanded="true" />
-            <element signature="e#749#750#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#713#714#0" expanded="false" />
+            <element signature="e#749#750#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1746,7 +1565,7 @@
         <state relative-caret-position="225">
           <caret line="15" column="43" lean-forward="false" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1756,15 +1575,15 @@
         <state relative-caret-position="222">
           <caret line="37" column="22" lean-forward="false" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#434#435#0" expanded="true" />
-            <element signature="e#494#495#0" expanded="true" />
-            <element signature="e#800#801#0" expanded="true" />
-            <element signature="e#892#893#0" expanded="true" />
-            <element signature="e#1147#1148#0" expanded="true" />
-            <element signature="e#1234#1235#0" expanded="true" />
-            <element signature="e#1483#1484#0" expanded="true" />
-            <element signature="e#1532#1533#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#434#435#0" expanded="false" />
+            <element signature="e#494#495#0" expanded="false" />
+            <element signature="e#800#801#0" expanded="false" />
+            <element signature="e#892#893#0" expanded="false" />
+            <element signature="e#1147#1148#0" expanded="false" />
+            <element signature="e#1234#1235#0" expanded="false" />
+            <element signature="e#1483#1484#0" expanded="false" />
+            <element signature="e#1532#1533#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1774,7 +1593,7 @@
         <state relative-caret-position="285">
           <caret line="34" column="13" lean-forward="true" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1784,28 +1603,196 @@
         <state relative-caret-position="281">
           <caret line="63" column="10" lean-forward="false" selection-start-line="63" selection-start-column="10" selection-end-line="63" selection-end-column="10" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#640#641#0" expanded="true" />
-            <element signature="e#682#683#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#640#641#0" expanded="false" />
+            <element signature="e#682#683#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run9.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="83" lean-forward="false" selection-start-line="4" selection-start-column="83" selection-end-line="4" selection-end-column="83" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/ctddev/kgeorgiy/crawler/WebCrawler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="135" column="10" lean-forward="false" selection-start-line="135" selection-start-column="10" selection-end-line="135" selection-end-column="10" />
+        <state relative-caret-position="435">
+          <caret line="37" column="37" lean-forward="false" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCheckerBook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebChecker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/InfoExtractorBook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/ConcurrentPageCollector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="72" lean-forward="false" selection-start-line="12" selection-start-column="72" selection-end-line="12" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/Downloader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/crawler/Downloader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/crawler/CachingDownloader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="87" column="19" lean-forward="false" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/net/MalformedURLException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/implementor/Implementor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="542" column="32" lean-forward="false" selection-start-line="542" selection-start-column="23" selection-end-line="542" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/io/InputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="64" column="24" lean-forward="false" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/io/PrintWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="55" column="38" lean-forward="false" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
           <folding>
-            <element signature="e#3585#3586#0" expanded="true" />
-            <element signature="e#3637#3638#0" expanded="true" />
+            <element signature="e#2748#2749#0" expanded="true" />
+            <element signature="e#2780#2781#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run7.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="4" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="2" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compile8.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compile9.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run4.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="9" lean-forward="true" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run9.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="36" lean-forward="false" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/src.zip!/java/io/Writer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="49" column="22" lean-forward="false" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java/info/kgeorgiy/java/advanced/crawler/Crawler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/WebCrawler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="65" column="20" lean-forward="false" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1641#1642#0" expanded="true" />
+            <element signature="e#1698#1699#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run9_1.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="8" lean-forward="false" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/ru/ifmo/rain/brilyantov/crawler/BookDownloader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="43" column="6" lean-forward="true" selection-start-line="43" selection-start-column="6" selection-end-line="43" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1886#1887#0" expanded="true" />
+            <element signature="e#1924#1925#0" expanded="true" />
           </folding>
         </state>
       </provider>
