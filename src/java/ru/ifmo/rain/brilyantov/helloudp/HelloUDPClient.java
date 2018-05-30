@@ -8,26 +8,22 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.Function;
 import java.util.function.IntFunction;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.RequestId;
 
 public class HelloUDPClient implements HelloClient {
 
     private static final int MAX_PORT = 65536;
 
-    private String readCheckedMessage(HelloUDPClientStreams streams, MessageHelloUdp query) throws IOException {
+    private String readCheckedMessage(HelloUDPClientStreams streams, String query) throws IOException {
         while (true) {
-            streams.sendMessage(query);
+            streams.sendString(query);
             try {
                 String response = streams.readString();
-                if (MessageHelloUdp.check(response, query.toString())) {
+                if (MessageHelper.check(response, query)) {
                     return response;
                 }
             } catch (IOException e) {
@@ -47,9 +43,8 @@ public class HelloUDPClient implements HelloClient {
                     new DatagramSocket()
             )) {
                 for (int i = 0; i < queriesPerThread; i++) {
-                    RequestId requestId = new RequestId(threadId, i);
                     try {
-                        MessageHelloUdp query = new MessageHelloUdp(queryPrefix, requestId);
+                        String query = MessageHelper.createMessage(queryPrefix, threadId, i);
                         String response = readCheckedMessage(streams, query);
                         System.out.println("received response : " + response);
                     } catch (IOException e) {

@@ -8,9 +8,8 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
-import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.packetToString;
+import static ru.ifmo.rain.brilyantov.helloudp.MessageHelper.packetToString;
 
 
 public class HelloUDPServer implements HelloServer {

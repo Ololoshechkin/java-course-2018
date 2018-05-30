@@ -102,26 +102,9 @@ public class WebCrawler implements Crawler {
             String host = URLUtils.getHost(url);
             phaser.register();
             TaskPoolPerHost taskPoolPerHost = getTaskPoolForHost(host);
-            submitToDownloaderWithHostBarierImpl(taskPoolPerHost, resultWrapper, phaser, task);
+            taskPoolPerHost.submitToDownloaderWithHostBarierImpl(phaser, task, this);
         } catch (MalformedURLException e) {
             resultWrapper.errors.put(url, e);
-        }
-    }
-
-    private void submitToDownloaderWithHostBarierImpl(
-            TaskPoolPerHost taskPoolPerHost,
-            ResultWrapper resultWrapper,
-            Phaser phaser,
-            Runnable task
-    ) {
-        synchronized (taskPoolPerHost.suspendedTasks) {
-            if (taskPoolPerHost.threadCount < perHost) {
-                taskPoolPerHost.threadCount++;
-                downloadersPool.submit(transformedTask(taskPoolPerHost, task, phaser));
-            } else {
-                taskPoolPerHost.suspendedTasks.add(task);
-                phaser.arrive();
-            }
         }
     }
 
@@ -130,7 +113,6 @@ public class WebCrawler implements Crawler {
             task.run();
             synchronized (taskPoolPerHost.suspendedTasks) {
                 if (!taskPoolPerHost.suspendedTasks.isEmpty()) {
-                    phaser.register();
                     downloadersPool.submit(transformedTask(
                             taskPoolPerHost,
                             taskPoolPerHost.suspendedTasks.poll(),
@@ -150,9 +132,25 @@ public class WebCrawler implements Crawler {
         downloadersPool.shutdown();
     }
 
-    private class TaskPoolPerHost {
+    private static class TaskPoolPerHost {
         int threadCount = 0;
+        int threadLimit;
         final Queue<Runnable> suspendedTasks = new ArrayDeque<>();
+
+        private void submitToDownloaderWithHostBarierImpl(
+                Phaser phaser,
+                Runnable task,
+                WebCrawler webCrawler
+        ) {
+            synchronized (suspendedTasks) {
+                if (threadCount < webCrawler.perHost) {
+                    threadCount++;
+                    webCrawler.downloadersPool.submit(webCrawler.transformedTask(this, task, phaser));
+                } else {
+                    suspendedTasks.add(task);
+                }
+            }
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package ru.ifmo.rain.brilyantov.helloudp;
 
 import java.io.IOException;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 
 
 public class HelloUDPClientStreams extends HelloUDPStreams {
@@ -16,11 +17,17 @@ public class HelloUDPClientStreams extends HelloUDPStreams {
         this.receivePacket = createReceivePacket();
     }
 
-    public void sendMessage(MessageHelloUdp requestMsg) throws IOException {
+    public void sendMessage(MessageHelper requestMsg) throws IOException {
         sendString(requestMsg.toString(), serverAddress);
     }
     @Override
     protected DatagramPacket getReceivePacket() {
         return receivePacket;
+    }
+
+    public void sendString(
+            String requestMsg
+    ) throws IOException {
+        sendString(requestMsg, serverAddress);
     }
 }

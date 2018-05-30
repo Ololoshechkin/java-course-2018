@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 
-import static ru.ifmo.rain.brilyantov.helloudp.MessageHelloUdp.packetToString;
+import static ru.ifmo.rain.brilyantov.helloudp.MessageHelper.packetToString;
 
 public abstract class HelloUDPStreams implements AutoCloseable {
     protected final DatagramSocket socket;
